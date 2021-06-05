@@ -1,18 +1,33 @@
 package util
 
 import (
+	"go-learn/const/time_format"
 	"math"
 	"time"
 )
 
-// floatSum：浮点数
-// keepDigitBit：要保留的小数位
-func TrimDigitBit(floatSum float64, digitBit int) float64 {
-	return math.Round(floatSum*math.Pow10(digitBit)) / math.Pow10(digitBit)
+// 保留指定的小数位 - 向上
+func Ceil(s float64, b int) float64 {
+	return math.Ceil(s*math.Pow10(b)) / math.Pow10(b)
 }
 
-func ParseTime(tStr string) time.Time {
-	if t, err := time.Parse(DateTimeFormat, tStr); err != nil {
+// 保留指定的小数位 - 四舍五入
+func Round(s float64, b int) float64 {
+	return math.Round(s*math.Pow10(b)) / math.Pow10(b)
+}
+
+// 保留指定的小数位 - 向下（准确）
+func Floor(s float64, b int) float64 {
+	return math.Floor(s*math.Pow10(b)) / math.Pow10(b)
+}
+
+func Floor2(s float64, b int) float64 {
+	return math.Round(s*math.Pow10(b))/math.Pow10(b)
+}
+
+// 参数格式必须是 2006-01-02 15:04:05
+func ParseTime(s string) time.Time {
+	if t, err := time.Parse(time_format.DateTimeFormat, s); err != nil {
 		panic(err)
 	} else {
 		return t
@@ -20,5 +35,5 @@ func ParseTime(tStr string) time.Time {
 }
 
 func FormatTime(t time.Time) string {
-	return t.Format(DateTimeFormat)
+	return t.Format(time_format.DateTimeFormat)
 }

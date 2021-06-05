@@ -63,11 +63,10 @@ func addressConceptTest() {
 
 func childSliceConceptTest() {
 	slice := []int{1, 2, 3}
-	// 取头舍尾，所以 childSlice 实际是 [1, 2]
-	childSlice := slice[:len(slice)-1]
 
-	// 1、定义上：子切片的定义不能超出父切片的范围
-	println(slice[:4])
-	// 2、访问上，子切片不能超出自身定义的范围
-	println(childSlice[2])
+	// 取头舍尾，所以 childSlice 实际是 [2]
+	childSlice := slice[1:len(slice)-1]
+
+	// 定义上：子切片的定义不能超出父切片的范围
+	println(childSlice[:2])
 }

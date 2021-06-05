@@ -1,7 +1,7 @@
 package a
 
 import (
-    _ "go-learn/link/b"
+    _ "go-learn/special/link/b"
 )
 
 func A()

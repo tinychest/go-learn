@@ -12,7 +12,7 @@ import (
 
 // 说到 string 就离不开字符，string 可以理解为字符切片（因不可变性，理解为字符数组可能更恰当一些）
 func TestString(t *testing.T) {
-	// 支持同 切片 数组的范围取值转化
+	// 1、支持同 切片 数组的范围取值转化
 	// var str = "123"
 	// str = str[:len(str) - 1]
 
@@ -21,4 +21,6 @@ func TestString(t *testing.T) {
 
 	// 3、string 通过 for range 语法遍历值类型是：int32(rune)
 	// for _, value := range str {}
+
+	// 4、string 是可以比较的（按照字典顺序）
 }

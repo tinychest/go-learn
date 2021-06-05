@@ -1,7 +1,7 @@
 package link
 
 import (
-	"go-learn/link/a"
+	"go-learn/special/link/a"
 	"testing"
 )
 

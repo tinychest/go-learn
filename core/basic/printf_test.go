@@ -53,6 +53,7 @@ func vsFormatTest() {
 
 	// case 实现了 Error() string：打印 Error 方法的返回值
 	// case 实现了 String() string：打印 String 方法的返回值
+	// （Error 和 String Error 优先级高）
 	// default：&{小明 123}
 	fmt.Println(&account)
 	fmt.Printf("%v\n", &account)
