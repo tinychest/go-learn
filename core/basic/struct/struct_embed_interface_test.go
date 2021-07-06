@@ -5,40 +5,35 @@ import (
 	"testing"
 )
 
-type IHello interface {
+type I interface {
 	hello()
 }
 
 // 含有匿名接口 且 自身实现了匿名接口
-type HelloDavid struct {
-	IHello
-}
+type S1 struct {I}
 
 // 含有匿名接口 但 自身没有实现匿名接口
-type HelloKitty struct {
-	IHello
-}
+type S2 struct {I}
 
 // 不含匿名接口 但实现了上面说的匿名接口
-type HelloWorld struct {
+type S3 struct {}
+
+func (h S1) hello() {
+	fmt.Printf("hello one\n")
 }
 
-func (helloWorld HelloWorld) hello() {
-	fmt.Printf("hello world\n")
-}
-
-func (helloDavid HelloDavid) hello() {
-	fmt.Printf("hello david\n")
+func (h S3) hello() {
+	fmt.Printf("hello two\n")
 }
 
 func TestStructInterface(t *testing.T) {
 	// 1、结构体自身有实现匿名接口的方法，具体是调用则会优先调用自身实现的方法（无论实例时，是否传入匿名接口类型的实例）
-	HelloDavid{}.hello()
-	HelloDavid{HelloWorld{}}.hello()
+	S1{}.hello()
+	S1{S3{}}.hello()
 
 	// 2、不实现匿名接口的方法，但是可以调用（匿名包含接口的结构体被认为实现了该接口）
 	// 编译通过，运行时异常：invalid memory address or nil pointer dereference
-	// HelloKitty{}.hello()
+	// S2{}.hello()
 
 	// 3、自己没倒腾出来，蒙蔽的时候，查了一下资料 https://stackoverflow.com/questions/24537443/meaning-of-a-struct-with-embedded-anonymous-interface
 	// 首先，这个叫接口体匿名接口，本以为可以通过这样的方式，来达到要求结构体实例化时能够在编译时期让开发者收到错误，而实际 GO 还是秉承接口的非侵入思想（并不会编译报错提示）

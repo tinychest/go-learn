@@ -1,6 +1,6 @@
 package compatible
 
-import "go-learn/bussiness/enum"
+import "go-learn/special/bussiness/enum"
 
 // 《返回值》
 // Enum 不能自动转换

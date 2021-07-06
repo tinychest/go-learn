@@ -15,9 +15,9 @@ type in struct {
 }
 
 func TestAnonymousStruct(t *testing.T) {
-	// 编译不通过，不能直接给 name2 属性赋值
+	// 编译不通过，不能直接写
 	// _ := out {InName: "2"}
 
-	// 编译通过，可以直接调用属性
+	// 编译通过，可以直接读
 	util.Use(out{}.InName)
 }

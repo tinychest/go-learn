@@ -1,11 +1,11 @@
 package compatible
 
-import "go-learn/bussiness/enum"
+import "go-learn/special/bussiness/enum"
 
 // 《参数》
 func p() {
-	// Enum 不能自动转换
-	p1(enum.Male)
+	// Enum 不能自动转换（编译不通过）
+	// p1(enum.Male)
 	// string 可以自动转换
 	p2("")
 }

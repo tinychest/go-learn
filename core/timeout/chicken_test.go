@@ -1,4 +1,4 @@
-package context
+package timeout
 
 import (
 	"context"
@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 )
+
+const playerName = "胖虎"
 
 // 注意！！！这里能做到 case <-ctx.Done() 一触发，程序就停止
 // 吃鸡大胃王比赛2
@@ -18,7 +20,11 @@ func TestTimeOutContext(t *testing.T) {
 	println("裁判：比赛开始...")
 	round := 0
 
+	interval := 500 * time.Millisecond
+	timer := time.NewTimer(interval)
 	for {
+		timer.Reset(interval)
+
 		select {
 		// 裁判宣布比赛结束
 		case <-ctx.Done():
@@ -26,7 +32,7 @@ func TestTimeOutContext(t *testing.T) {
 			fmt.Printf("%s：No! I can eat more\n", playerName)
 			return
 		// 每 0.5 秒吃一只
-		case <-time.After(500 * time.Millisecond):
+		case <-timer.C:
 			round++
 			fmt.Printf("%s：第 %d 只\n", playerName, round)
 		}
@@ -35,7 +41,7 @@ func TestTimeOutContext(t *testing.T) {
 
 // 不是说调用 context.WithTimeout 返回的 cancel函数，等待指定的时间后再触发 ctx.Done()
 // 而是调用 WithTimeout 就开始计时了
-func TestTimeoutContext2(t *testing.T) {
+func TestTimeoutContext(t *testing.T) {
 	intChannel := make(chan int)
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer close(intChannel)

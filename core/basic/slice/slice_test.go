@@ -8,9 +8,9 @@ import (
 // 切片性能陷阱：切片经由一通操作后，可能扩容的很大，之后假如要用到该切片的 几个元素，就不要继续使用该切片了（复制元素到新的小切片），占用太大空间得不到释放
 
 func TestSliceBasic(t *testing.T) {
-	addressConceptTest()
+	//addressConceptTest()
 
-	// childSliceConceptTest()
+	childSliceConceptTest()
 
 	// sliceExpandConcept()
 }
@@ -65,8 +65,10 @@ func childSliceConceptTest() {
 	slice := []int{1, 2, 3}
 
 	// 取头舍尾，所以 childSlice 实际是 [2]
-	childSlice := slice[1:len(slice)-1]
+	//childSlice := slice[1:len(slice)-1]
 
 	// 定义上：子切片的定义不能超出父切片的范围
-	println(childSlice[:2])
+	//println(childSlice[:2])
+
+	fmt.Println(slice[2:])
 }

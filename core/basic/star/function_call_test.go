@@ -1,4 +1,4 @@
-package basic
+package star
 
 import (
 	"testing"
@@ -13,49 +13,49 @@ import (
 
 // 语法点：如果方法的接收者是指针类型，我们应该说，结构体的指针类型实现了该接口，而不是该结构体类型（也可以说结构体类型的方法是结构体指针类型方法的一个子集）
 
-type structForFun struct{}
+type st struct{}
 
-func (s structForFun) nor() {}
+func (s st) nor() {}
 
-func (s *structForFun) Ptr() {}
+func (s *st) ptr() {}
 
-// TODO Invalid receiver type 'structForFunPtr' ('structForFunPtr' is a pointer type)
-// type structForFunPtr *structForFun
-// func (s structForFunPtr) abc() {}
+// Invalid receiver type 'st2' ('st2' is a pointer type)
+// type st2 *st
+// func (s st2) abc() {}
 
 func TestStructFunction(t *testing.T) {
-	s := structForFun{}
-	sPtr := &structForFun{}
+	s := st{}
+	sPtr := &st{}
 
-	// 一、这都是都是基础部分，在 function_test.go 中都有例子实验，没什么好说的
+	// 一、都可以调
 	s.nor()
-	s.Ptr()
+	s.ptr()
 	sPtr.nor()
-	sPtr.Ptr()
+	sPtr.ptr()
 
-	// 二、匿名结构体调用方法
-	structForFun{}.nor()
-	// structForFun{}.Ptr()  // 注意：编译不通过，匿名结构体不能进行指针类型的方法调用
-	(&structForFun{}).nor()
-	(&structForFun{}).Ptr()
+	// 二、匿名有特殊
+	st{}.nor()
+	// st{}.ptr()  // 注意：编译不通过，匿名结构体不能进行指针类型的方法调用
+	(&st{}).nor()
+	(&st{}).ptr()
 
-	// 三、结构体方法的特殊调用形式
-	structForFun.nor(s)
-	// structForFun.nor(sPtr) // 注意：编译不通过，特殊的调用方法不支持结构体指针类型
-	// structForFun.Ptr(s)    // 注意：goland 不提示编译错误，cannot use s (type structForFun) as type *structForFun in argument to (*structForFun).Ptr
-	// structForFun.Ptr(sPtr) // 注意：goland 提示编译错误，  cannot use s (type structForFun) as type *structForFun in argument to (*structForFun).Ptr
-	// (*structForFun).Ptr(s) // 注意：编译不通过，参数类型不对
-	(*structForFun).Ptr(sPtr)
+	// 三、特殊调用形式
+	st.nor(s)
+	// st.nor(sPtr) // 注意：编译不通过，特殊的调用方法不支持结构体指针类型
+	// st.ptr(s)    // 注意：goland 不提示编译错误，cannot use s (type st) as type *st in argument to (*st).ptr
+	// st.ptr(sPtr) // 注意：goland 提示编译错误，  cannot use s (type st) as type *st in argument to (*st).ptr
+	// (*st).ptr(s) // 注意：编译不通过，参数类型不对
+	(*st).ptr(sPtr)
 
 	// 四、不同的 Receiver 类型，对实际方法调用起的影响
 	// 1、能不能真实影响真实值，不取决于实际调用方法的实例是否是指针类型，而是方法本身的定义
 	// 2、为 person 类型绑定的方法，*person 的实例类型可以调用，为 *person 类型绑定的方法，person 的实例类型可以调用（go 底层做了转换）
 	s.nor()
-	s.Ptr()
-	(&s).Ptr()
+	s.ptr()
 	sPtr.nor()
+	(&s).ptr()
 	(*sPtr).nor()
-	sPtr.Ptr()
+	sPtr.ptr()
 
 	// 五、*XxxStruct 可以访问 XxxStruct 的方法 和 字段
 	// 接口类型就没有这种说法，*XxxInterface 不能直接调用 XxxInterface 的方法

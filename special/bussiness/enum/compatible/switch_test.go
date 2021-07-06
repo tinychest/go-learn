@@ -1,6 +1,6 @@
 package compatible
 
-import "go-learn/bussiness/enum"
+import "go-learn/special/bussiness/enum"
 
 // 《switch 语法》
 // string 不能自动转换

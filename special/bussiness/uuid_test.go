@@ -1,7 +1,7 @@
 package bussiness
 
 import (
-    "encoding/hex"
+	"encoding/hex"
     "fmt"
     "github.com/satori/go.uuid"
     "testing"
