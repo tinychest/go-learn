@@ -30,7 +30,7 @@ func commonLogic(channel chan int) {
 	println("执行任务...")
 }
 
-// go     语法注意点：后边不能直接接要执行的语句，一定得放到 函数 中
+// go 语法注意点：后边不能直接接要执行的语句，一定得放到 函数 中
 func goroutineBasicTest() {
 	// 编译通过
 	// go println("123")

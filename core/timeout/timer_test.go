@@ -8,7 +8,7 @@ import (
 )
 
 /*
-   timer 在这里的意思是定时器
+timer 在这里的意思是定时器
 */
 func TestTimer(t *testing.T) {
 	// timerTest1()
@@ -22,11 +22,11 @@ func TestTimer(t *testing.T) {
 }
 
 /*
-    Reset 还需要搞得更透彻
+Reset 还需要搞得更透彻
 
-    如果明确time已经expired，并且t.C已经被取空，那么可以直接使用Reset；
-    如果程序之前没有从t.C中读取过值，这时需要首先调用Stop()，如果返回true，说明timer还没有expire，stop成功删除timer，可直接reset；
-    如果返回false，说明stop前已经expire，需要显式drain channel
+如果明确time已经expired，并且t.C已经被取空，那么可以直接使用Reset；
+如果程序之前没有从t.C中读取过值，这时需要首先调用Stop()，如果返回true，说明timer还没有expire，stop成功删除timer，可直接reset；
+如果返回false，说明stop前已经expire，需要显式drain channel
 */
 
 // timerTest1 循环定时（本质上，一个 timer 只能使用一次）
@@ -34,6 +34,8 @@ func TestTimer(t *testing.T) {
 func timerTest1() {
 	interval := time.Second
 	timer := time.NewTimer(interval)
+	defer timer.Stop()
+
 	for {
 		// 不要直接去思考这个 Stop 的作用，完全是因为 Reset 方法加的，详见 Reset 方法的源码注释
 		if !timer.Stop() {
@@ -55,6 +57,8 @@ func timerTest1() {
 func timerTest2() {
 	interval := time.Second
 	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
 	for range ticker.C {
 		fmt.Println("one second later...")
 	}

@@ -15,11 +15,11 @@ func TestSwitch(t *testing.T) {
 
 // 4、演示自动类型推断
 func switchTypeTest(param interface{}) {
-	switch afterTrans := param.(type) {
+	switch t := param.(type) {
 	case string:
-		println(reflect.TypeOf(afterTrans).String())
+		println(reflect.TypeOf(t).String())
 	case int, int64:
-		println(reflect.TypeOf(afterTrans).String())
+		println(reflect.TypeOf(t).String())
 	default:
 		println("Unknown Type")
 	}
@@ -28,4 +28,15 @@ func switchTypeTest(param interface{}) {
 	// if afterTrans, ok := param.(string); ok {
 	//     println(reflect.TypeOf(afterTrans).String())
 	// }
+}
+
+// 替代多层的 if else
+func TestReplaceIf(t *testing.T) {
+	i := 0
+	switch {
+	case i > 0 && i <= 10:
+		panic("123")
+	case i > 10 && i <= 20:
+		panic("456")
+	}
 }
