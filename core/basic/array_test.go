@@ -10,7 +10,7 @@ func TestArray(t *testing.T) {
 	intArray := [...]int{1, 2, 3}
 	// array → slice
 	intSlice := intArray[:]
-	util.Use(intSlice)
+	_ = intSlice
 
 	// 数组不同于切片的很重要的一点，数组为值类型 - 会发生拷贝
 	intArray2 := intArray
