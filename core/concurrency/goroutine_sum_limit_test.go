@@ -39,9 +39,9 @@ func TestGoroutineSumLimit(t *testing.T) {
 	LimitMaxRoutineRunPrefTest(theFuncForFunc2, 100)
 }
 
-// 限制最大并行的协程数 - 版本一
+// 限制最大并行的 Goroutine 数 - 版本一
 // 实现原理：很简单，就是利用通道的缓存
-// theFuncForFunc：充当协程获取要执行任务的任务池
+// theFuncForFunc：充当 Goroutine 获取要执行任务的任务池
 // totalCount：任务池中总共的任务数
 func LimitMaxRoutineRunTest(theFuncForFunc func(index int) func(), totalCount int) {
 	maxConcurrentLimitChannel := make(chan bool, maxGoroutineCurrencySum)
@@ -58,8 +58,8 @@ func LimitMaxRoutineRunTest(theFuncForFunc func(index int) func(), totalCount in
 	}
 }
 
-// 限制最大并行的协程数 - 版本二
-// 任务执行失败的处理：1、停止继续发放任务执行（✔） 2、终止正在运行的协程（？）
+// 限制最大并行的 Goroutine 数 - 版本二
+// 任务执行失败的处理：1、停止继续发放任务执行（✔） 2、终止正在运行的 Goroutine（？）
 func LimitMaxRoutineRunPrefTest(theFuncForFunc func(index int) func() error, totalCount int) {
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -88,7 +88,7 @@ func LimitMaxRoutineRunPrefTest(theFuncForFunc func(index int) func() error, tot
 		case <-ctx.Done():
 			index := ctx.Value("index")
 			err := ctx.Value("error")
-			fmt.Printf("%d 号任务在执行时，发生意外，执行该任务的协程：%s\n", index, err)
+			fmt.Printf("%d 号任务在执行时，发生意外，执行该任务的 Goroutine：%s\n", index, err)
 			return
 
 		default:

@@ -40,7 +40,7 @@ func TestPit(t *testing.T) {
 // Select 语法注意点：Select case must be receive, send or assign receive
 // case 语法注意点：子句必须是一个通信操作，要不是发送，要不是接收
 // default 语法注意点：如果所有 case 子句都不符合执行条件，那就会执行 default 子句
-// GO 对协程的状态有一个监听模式，如果所有携程都阻塞了，则程序会直接终止：fatal error: all goroutines are asleep - deadlock!
+// GO 对 Goroutine 的状态有一个监听模式，如果所有携程都阻塞了，则程序会直接终止：fatal error: all goroutines are asleep - deadlock!
 func basicTest() {
 	intChannel1 := make(chan int)
 	intChannel2 := make(chan int)
@@ -62,9 +62,9 @@ func basicTest() {
 		intChannel3 <- intValue
 	}()
 
-	// 1、如果去掉上面的协程，那么下边每次执行的就是 default
+	// 1、如果去掉上面的 Goroutine，那么下边每次执行的就是 default
 	// 2、select 会阻塞至任意一个 case 满足条件
-	// 3、case 的选择是随机的，且会因为其他协程和主协程的执行顺序的不定性，会有 default 的执行
+	// 3、case 的选择是随机的，且会因为其他 Goroutine 和主 Goroutine 的执行顺序的不定性，会有 default 的执行
 	// 如果在 select 上添加 time.Sleep(xxx)，能够确保下边每次执行 select 中的 case，而不是 default
 	select {
 	case receiveInt := <-intChannel1:

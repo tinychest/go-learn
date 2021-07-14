@@ -9,7 +9,7 @@ import (
 一、说明
 
 1.RWMutex 可以创建为其他结构体的字段；零值为解锁状态
-2.RWMutex类型的锁也和协程无关，可以由不同的协程加读取锁/写入和解读取锁/写入锁
+2.RWMutex类型的锁也和 Goroutine 无关，可以由不同的 Goroutine 加读取锁/写入和解读取锁/写入锁
 3.其实 sync.RWMutex 是从 sync.Mutex（同一时间只能有一个读或写的全局锁）提高多读少写场景性能的衍生
 
 二、api

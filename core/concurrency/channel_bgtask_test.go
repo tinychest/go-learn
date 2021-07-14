@@ -5,7 +5,7 @@ import (
 )
 
 // 描述一个业务场景：
-// 有一个协程在后台监听任务，监听 任务通道 和 结束信号通道
+// 有一个 Goroutine 在后台监听任务，监听 任务通道 和 结束信号通道
 // 任务通道 和 结束信号 通道都有数据时以任务通道为主，即任务通道没有数据，结束信号通道有数据才结束
 
 // 背景条件1：假如收到了关闭信号，那么就不会再产生新任务了（任务池还有的，不影响，依旧存在）
@@ -17,7 +17,7 @@ func TestChannelOnlineBgTaskTest(t *testing.T) {
 	version1(taskChannel, closeChannel)
 }
 
-// 没有体现出执行任务的优先级要大于结束协程
+// 没有体现出执行任务的优先级要大于结束 Goroutine
 func version1(taskChannel chan interface{}, closeChannel chan int) {
 	for {
 		select {
@@ -66,7 +66,7 @@ func version3(taskChannel chan interface{}, closeChannel chan int) {
 }
 
 // 解决结束信号丢失 - 额，补上呗；
-// 但是在子协程收到关闭信号的同时，主协程等待结束信号接收了，主协程就结束了，子协程全部关闭
+// 但是在子 Goroutine 收到关闭信号的同时，主 Goroutine 等待结束信号接收了，主 Goroutine 就结束了，子 Goroutine 全部关闭
 // 借助辅助变量来实现：稍微构思一下，就会发现，实现起来太复杂了，不现实
 func version4(taskChannel chan interface{}, closeChannel chan int) {
 	for {

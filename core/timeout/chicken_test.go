@@ -16,7 +16,7 @@ func TestTimeOutContext(t *testing.T) {
 	ctx, timeoutCancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer timeoutCancel()
 
-	// 主协程：宣布开始吃鸡
+	// 主 Goroutine：宣布开始吃鸡
 	println("裁判：比赛开始...")
 	round := 0
 

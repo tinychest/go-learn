@@ -25,7 +25,7 @@ func SyncCondConcept() {
 	cond := sync.NewCond(lock)
 	// Broadcast：广播唤醒所有
 	cond.Broadcast()
-	// Signal：唤醒一个协程
+	// Signal：唤醒一个 Goroutine
 	cond.Signal()
 	// Wait：会释放锁，挂起调用者所在的 goroutine，当被 Broadcast 或 Signal 唤醒，将取消阻塞，并重新上锁
 	cond.Wait()

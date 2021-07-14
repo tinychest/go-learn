@@ -22,7 +22,7 @@ func TestWaitGroup(t *testing.T) {
 			// 意外：打印的都是 [3:3]，这个就是点题，点了第 2 点
 			// 其实 goland 已经有提示了：Loop variable 'theMap' captured by func literal
 
-			// 实际不加上下边这一句，效果也是一样的，因为 for 的速度 >> 启动一个协程的速度
+			// 实际不加上下边这一句，效果也是一样的，因为 for 的速度 >> 启动一个 Goroutine 的速度
 			// time.Sleep(time.Second)
 
 			// 得到希望的结果可以把 time.Sleep 加在循环体里

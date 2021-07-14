@@ -7,13 +7,13 @@ import (
 	"time"
 )
 
-// 以下方法示例都是基于某一个协程中需要开启另外一个协程去执行任务的简单测试场景逻辑
+// 以下方法示例都是基于某一个 Goroutine 中需要开启另外一个 Goroutine 去执行任务的简单测试场景逻辑
 
 /*
-go 中可以无条件杀死一个协程么？
+go 中可以无条件杀死一个 Goroutine 么？
 
 - 答案：不可以，goroutine 只能自己退出，而不能被其他 goroutine 强制关闭或杀死
-Java 中不推荐强行杀死线程的做法（早期的 Thread.stop 设计出来，并在之后的版本被废弃）；Go 中更是如此，从诞生之初就没有预留无条件结束协程的方法
+Java 中不推荐强行杀死线程的做法（早期的 Thread.stop 设计出来，并在之后的版本被废弃）；Go 中更是如此，从诞生之初就没有预留无条件结束 Goroutine 的方法
 之所以没有，一个是从其他语言的最佳实践经验来说，二个是如果 go 想要支持，可能面临着很大的难题：
     杀死一个 goroutine 设计上会有很多挑战，当前所拥有的资源如何处理？堆栈如何处理？defer 语句需要执行么？
     如果允许 defer 语句执行，那么 defer 语句可能阻塞 goroutine 退出，这种情况下怎么办呢？
@@ -27,9 +27,9 @@ goroutine 被设计为不可以从外部无条件地结束掉，只能通过 cha
 (A goroutine cannot be programmatically killed. It can only commit a cooperative suicide.)
 
 - 实际：
-1、注意不能在超时的控制逻辑将协程执行任务返回结果的通道给 close 了，已经关闭的通道，进行读或写都会 panic
-2、题外话，如果存在 某个协程中的主体逻辑就是读取某个通道，并且通道关闭，协程就应该结束的逻辑，协程中采用 for range 是一种比较好的实现逻辑
-3、从下边的例子可以得到，通过 【带有 1 个缓存】 或者 【通过 协程任务中的 select case default】 都是确定超时后处理协程任务结果的合理做法，但是更推荐 2 者
+1、注意不能在超时的控制逻辑将 Goroutine 执行任务返回结果的通道给 close 了，已经关闭的通道，进行读或写都会 panic
+2、题外话，如果存在 某个 Goroutine 中的主体逻辑就是读取某个通道，并且通道关闭，Goroutine 就应该结束的逻辑，Goroutine 中采用 for range 是一种比较好的实现逻辑
+3、从下边的例子可以得到，通过 【带有 1 个缓存】 或者 【通过 Goroutine 任务中的 select case default】 都是确定超时后处理 Goroutine 任务结果的合理做法，但是更推荐 2 者
 4、如果某个任务被拆分成多段，在每段任务开始执行前，判断一下是否超时，是比较合理的
 
 */
@@ -79,8 +79,8 @@ func timeoutTest() {
 	}
 }
 
-// 方式2 - 改进方式1中，存在的任务协程没有结束的资源泄露情况（可以通过 t.Log(runtime.NumGoroutine()) 查看）
-// 协程没能退出是因为通道没有接收值的了，所以被阻塞住，所以解决核心就是防止阻塞住
+// 方式2 - 改进方式1中，存在的任务 Goroutine 没有结束的资源泄露情况（可以通过 t.Log(runtime.NumGoroutine()) 查看）
+// Goroutine 没能退出是因为通道没有接收值的了，所以被阻塞住，所以解决核心就是防止阻塞住
 func timeoutTest2() {
 	var (
 		runtimeSecond = 4
@@ -115,7 +115,7 @@ func timeoutTest2() {
 	}
 }
 
-// 方式3 - 推出 time 包下 api 的用法，以及对逻辑完成时，协程结果通知通道的处理
+// 方式3 - 推出 time 包下 api 的用法，以及对逻辑完成时，Goroutine 结果通知通道的处理
 func timeoutTest3() {
 	var (
 		finish      = false
@@ -142,7 +142,7 @@ loop:
 			fmt.Printf("从通道接收：%d\n", result)
 		// 超时逻辑
 		case <-time.After(3 * time.Second):
-			println("达到最大超时时间，主协程结束")
+			println("达到最大超时时间，主 Goroutine 结束")
 			break loop
 		}
 	}
