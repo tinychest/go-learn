@@ -13,7 +13,7 @@ timer 在这里的意思是定时器
 func TestTimer(t *testing.T) {
 	// timerTest1()
 	// timerTest2()
-	// timeoutTest()
+	timeoutTest()
 
 	// time.NewTicker() *time.Ticket
 	// time.NewTimer() *time.Timer
@@ -68,8 +68,13 @@ func timeoutTest() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
+	// cancel()
+	fmt.Println(ctx.Err())
+
 	select {
 	case <-ctx.Done():
 		fmt.Println("one second later...")
 	}
+
+	fmt.Println(ctx.Err())
 }
