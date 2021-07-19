@@ -1,4 +1,4 @@
-package timeout
+package context
 
 import (
 	"context"

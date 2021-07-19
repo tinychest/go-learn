@@ -3,7 +3,7 @@ package generate
 // 一、简介
 // Go 在 1.4 版本引入 go generate，常用于文件生成，官方博客中有一篇关于 Stringer 可以为枚举自动实现 Stringer 方法
 
-// go generate 回扫描 .go 原阿门文件中的 【//go:generate command args...】，并执行
+// go generate 回扫描 .go 源码文件中的 【//go:generate command args...】，并执行
 // 有如下几个注意点
 // 1.命令是为了更新或创建 Go 源码文件的
 // 2.command 必须是可执行命令（就是直接源码所在目录下执行命令能够成功的）
