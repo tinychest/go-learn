@@ -14,8 +14,8 @@ func TestInf(t *testing.T) {
 	// i := i1 / i2 // 直接 panic
 	// fmt.Println(i)
 
-	f1 := 1.0
-	f := f1 / 0
-	fmt.Println(f)
-	fmt.Println(math.IsInf(f, 0))
+	f1, f2 := 1.0, -1.0
+	nan1, nan2 := f1 / 0, f2 / 0
+	fmt.Println(math.IsInf(nan1, 0))
+	fmt.Println(math.IsInf(nan2, 0))
 }
