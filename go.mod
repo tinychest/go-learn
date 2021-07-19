@@ -1,6 +1,6 @@
 module go-learn
 
-go 1.15
+go 1.16
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize/v2 v2.3.1
@@ -17,6 +17,7 @@ require (
 	github.com/smartystreets/goconvey v1.6.4
 	github.com/stretchr/testify v1.6.1
 	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
+	golang.org/x/text v0.3.3 // indirect
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
 	gopkg.in/go-playground/assert.v1 v1.2.1 // indirect
 	gopkg.in/go-playground/validator.v9 v9.31.0
