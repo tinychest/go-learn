@@ -12,7 +12,7 @@ func TestGen(t *testing.T) {
 	data := map[string]interface{}{
 		"title": "首页",
 	}
-	fmt.Println(util.MustRender(string(page), data))
+	fmt.Println(util.MustRender(page, data))
 }
 
 func TestGen2(t *testing.T) {

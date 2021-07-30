@@ -12,7 +12,7 @@ import (
 var allTxt embed.FS
 
 //go:embed static/1.txt
-var txtOne []byte
+var txtOne []byte // 使用 []byte 或者 string 类型接收都行
 
 func TestReadOneIns(t *testing.T) {
 	content, err := allTxt.ReadFile("static/1.txt")
