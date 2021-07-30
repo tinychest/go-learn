@@ -29,19 +29,19 @@ func TestUrlParse(t *testing.T) {
 
 	r1, err := url.Parse(theUrl)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	fmt.Println(r1)
 
 	r2, err := url.ParseQuery(theUrl)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	fmt.Println(r2) // values 类型 map[string][]string
 
 	r3, err := url.ParseQuery(theUrl)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	fmt.Println(r3)
 }
