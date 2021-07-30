@@ -19,8 +19,6 @@ import (
 《通道关闭原则》
 一个常用的使用Go通道的原则是不要在数据接收方或者在有多个发送者的情况下关闭通道。换句话说，我们只应该让一个通道唯一的发送者关闭此通道
 遵从上面的原则，在多个发送者定义的通用逻辑中：
-粗鲁的关闭：close 上添加 recover()
-优雅的关闭：使用 sync.Once
 
 实战：https://gfw.go101.org/article/channel-closing.html
 一、1 sender - n receiver：close(chan) - for range chan
@@ -35,6 +33,7 @@ import (
   sender   读到关闭信号，退出，关闭 辅助通道 和 数据通道
   receiver for range 数据通道
 */
+
 func TestChannel(t *testing.T) {
 	var intChannel = make(chan int)
 	close(intChannel)
@@ -54,5 +53,8 @@ func TestChannel(t *testing.T) {
 	println(<-intChannel)
 
 	// 关闭通道，一定是关闭一个可写的通道（cannot close receive-only channel），编译不通过
+
 	// 无法判断一个只写通道是否关闭
+
+	// 可以向一个已经关闭的带有缓冲区的通道正常读取缓冲区里的数据
 }
