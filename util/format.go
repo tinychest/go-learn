@@ -27,7 +27,7 @@ func Floor2(s float64, b int) float64 {
 
 // 参数格式必须是 2006-01-02 15:04:05
 func ParseTime(s string) time.Time {
-	if t, err := time.Parse(time_format.DateTimeFormat, s); err != nil {
+	if t, err := time.Parse(time_format.FmtDateTime, s); err != nil {
 		panic(err)
 	} else {
 		return t
@@ -35,5 +35,21 @@ func ParseTime(s string) time.Time {
 }
 
 func FormatTime(t time.Time) string {
-	return t.Format(time_format.DateTimeFormat)
+	return t.Format(time_format.FmtDateTime)
+}
+
+func Now() string {
+	return time.Now().Format(time_format.FmtDateTime)
+}
+
+func NowCN() string {
+	return time.Now().Format(time_format.FmtDateTimeCN)
+}
+
+func NowDate() string {
+	return time.Now().Format(time_format.FmtDate)
+}
+
+func NowDateCN() string {
+	return time.Now().Format(time_format.FmtDateCN)
 }
