@@ -75,7 +75,7 @@ func SumToString(number interface{}) string {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
 		reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 	default:
-		panic("注意方法名！你传个非整型干嘛，瞧不起我 GO 没有泛型么？🐕")
+		panic("注意方法名！你传个非整型干嘛，瞧不起我 Go 没有泛型么？🐕")
 	}
 
 	return fmt.Sprint(number)

@@ -24,7 +24,7 @@ func sliceToInterfaceSlice(param interface{}) []interface{} {
 
 	// 二、参数校验
 	if value.Kind() != Slice {
-		// 参照 GO 源码的类型错误异常
+		// 参照 Go 源码的类型错误异常
 		panic(&ValueError{Method: "PrintSlice", Kind: value.Kind()})
 	}
 

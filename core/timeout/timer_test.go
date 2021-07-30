@@ -24,13 +24,13 @@ func TestTimer(t *testing.T) {
 /*
 Reset 还需要搞得更透彻
 
-如果明确time已经expired，并且t.C已经被取空，那么可以直接使用Reset；
-如果程序之前没有从t.C中读取过值，这时需要首先调用Stop()，如果返回true，说明timer还没有expire，stop成功删除timer，可直接reset；
-如果返回false，说明stop前已经expire，需要显式drain channel
+如果明确 time 已经 expired，并且t.C已经被取空，那么可以直接使用 Reset；
+如果程序之前没有从 t.C 中读取过值，这时需要首先调用 Stop()，如果返回 true，说明 timer 还没有 expire，stop 成功删除 timer，可直接 reset；
+如果返回 false，说明 stop 前已经 expire，需要显式 drain channel
 */
 
-// timerTest1 循环定时（本质上，一个 timer 只能使用一次）
-// 注意，你可以直接写一个简单 case time.After(interval) 但那会产生大量的垃圾
+// timerTest1 循环定时（for-timer-wait）
+// 注意，你可以直接写一个简单 case <-time.After(interval) 但那会产生大量的垃圾
 func timerTest1() {
 	interval := time.Second
 	timer := time.NewTimer(interval)
@@ -53,7 +53,7 @@ func timerTest1() {
 	}
 }
 
-// timerTest2 循环定时
+// timerTest2 循环定时（ticket）
 func timerTest2() {
 	interval := time.Second
 	ticker := time.NewTicker(interval)

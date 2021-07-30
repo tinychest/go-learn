@@ -22,7 +22,7 @@ func TestSha1(t *testing.T) {
 
 	theSha1 := sha1.New()
 	if _, err := theSha1.Write([]byte(param)); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	println(hex.EncodeToString(theSha1.Sum(nil)))
 

@@ -40,7 +40,7 @@ func TestPit(t *testing.T) {
 // Select 语法注意点：Select case must be receive, send or assign receive
 // case 语法注意点：子句必须是一个通信操作，要不是发送，要不是接收
 // default 语法注意点：如果所有 case 子句都不符合执行条件，那就会执行 default 子句
-// GO 对 Goroutine 的状态有一个监听模式，如果所有携程都阻塞了，则程序会直接终止：fatal error: all goroutines are asleep - deadlock!
+// Go 对 Goroutine 的状态有一个监听模式，如果所有携程都阻塞了，则程序会直接终止：fatal error: all goroutines are asleep - deadlock!
 func basicTest() {
 	intChannel1 := make(chan int)
 	intChannel2 := make(chan int)

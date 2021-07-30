@@ -50,7 +50,7 @@ func TestValidate(t *testing.T) {
 	// 3. validator 包有两个，为什么是 v9 因为 zhTrans 形参类型要求
 	tr, _ := ut.New(zh.New(), zh.New()).GetTranslator("zh")
 	if err := zhTrans.RegisterDefaultTranslations(v, tr); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	// 自定义错误提示（字段提示首字母小写）

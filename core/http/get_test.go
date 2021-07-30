@@ -29,13 +29,13 @@ func TestGet(t *testing.T) {
 
 	// 2、发起请求
 	if resp, err = http.Get(url); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	// 3、处理结果
 	var result = new(XxxResult)
 	if err = ParseJsonResponse(resp, result); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	_ = resp.Body.Close()
 }

@@ -13,12 +13,14 @@ type Account struct {
 // func (p *Account) Error() string {
 // 	return "error..."
 // }
+
 func (p *Account) String() string {
 	// 注意不要像下面这样的方式在这里调用 fmt.Sprintf 方法 - 死递归
 	// return fmt.Sprintf("%s\n", p)
 	return "string..."
 }
 
+// NOTE 详见 fmt/doc.go
 // %p：地址
 // %T：类型
 // %v：对应类型的默认格式
@@ -35,7 +37,6 @@ func (p *Account) String() string {
 
 // %e、%E：科学计数法
 // %f：浮点数
-// %g、%G：省略结尾没意义 0 的浮点数
 
 // %q：单引号围绕的字符字面量
 

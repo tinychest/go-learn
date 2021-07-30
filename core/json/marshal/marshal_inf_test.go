@@ -13,7 +13,7 @@ func TestMarshalInf(t *testing.T) {
 	f := f1 / f2
 
 	if result, err := json.Marshal(f); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		fmt.Println(string(result))
 	}

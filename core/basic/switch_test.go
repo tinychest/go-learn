@@ -35,8 +35,8 @@ func TestReplaceIf(t *testing.T) {
 	i := 0
 	switch {
 	case i > 0 && i <= 10:
-		panic("123")
+		t.Fatal("123")
 	case i > 10 && i <= 20:
-		panic("456")
+		t.Fatal("456")
 	}
 }

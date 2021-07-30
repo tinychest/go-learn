@@ -2,7 +2,7 @@ package util
 
 import . "reflect"
 
-// 示例，仅用于演示常见的处理类型 以及 说明不同长度的基础类型 GO 都会以最大的来处理
+// 示例，仅用于演示常见的处理类型 以及 说明不同长度的基础类型 Go 都会以最大的来处理
 // func ActualValueExample(value Value) interface{} {
 //     switch value.Kind() {
 //     case Bool:

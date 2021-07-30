@@ -17,7 +17,7 @@ var txtOne []byte
 func TestReadOneIns(t *testing.T) {
 	content, err := allTxt.ReadFile("static/1.txt")
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	fmt.Println(string(content))
 }
@@ -25,7 +25,7 @@ func TestReadOneIns(t *testing.T) {
 func TestReadOne(t *testing.T) {
 	content, err := ioutil.ReadAll(bytes.NewReader(txtOne))
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	fmt.Println(string(content))
 }

@@ -7,7 +7,7 @@ import (
     "testing"
 )
 
-// 首先声明，这个不是 GO 官方的类库，这是第三方类库
+// 首先声明，这个不是 Go 官方的类库，这是第三方类库
 func TestUUID(t *testing.T) {
     uuid := uuid.NewV4()
     uuidString := uuid.String()

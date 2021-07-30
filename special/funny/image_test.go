@@ -37,6 +37,6 @@ func displayImage(m image.Image) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	// 将字节数据以图片形式展示到页面上，会是一个 GO的那个地鼠图标
+	// 将字节数据以图片形式展示到页面上，会是一个 Go 的那个地鼠图标
 	println("IMAGE:" + base64.StdEncoding.EncodeToString(buf.Bytes()))
 }
