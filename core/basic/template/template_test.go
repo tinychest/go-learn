@@ -10,9 +10,9 @@ import (
 
 // 要求引用的模板一定存在，否则：template "y" not defined
 
-const tT = `
+const tT = `{{/*我是注释*/}}
 {{- define "x"}}x{{end}}
-{{- template "y"}}`
+{{- template "x"}}`
 
 func TestTemplate(t *testing.T) {
 	var data interface{}
