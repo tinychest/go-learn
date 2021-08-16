@@ -1,12 +1,9 @@
-package bussiness
+package rand
 
 import (
-	cryptoRand "crypto/rand"
-	"encoding/binary"
 	"fmt"
 	"math"
-	"math/big"
-	mathRand "math/rand"
+	"math/rand"
 	"testing"
 	"time"
 )
@@ -20,42 +17,20 @@ import (
 
 // 二、关于 Go 随机数，这里有一个精华 https://medium.com/a-journey-with-go/go-how-are-random-numbers-generated-e58ee8696999
 func TestRand(t *testing.T) {
-	// 随机大数（和 int_oto_string_test 中不同，这里能够表示的最大的进制：10 + 26 + 26 = 62）
-	// bit, _ := new(big.Int).SetString(strings.Repeat("Z", 99), 62)
-	// cryptoRandInt, _ := cryptoRand.Int(cryptoRand.Reader, bit)
-
-	mathRand.Seed(time.Now().UnixNano())
-
 	for i := 0; i < 5; i++ {
-		fmt.Print(fakeRandomSum1(6), " ")
+		fmt.Print(fakeRandSum1(6), " ")
 	}
 	println()
 	for i := 0; i < 5; i++ {
-		fmt.Print(fakeRandomSum2(6), " ")
+		fmt.Print(fakeRandSum2(6), " ")
 	}
 	println()
 	for i := 0; i < 5; i++ {
-		fmt.Print(randomSum1(6), " ")
+		fmt.Print(randSum1(6), " ")
 	}
 	println()
 	for i := 0; i < 5; i++ {
-		fmt.Print(randomSum2(6), " ")
-	}
-	println()
-	for i := 0; i < 5; i++ {
-		fmt.Print(randomSum3(6), " ")
-	}
-	println()
-	for i := 0; i < 5; i++ {
-		fmt.Print(randomSum4(6), " ")
-	}
-	println()
-	for i := 0; i < 5; i++ {
-		fmt.Print(randomSum5(6), " ")
-	}
-	println()
-	for i := 0; i < 5; i++ {
-		fmt.Print(verifyCode(6), " ")
+		fmt.Print(randSum2(6), " ")
 	}
 	println()
 }
@@ -65,64 +40,30 @@ func TestRand(t *testing.T) {
 // 为了使概念好展开，就拿以撒这个游戏继续说，以撒是怎么做到，每次开局的内容（房间、怪物、道具）都是不同的，即为什么每次开局，游戏的种子都是不同的 - 没错，时间
 // （其实再往里边说，即使是同一个种子，怪物变异、攻克房间的基础掉落物也是不同的，那这里的随机概念，也和时间脱不了干系）
 // 你每次开始游戏的时间都是不可能相同的，“这就像一个可以驱使既定程序改变的外在驱动力”
-func fakeRandomSum1(bit int) int {
+func fakeRandSum1(bit int) int {
 	max := int(math.Pow10(bit)) - 1
-	mathRand.Seed(2)
-	return mathRand.Intn(max)
+	rand.Seed(2)
+	return rand.Intn(max)
 }
 
 // 和时间挂钩，每次运行程序的种子值都是不同的，那么这个程序每次运行的结果都是不同的
 // 但是实际，在循环中调用这个方法，还是会获得相同的结果，也就说明自己觉得是的，实际并不是
 // 进一步测试，发现 time.Now().UnixNano() 在短时间调用，返回的结果是相同的
-func fakeRandomSum2(bit int) int {
+func fakeRandSum2(bit int) int {
 	max := int(math.Pow10(bit)) - 1
-	return mathRand.New(mathRand.NewSource(time.Now().UnixNano())).Intn(max)
+	return rand.New(rand.NewSource(time.Now().UnixNano())).Intn(max)
 }
 
 // 上边错就错在，应该就一个种子不断的获取随机数，而不是每次重置种子，从头拿数
-func randomSum1(bit int) int {
+func randSum1(bit int) int {
 	max := int(math.Pow10(bit)) - 1
-	return mathRand.Intn(max)
+	return rand.Intn(max)
 }
 
 // 问题是使用 % 会存在指定范围内的数被随机到的概率是不同的
-func randomSum2(bit int) int64 {
-	// rand.Intn 底层就是这个，没什么好说的
-	max := int(math.Pow10(bit)) - 1
-	return mathRand.Int63() % int64(max)
-}
-
 // 这个概率也不是平等的，但是在生成指定位数的随机码的时候，位数越多，同一个数字一直出现（最终生成的随机码相同）的概率会逐步降低
-func randomSum3(bit int) int64 {
+func randSum2(bit int) int64 {
+	// rand.Intn 底层就是这个，这里换个写法
 	max := int(math.Pow10(bit)) - 1
-	return mathRand.Int63() & int64(max)
-}
-
-// crypto/rand是为了提供更好的随机性满足密码对随机数的要求，在linux上已经有一个实现就是/dev/urandom，crypto/rand 就是从这个地方读“真随机”数字返回，但性能比较慢
-// 注意要更换导包为 "crypto/rand"
-func randomSum4(bit int) int64 {
-	max := int(math.Pow10(bit)) - 1
-	n, _ := cryptoRand.Int(cryptoRand.Reader, big.NewInt(int64(max)))
-	return n.Int64()
-}
-
-func randomSum5(bit int) int {
-	max := int(math.Pow10(bit)) - 1
-
-	res := make([]byte, 4*4)
-	_, _ = cryptoRand.Read(res)
-
-	return int(binary.BigEndian.Uint32(res)) % max
-}
-
-const VerifyCodeRune = "0123456789"
-
-var rd = mathRand.New(mathRand.NewSource(time.Now().UnixNano()))
-
-func verifyCode(bit int) string {
-	bs := make([]byte, bit)
-	for i := range bs {
-		bs[i] = VerifyCodeRune[rd.Intn(len(VerifyCodeRune))]
-	}
-	return string(bs)
+	return rand.Int63() % int64(max)
 }

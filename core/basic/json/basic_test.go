@@ -35,7 +35,7 @@ import (
 使用一种巧妙的 & 运算符运用，来忽略大小写的
 */
 type User struct {
-	Age     int    `json:"age,omitempty,string"` // 当反序列化的 json 参数是 int，就会：json: cannot unmarshal number into Go value of type string
+	Age     int    `json:",omitempty"` // 当反序列化的 json 参数是 int，就会：json: cannot unmarshal number into Go value of type string
 	Name    string `json:"na,omitempty"`
 	Address string `json:"-"`
 }
