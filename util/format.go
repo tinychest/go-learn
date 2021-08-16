@@ -6,50 +6,53 @@ import (
 	"time"
 )
 
-// 保留指定的小数位 - 向上
+// Ceil 保留指定的小数位 - 向上
 func Ceil(s float64, b int) float64 {
 	return math.Ceil(s*math.Pow10(b)) / math.Pow10(b)
 }
 
-// 保留指定的小数位 - 四舍五入
+// Round 保留指定的小数位 - 四舍五入
 func Round(s float64, b int) float64 {
 	return math.Round(s*math.Pow10(b)) / math.Pow10(b)
 }
 
-// 保留指定的小数位 - 向下（准确）
+// Floor 保留指定的小数位 - 向下（准确）
 func Floor(s float64, b int) float64 {
 	return math.Floor(s*math.Pow10(b)) / math.Pow10(b)
 }
 
 func Floor2(s float64, b int) float64 {
-	return math.Round(s*math.Pow10(b))/math.Pow10(b)
+	return math.Round(s*math.Pow10(b)) / math.Pow10(b)
 }
 
-// 参数格式必须是 2006-01-02 15:04:05
 func ParseTime(s string) time.Time {
-	if t, err := time.Parse(time_format.FmtDateTime, s); err != nil {
+	return ParseFmtTime(s, time_format.FmtDateTime)
+}
+
+func ParseFmtTime(s string, format string) time.Time {
+	if t, err := time.Parse(format, s); err != nil {
 		panic(err)
 	} else {
 		return t
 	}
 }
 
-func FormatTime(t time.Time) string {
-	return t.Format(time_format.FmtDateTime)
+func FormatTime(t time.Time, format string) string {
+	return t.Format(format)
 }
 
 func Now() string {
-	return time.Now().Format(time_format.FmtDateTime)
+	return FormatTime(time.Now(), time_format.FmtDateTime)
 }
 
 func NowCN() string {
-	return time.Now().Format(time_format.FmtDateTimeCN)
+	return FormatTime(time.Now(), time_format.FmtDateTimeCN)
 }
 
 func NowDate() string {
-	return time.Now().Format(time_format.FmtDate)
+	return FormatTime(time.Now(), time_format.FmtDate)
 }
 
 func NowDateCN() string {
-	return time.Now().Format(time_format.FmtDateCN)
+	return FormatTime(time.Now(), time_format.FmtDateCN)
 }
