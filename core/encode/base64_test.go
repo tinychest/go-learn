@@ -28,6 +28,12 @@ Std 和 URL 的区别在于密文内容的字符集，实际看下来就是一�
 2、区分二
 StdEncoding URLEncoding RawStdEncoding RawURLEncoding
 名字打头是否带 Raw 的区别在于编解码时的填充字符是什么。不带 Raw：=，带 Raw：无填充字符
+
+其他：
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+
+html：<img width="40" height="30" src="data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...." /">
+css：.demoImg{ background-image: url("data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...."); }
 */
 func TestBase64Encode(t *testing.T) {
 	// 带不带 Raw 的区别
@@ -40,22 +46,40 @@ func TestBase64Encode(t *testing.T) {
 
 // 编码
 func encoding(encoding *base64.Encoding, rawMsg string) string {
-	encodingMsg := encoding.EncodeToString([]byte(rawMsg))
+	src := []byte(rawMsg)
 
-	printlnMsg(rawMsg, "UrlEncoding encoded", encodingMsg)
+	// Encode
+	dstLen := base64.StdEncoding.EncodedLen(len(src))
+	dst := make([]byte, dstLen)
+	base64.StdEncoding.Encode(dst, src)
+
+	// EncodeToString
+	encodingMsg := encoding.EncodeToString(src)
+
+	printlnMsg(rawMsg, "Encoding encoded to", encodingMsg)
 	return encodingMsg
 }
 
 // 解码
 func decoding(encoding *base64.Encoding, encodingMsg string) string {
-	decodeMsgBytes, err := encoding.DecodeString(encodingMsg)
-	if err != nil {
+	src := []byte(encodingMsg)
+
+	// Decode
+	dstLen := base64.StdEncoding.DecodedLen(len(src))
+	dst := make([]byte, dstLen)
+	if _, err := encoding.Decode(dst, src); err != nil {
 		panic(err)
 	}
-	decodeMsg := string(decodeMsgBytes)
 
-	printlnMsg(encodingMsg, "UrlEncoding decoded to", decodeMsg)
-	return decodeMsg
+	// DecodeToString
+	var err error
+	if dst, err = encoding.DecodeString(encodingMsg); err != nil {
+		panic(err)
+	}
+
+	dstStr := string(dst)
+	printlnMsg(encodingMsg, "Encoding decoded to", dstStr)
+	return dstStr
 }
 
 func printlnMsg(raw, prefix, after string) {
