@@ -1,6 +1,7 @@
 package _reflect
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -16,14 +17,44 @@ import (
 // Struct
 // UnsafePointer
 func TestTypeJudge(t *testing.T) {
+	// ptrTest()
+	interfaceTest()
+	interfaceRecommendTest()
+}
+
+func ptrTest() {
 	var sumPtr *int
 	var unknown interface{} = sumPtr
 
 	val := reflect.ValueOf(unknown)
 
-	if val.Kind() == reflect.Ptr {
-		println("是指针类型")
-	} else {
-		println("不是指针类型")
-	}
+	ok := val.Kind() == reflect.Ptr
+	fmt.Println(ok)
 }
+
+func interfaceTest() {
+	type i interface {
+		hello()
+	}
+	var s interface{}
+
+	var ok bool
+	if s == nil {
+		ok = false
+	} else {
+		sType := reflect.TypeOf(s)
+		ok = sType.Implements(reflect.TypeOf((*i)(nil)).Elem())
+	}
+	fmt.Println(ok)
+}
+
+func interfaceRecommendTest() {
+	type i interface {
+		hello()
+	}
+	var s interface{}
+
+	_, ok := s.(i)
+	fmt.Println(ok)
+}
+
