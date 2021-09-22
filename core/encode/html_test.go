@@ -2,8 +2,6 @@ package encode
 
 import (
 	"fmt"
-	"html"
-	"html/template"
 	"net/url"
 	"testing"
 )
@@ -28,18 +26,4 @@ func TestUrlParse(t *testing.T) {
 		t.Fatal(err)
 	}
 	fmt.Println(r3)
-}
-
-func TestValidator(t *testing.T) {
-	origin := `<>`
-
-	r1 := template.HTMLEscapeString(origin)
-	r2 := template.HTMLEscaper(origin)
-	r3 := html.EscapeString(origin)
-	r4 := html.UnescapeString(origin)
-
-	fmt.Println(r1)
-	fmt.Println(r2)
-	fmt.Println(r3)
-	fmt.Println(r4)
 }
