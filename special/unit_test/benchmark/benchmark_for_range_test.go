@@ -1,4 +1,4 @@
-package _range
+package benchmark
 
 import (
 	"math/rand"

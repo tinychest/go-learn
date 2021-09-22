@@ -1,4 +1,4 @@
-package reflect
+package benchmark
 
 import (
 	"reflect"
@@ -58,9 +58,9 @@ go test -bench="Set$" .
 goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark
-BenchmarkSet-8                          1000000000               0.626 ns/op
-BenchmarkReflect_FieldSet-8             39997999                30.2 ns/op
-BenchmarkReflect_FieldByNameSet-8        3986682               310 ns/op
+BenchmarkSet-8                          1000000000            0.626 ns/op
+BenchmarkReflect_FieldSet-8             39997999              30.2 ns/op
+BenchmarkReflect_FieldByNameSet-8       3986682               310 ns/op
 PASS
 ok      go-learn/unit_test/benchmark    3.702s
 
