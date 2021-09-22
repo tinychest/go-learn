@@ -6,8 +6,12 @@ import (
 	"testing"
 )
 
-func TestGet(t *testing.T) {
+func TestGetJson(t *testing.T) {
 	var result map[string]interface{}
 	err := req.GetJson("http://127.0.0.1:8888/v1/red_pack/test", nil, result)
-	fmt.Println(err)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(result)
+	}
 }

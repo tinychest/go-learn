@@ -40,7 +40,7 @@ func GetJson(url string, query url.Values, result interface{}) error {
 
 	desc, ok := result.(IResponse)
 	if !ok {
-		desc = defaultResponse
+		desc = theDefault
 	}
 
 	resp, err := http.Get(fmt.Sprintf("%s?%s", url, query.Encode()))
@@ -61,7 +61,7 @@ func PostJson(url string, query url.Values, args interface{}, result interface{}
 
 	desc, ok := result.(IResponse)
 	if !ok {
-		desc = defaultResponse
+		desc = theDefault
 	}
 
 	var (

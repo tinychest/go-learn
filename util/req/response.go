@@ -5,19 +5,21 @@ const (
 	defaultErrTip      = ""
 )
 
+// IResponse 响应接口
 type IResponse interface {
 	SuccessCode() int
 	ErrTip() string
 }
 
-var defaultResponse sResponse
+// 默认实现 + 实例
+type defaultResponse struct{}
 
-type sResponse struct{}
+var theDefault defaultResponse
 
-func (r sResponse) SuccessCode() int {
+func (r defaultResponse) SuccessCode() int {
 	return defaultSuccessCode
 }
 
-func (r sResponse) ErrTip() string {
+func (r defaultResponse) ErrTip() string {
 	return defaultErrTip
 }
