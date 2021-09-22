@@ -20,7 +20,7 @@ func TestMarshal(t *testing.T) {
 	nilTest()
 
 	// string json
-	jsonTest()
+	strJsonTest()
 }
 
 func nilTest() {
@@ -31,7 +31,7 @@ func nilTest() {
 	}
 }
 
-func jsonTest() {
+func strJsonTest() {
 	j := `{"name":"xiaoming", "age":11}`
 
 	// marshal
