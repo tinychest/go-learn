@@ -11,7 +11,7 @@ import (
 1、`json:"<字段名>[,omitempty][,string]"`
 参数1：默认的字段名是结构体属性的字段名，而这里的值可以改变该值
 参数2：当字段为零值时，不序列化该字段
-参数3：以 string 的数据类型序列化字段
+参数3：以 string 的数据类型序列化字段（只认 string 类型的字段进行反序列化）
 
 2、`json:"-"`
 序列化 json 时，忽略该字段
@@ -41,16 +41,12 @@ type User struct {
 }
 
 // 注：User 类型没有实现 *User 的接口方法，*User 类型实现了 User 的接口方法
+// 这里有一个思维陷阱，即，不存在方法去改变一个结构体实例内部字段序列化的行为，而是应该将内部字段定义为自定义类型，为改类型定义序列化行为
+// 如果说，这个内部字段的值依赖于其他内部字段，那目前没有什么好的办法，只能先处理好再进行序列化
 func (u *User) MarshalJSON() ([]byte, error) {
 	u.Name = "行不改名，坐不改姓"
 	return json.Marshal(*u)
 }
-
-// TODO 暂时没有找到比较好的方式，来对自定义结构体类型进行特殊反序列化处理
-// func (u *User) UnmarshalJSON(data []byte) error {
-// 	u.Name = "行不改名，坐不改姓"
-// 	return nil
-// }
 
 func TestJson(t *testing.T) {
 	user := User{
