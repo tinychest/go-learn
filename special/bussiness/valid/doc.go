@@ -23,6 +23,7 @@ package valid
 
 《大全》
 https://pkg.go.dev/gopkg.in/go-playground/validator.v10#hdr-Validation_Functions_Return_Type_error
+https://pkg.go.dev/github.com/go-playground/validator/v10#section-readme
 详见：github.com/go-playground/validator/v10@v10.9.0/baked_in.go:70
 
 
@@ -45,12 +46,23 @@ ne=<n>（不等于）
 startswith、endswith、base64 等等
 
 - special
+required（必填，基础类型非零值、指针类型不能为 nil）
 gt、gte、lt、lte、min、max（number、string、array、slice、map）
-oneof=<xxx1> <xxx2>...（枚举）
 length=<n>（string、array、slice、map）
-required（必填 - 基础类型非空、指针类型不能为 nil）
+
+oneof=<xxx1> <xxx2>...（枚举）
+
+excludesall=0x2C（不包含英文逗号）
+
+unique：数组、切片、map 要求不能有重复的元素
+
+required_if <FieldName> <FieldValue>：当指定的字段的值为指定值时，当前字段才要求 required
 eqfield=<xxx>（必须等同于指定字段的值 - 例如，密码、确认密码）
 neqfield=<xxx>（不等同于指定字段的值）字段名必须完全匹配
+
+|：多个条件，满足一个即可（都不满足时，即不符合校验条件，测试的错误连翻译插件都无法翻译）
+
 dive（array、slice、map - 默认会校验 struct）
-excludesall=0x2C（不包含英文逗号）
+	dive required：修饰数组时，数组中每一个元素都要求 required
+	required dive required：修饰数组时，要求数组本身 required
 */
