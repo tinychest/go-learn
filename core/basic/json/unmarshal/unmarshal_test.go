@@ -30,7 +30,7 @@ v
 */
 func TestUnmarshal(t *testing.T) {
 	// map
-	// typeMapTest()
+	typeMapTest()
 
 	// slice
 	// typeSliceTest()
@@ -48,7 +48,7 @@ func TestUnmarshal(t *testing.T) {
 func typeMapTest() {
 	j := `{"name":"xiaoming", "age":11}`
 
-	var theMap = make(map[string]interface{})
+	var theMap map[string]interface{}
 	if err := json.Unmarshal([]byte(j), &theMap); err != nil {
 		panic(err)
 	} else {
