@@ -8,8 +8,8 @@ import (
 )
 
 // 也许不同进程不能同时打开文件，但是 Goroutine 是可以同时打开一个文件的
+// os.Open() = OpenFile(name, O_RDONLY, 0)
 func TestReadFile(t *testing.T) {
-	// os.Open() = OpenFile(name, O_RDONLY, 0)
 	filename := `C:/Users/14590/Desktop/abc.log`
 
 	var (
