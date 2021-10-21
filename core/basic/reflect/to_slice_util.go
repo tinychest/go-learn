@@ -10,12 +10,12 @@ const (
 	toInterface = 1
 )
 
-// 将参数中所有 基础字段 存储到一个 []string 作为返回值
+// ToString 将参数中所有 基础字段 存储到一个 []string 作为返回值
 func ToString(param interface{}) []string {
 	return to(param, toString).([]string)
 }
 
-// 将参数中所有 基础字段 存储到一个 []interface 作为返回值
+// ToInterface 将参数中所有 基础字段 存储到一个 []interface 作为返回值
 func ToInterface(param interface{}) []interface{} {
 	return to(param, toInterface).([]interface{})
 }

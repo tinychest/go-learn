@@ -12,18 +12,14 @@ import (
 // 所以 beego orm 的 QueryRows 就使用了一个很巧妙的做法，就是你传容器进来，我把数据放进去
 
 // 经验之谈1：反射中的递归要注意一个问题，因为反射就会得到 Value，这就是一个结构体
-// 经验之谈2：获取反射对象（Value）的真实值，只要调用 Value.类型() 方法就可以，这里边有一个比较重要的方法 Interface()
+// 经验之谈2：获取反射对象（Value）的真实值，只要调用 Value.类型() 方法就可以（Interface 是直接获取 interface 类型的值）
 func TestReflectApi(t *testing.T) {
 	var i int
 	var iPtr = &i
 	var iPtrPtr = &iPtr
 
 	tt(iPtrPtr)
-
-	notUseButToCompile(i, iPtr, iPtrPtr)
 }
-
-func notUseButToCompile(...interface{}) {}
 
 func tt(param interface{}) {
 	// Value：数据类型在反射中的表现形式
@@ -70,7 +66,10 @@ func tt(param interface{}) {
 
 	// [int Value.NumField]：Struct 中字段的数量
 	// [Value Value.Field(int)]：Struct 中指定下标的字段
-	// [interface{} Value.Interface()]：把底层的值作为 interface 类型返回（底层值如果为 nil 或者 结构体中未导出的值，则会发生空指针异常）
+
+	// [interface{} Value.Interface()]：返回底层真实的值（如果实际是结构体中未导出的值，则会发生 panic）
+	// [int64 Value.Int()]：底层的值是 整数 类型，则可以使用该方法获取真实的值
+	// ...
 
 	// [int Value.Len()]：Array, Chan, Map, Slice, String 的长度
 	// [Value Value.Index(int)]：Array, Slice, String 中指定下标的元素

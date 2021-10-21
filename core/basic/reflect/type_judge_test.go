@@ -17,38 +17,38 @@ import (
 // Struct
 // UnsafePointer
 func TestTypeJudge(t *testing.T) {
-	// ptrTest()
-	interfaceTest()
-	interfaceRecommendTest()
+	ptrIsTest()
+	interfaceImplTest()
+	interfaceIsTest()
 }
 
-func ptrTest() {
-	var sumPtr *int
-	var unknown interface{} = sumPtr
+func ptrIsTest() {
+	var (
+		ptr     *int
+		unknown interface{} = ptr
+	)
 
-	val := reflect.ValueOf(unknown)
-
-	ok := val.Kind() == reflect.Ptr
-	fmt.Println(ok)
+	v := reflect.ValueOf(unknown)
+	fmt.Println(v.Kind() == reflect.Ptr)
 }
 
-func interfaceTest() {
+func interfaceImplTest() {
 	type i interface {
 		hello()
 	}
-	var s interface{}
+	var unknown interface{}
 
-	var ok bool
-	if s == nil {
-		ok = false
-	} else {
-		sType := reflect.TypeOf(s)
-		ok = sType.Implements(reflect.TypeOf((*i)(nil)).Elem())
+	if unknown == nil {
+		fmt.Println(false)
+		return
 	}
+
+	t := reflect.TypeOf(unknown)
+	ok := t.Implements(reflect.TypeOf((*i)(nil)).Elem())
 	fmt.Println(ok)
 }
 
-func interfaceRecommendTest() {
+func interfaceIsTest() {
 	type i interface {
 		hello()
 	}
@@ -57,4 +57,3 @@ func interfaceRecommendTest() {
 	_, ok := s.(i)
 	fmt.Println(ok)
 }
-
