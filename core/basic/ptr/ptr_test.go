@@ -1,4 +1,4 @@
-package star
+package ptr
 
 /*
 Struct 和 *Struct 各有各自的类型元数据

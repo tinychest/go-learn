@@ -30,7 +30,7 @@ func StringToInt(str string) int {
 
 func StringToInt64(str string) int64 {
 	// base：str 表示的数 的进制，一般都是 10
-	//     取值范围：0（当为0时，通过 str 的数字前缀格式来区分，如 0b=二进制、0|0o=八进制、0x=十六进制、无=10）
+	//     取值范围：0（当为0时，通过 str 的数字前缀格式来区分，如 0b=二进制、0|0o=八进制、0x=十六进制、无=十进制）
 	//     取值范围：[2, 36]（最大值为 36，是因为 10 + 26 个英文字母）
 	//     超过范围：err invalid base
 	// bitSize：表示需要多少位来存储该数，一般都是 64
