@@ -1,7 +1,6 @@
 package _struct
 
 import (
-	"go-learn/util"
 	"testing"
 )
 
@@ -19,5 +18,5 @@ func TestAnonymousStruct(t *testing.T) {
 	// _ := out {InName: "2"}
 
 	// 编译通过，可以直接读
-	util.Use(out{}.InName)
+	println(out{}.InName)
 }
