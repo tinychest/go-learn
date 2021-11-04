@@ -60,7 +60,7 @@ required_if <FieldName> <FieldValue>：当指定的字段的值为指定值时�
 eqfield=<xxx>（必须等同于指定字段的值 - 例如，密码、确认密码）
 neqfield=<xxx>（不等同于指定字段的值）字段名必须完全匹配
 
-|：多个条件，满足一个即可（都不满足时，即不符合校验条件，测试的错误连翻译插件都无法翻译）
+|：多个条件，满足一个即可（多个条件的错误，翻译插件是无法翻译的）
 
 dive（array、slice、map - 默认会校验 struct）
 	dive required：修饰数组时，数组中每一个元素都要求 required

@@ -6,18 +6,18 @@ import (
 )
 
 /*
-使用 go 的一个三方库来解析 cron 表达式任务
+使用 Go 的一个三方库来解析 cron 表达式执行定时任务
 
 GitHub：github.com/robfig/cron/v3
 Doc：https://pkg.go.dev/github.com/robfig/cron/v3
 
 // 回顾原来的笔记
 // Linux 中使用 cron 和 java 中有不同
-// 特殊符号，并不是所有类库都实现了，这里的 go 三方库，支持 ?
-// 查看文档的方式记录
-
-和 cron 表达式规范有出入的地方在于，秒是可选的
+// cron 表达式规范出入
+// - 特殊符号，并不是所有类库都实现了，这里支持 ?
+// - 秒是可选的
 */
+
 type CronJob []cronJob
 
 type cronJob struct {
@@ -26,7 +26,7 @@ type cronJob struct {
 	Job  func() error // 要执行的任务（可以直接使用 cron.Job 类型，但是希望将单独的日志提示提出来）
 }
 
-// 定义任务要执行的任务 - 需要实现的接口 cron.Job
+// Run 定义任务要执行的任务，实现 cron.Job
 func (js cronJob) Run() {
 	if err := js.Job(); err != nil {
 		fmt.Printf("error occur! when execute cron job：【%s】【%s】【%s】\n",js.Cron, js.Name, err)
@@ -35,7 +35,7 @@ func (js cronJob) Run() {
 	}
 }
 
-// 开始定时任务
+// Start 开始定时任务
 func (js CronJob) Start() (err error) {
 	var c = cron.New()
 	defer func() {
