@@ -3,6 +3,7 @@ package funny
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"image"
 	"image/png"
 	"testing"
@@ -33,10 +34,10 @@ var favicon = []byte{
 // with the prefix "IMAGE:".
 func displayImage(m image.Image) {
 	var buf bytes.Buffer
-	err := png.Encode(&buf, m)
-	if err != nil {
-		t.Fatal(err)
+	if err := png.Encode(&buf, m); err != nil {
+		fmt.Println(err)
+		return
 	}
-	// 将字节数据以图片形式展示到页面上，会是一个 Go 的那个地鼠图标
+	// 将字节数据以图片形式展示到页面上，会是一个 Go 的地鼠图标
 	println("IMAGE:" + base64.StdEncoding.EncodeToString(buf.Bytes()))
 }
