@@ -11,6 +11,8 @@ import (
 	"strings"
 )
 
+// 来源：https://chris124567.github.io/2021-06-21-go-performance/
+
 // 会在项目根目录下，创建 cpu.pprof
 // 在项目根目录下，通过 go tool 分析：go tool pprof cpu.pprof
 // 查看性能消耗排名：top10
