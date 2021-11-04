@@ -27,10 +27,12 @@ package time_format
 // 总结：本质上是最初说的以一个时间格式为样本，但是这个时间一定得是 go 语言诞生的时间
 // 当然，这样肯定是有些不合理的，所以可以从 1~6 来表示
 const (
-	FmtDateTime   = "2006-01-02 15:04:05"
-	FmtDate       = "2006-01-02"
-	FmtTime       = "15:04:05"
-	FmtDateTimeCN = "2006年01月02日 15时04分05秒"
-	FmtDateCN     = "2006年01月02日"
-	FmtTimeCN     = "15时04分05秒"
+	FmtDateTime    = "2006-01-02 15:04:05"
+	FmtDateTime_   = "2006-01-02_15:04:05"
+	FmtDate        = "2006-01-02"
+	FmtTime        = "15:04:05"
+	FmtDateTimeCN  = "2006年01月02日 15时04分05秒"
+	FmtDateTimeCN_ = "2006年01月02日_15时04分05秒"
+	FmtDateCN      = "2006年01月02日"
+	FmtTimeCN      = "15时04分05秒"
 )
