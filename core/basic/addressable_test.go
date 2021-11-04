@@ -4,15 +4,13 @@ import (
 	"testing"
 )
 
-// 1、map 值的 unaddressable
-// 2、方法返回值 的 unaddressable
-// 有说法：大多数匿名实例都是不可寻址的
+// unaddressable（不可寻址）：map 值、方法返回值、大多数匿名实例
 func TestAddressable(t *testing.T) {
-	interfaceSlice := make([]interface{}, 0)
+	iSlice := make([]interface{}, 0)
 
 	var v []interface{}
-	interfaceSlice = append(interfaceSlice, &v)
-	// interfaceSlice = append(interfaceSlice, &getInterfaceSliceType()) // 编译不通过
+	iSlice = append(iSlice, &v)
+	// iSlice = append(iSlice, &getInterfaceSliceType()) // 编译不通过
 }
 
 func getInterfaceSliceType() []interface{} {
