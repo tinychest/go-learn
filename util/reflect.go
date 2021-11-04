@@ -24,7 +24,7 @@ import . "reflect"
 //     }
 // }
 
-// 函数：指针解引用
+// PtrUnReference 指针解引用
 func PtrUnReference(valuePtr *Value) {
     if valuePtr == nil {
         panic("util.PtrUnReference: can not deal with the nil Ptr")
