@@ -6,13 +6,10 @@ import (
 	"testing"
 )
 
-// 我们希望有一个通用的方法，根据不同的参数返回不同类型的数据
+// 我们希望有一个通用的方法，根据不同的参数类型动态决定返回值的类型
 // 在 Java 中，有泛型，根据方法调用者类型，根据特定参数的类型，都能够在运行时，动态的决定类型
-// 在 Go 中，虽然不是很灵活，但是能做到根据一个表示要返回什么类型的参数来决定具体返回的类型，但是只要涉及到”通用“二字那么在声明上类型肯定是 interface{} 了
-// 所以 beego orm 的 QueryRows 就使用了一个很巧妙的做法，就是你传容器进来，我把数据放进去
-
-// 经验之谈1：反射中的递归要注意一个问题，因为反射就会得到 Value，这就是一个结构体
-// 经验之谈2：获取反射对象（Value）的真实值，只要调用 Value.类型() 方法就可以（Interface 是直接获取 interface 类型的值）
+// 在 Go 中，想到类似的效果，语法上不支持，但是，开源框中总会遇到相同场景，参考
+// 例，beego orm 的 QueryRows 就使用了一个很巧妙的做法，就是你把指定规则的容器传进来，我把数据放进去
 func TestReflectApi(t *testing.T) {
 	var i int
 	var iPtr = &i
@@ -76,8 +73,4 @@ func tt(param interface{}) {
 
 	// [Type Type.Elem]：Array, Chan, Map, Ptr, or Slice 中元素的类型
 	// [bool Type.Implements(Type)]：是否实现了指定的接口类型
-}
-
-func UnsafePackApi() {
-	// [unsafe.Sizeof(interface{})]：计算出一个数据类型实例需要占用的字节数
 }

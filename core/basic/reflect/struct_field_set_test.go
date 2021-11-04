@@ -8,7 +8,7 @@ import (
 )
 
 // 利用反射修改结构体实例字段的值
-func TestReflectGetField(t *testing.T) {
+func TestReflectSetField(t *testing.T) {
 	person1 := &core.Person{Age: 10, Name: "小明"}
 	person2 := &core.Person{Age: 11, Name: "小红"}
 
