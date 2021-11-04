@@ -2,36 +2,42 @@ package number
 
 import (
 	"fmt"
-	"reflect"
 	"strconv"
 	"testing"
 )
 
 const sum = 0.1
 
-func TestPrintType(t *testing.T) {
-	fmt.Println(1e-1)
-
-	typ := reflect.TypeOf(sum)
-	fmt.Println(typ)
-
+// 处理数位计算，在 Java 中是使用 BigDecimal，从本质说，从计算机组成原理说，计算机中的二进制，就不可能等价的表示出一些小数，Java 的针对这个做的处理是，当在一定精度内相等，就认为是相等
+func TestPrecision(t *testing.T) {
+	fmt.Println(1e-1 == sum)
 	fmt.Println(0.8999999999+1e-9 >= 0.9)
-}
-
-// 精度
-// 处理数位计算，在 Java 中是使用 BigDecimal，或者通用的是说，当在一定精度内相等，就认为是相等
-func TestCal(t *testing.T) {
-	sum1 := "0.1"
-	sum2 := "0.2"
-	sum3 := "0.3"
-
-	s1, _ := strconv.ParseFloat(sum1, 64)
-	s2, _ := strconv.ParseFloat(sum2, 64)
-	s3, _ := strconv.ParseFloat(sum3, 64)
-
-	// 编译其不提示，但是实际执行结果为 false
-	fmt.Println(s1+s2 == s3)
-
 	// 编译器提示 false，但是实际执行结果为 true
 	fmt.Println(0.1+0.2 == 0.3)
+
+	fmt.Println(CentToYuan(0) + "元")
+	fmt.Println(CentToYuan(1) + "元")
+	fmt.Println(CentToYuan(30) + "元")
+	fmt.Println(CentToYuan(31) + "元")
+	fmt.Println(CentToYuan(100) + "元")
+	fmt.Println(CentToYuan(130) + "元")
+	fmt.Println(CentToYuan(13000) + "元")
+}
+
+// 既然，这是计算机的根本，引出的问题，所以最好解决方式是，尽可能去避免这个，尽量使用 string 格式，去处理成希望的数据格式
+func CentToYuan(cent int) (s string) {
+	switch {
+	case cent < 0:
+		panic("invalid argument to CentToYuan")
+	case cent == 0:
+		return "0"
+	}
+
+	if cent < 100 {
+		s = fmt.Sprintf("%03d", cent)
+	} else {
+		s = strconv.Itoa(cent)
+		// s = fmt.Sprintf("%d", cent)
+	}
+	return s[:len(s)-2] + "." + s[len(s)-2:]
 }

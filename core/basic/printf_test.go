@@ -21,30 +21,44 @@ func (p *Account) String() string {
 }
 
 // NOTE 详见 fmt/doc.go
-// %p：地址
-// %T：类型
-// %v：对应类型的默认格式
-// %s：string、[]byte、error
-// %q：为所有的值添加引号
-// %t：布尔类型
+/*
+ %p：地址
+ %T：类型
+ %v：对应类型的默认格式
+ %s：string、[]byte、error
+ %q：为所有的值添加引号
+ %t：布尔类型
 
-// %b：二进制（binary）
-// %o：八进制（octal）
-// %d：十进制（decimal）
-// %x、%X：十六进制（hex）
+ %b：二进制（binary）
+ %o：八进制（octal）
+ %d：十进制（decimal）
+ %x、%X：十六进制（hex）
 
-// %U = U+%04X：Unicode 格式
+ %U = U+%04X：Unicode 格式
 
-// %e、%E：科学计数法
-// %f：浮点数
+ %e、%E：科学计数法
+ %f：浮点数
+ %q：单引号围绕的字符字面量
 
-// %q：单引号围绕的字符字面量
-
-// +：结构体：会添加字段名；数值：正负号；字符串：ASCII 编码的字符
-// #：结构体：会添加完整包路径的类型名、会添加字段名；八进制：前导 0；十六进制：签到 0x；%#p：去掉前导 0x
-// 空格：打印字符串或切片时，在字节之间用空格隔开
-// 0：填充 0
-// -：?
+《补充符》
+ [start:%]
+ [-]
+ - 从右边填充
+ [+]
+ - 结构体 添加字段名
+ - 数值 正负号
+ - 字符串 ASCII 编码的字符
+ [#]
+ - 结构体 会添加完整包路径的类型名、会添加字段名
+ - 八进制 前导 0
+ - 十六进制 前导 0x
+ - %#p 十六进制的内存地址去掉前导 0x
+ [空格、0]
+ - 打印字符串或切片时，在字节之间用指定字符隔开
+ [数字]
+ - 填充多少个
+ [end:类型标识]
+*/
 func TestPrintf(t *testing.T) {
 	// a := &Account{
 	// 	username: "xiaoming",
@@ -55,15 +69,15 @@ func TestPrintf(t *testing.T) {
 	// qFormatTest()
 
 	// +：{username:小明 password:123}
-	// fmt.Printf("%+v\n", account)
+	// fmt.Printf("%+v\n", a)
 	// #：main.User{username:"小明", password:"123"}
-	// fmt.Printf("%#v\n", account)
+	// fmt.Printf("%#v\n", a)
 
 	// builtInPrintTest()
 }
 
 func vsFormatTest() {
-	var account = Account{"小明", "123"}
+	var a = Account{"小明", "123"}
 
 	// case 实现了 Error() string：
 	//     打印 Error 方法的返回值
@@ -71,15 +85,15 @@ func vsFormatTest() {
 	//     打印 String 方法的返回值
 	// default：
 	//     &{小明 123}
-	fmt.Println(&account)
-	fmt.Printf("%v\n", &account)
-	fmt.Printf("%s\n", &account)
+	fmt.Println(&a)
+	fmt.Printf("%v\n", &a)
+	fmt.Printf("%s\n", &a)
 
 	// default：
 	//     {小明 123}
-	fmt.Println(account)
-	fmt.Printf("%v\n", account)
-	fmt.Printf("%s\n", account)
+	fmt.Println(a)
+	fmt.Printf("%v\n", a)
+	fmt.Printf("%s\n", a)
 }
 
 func qFormatTest() {
