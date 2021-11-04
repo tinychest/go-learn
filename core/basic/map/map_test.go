@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// 关于 map 的缩容：https://mp.weixin.qq.com/s/Slvgl3KZax2jsy2xGDdFKw
+
 func TestMap(t *testing.T) {
 	// testZeroValue()
 	// testExist()
