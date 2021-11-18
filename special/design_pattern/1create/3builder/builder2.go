@@ -2,11 +2,9 @@ package _builder
 
 import "fmt"
 
-/*
-Go 中构建者的最佳实践
-*/
+/* 构建者 最佳实践 */
 
-// 核心配置
+// ResourcePoolConfigOption 核心配置
 type ResourcePoolConfigOption struct {
 	maxTotal int
 	maxIdle  int
@@ -21,28 +19,28 @@ func NewResourcePoolConfig(name string, opts ...ResourcePoolConfigOptFunc) (*Res
 		return nil, fmt.Errorf("name can not be empty")
 	}
 
-	option := &ResourcePoolConfigOption{
+	c := &ResourcePoolConfigOption{
 		maxTotal: 10,
 		maxIdle:  9,
 		minIdle:  1,
 	}
 
 	for _, opt := range opts {
-		opt(option)
+		opt(c)
 	}
 
-	if option.maxTotal < 0 || option.maxIdle < 0 || option.minIdle < 0 {
-		return nil, fmt.Errorf("args err, option: %v", option)
+	if c.maxTotal < 0 || c.maxIdle < 0 || c.minIdle < 0 {
+		return nil, fmt.Errorf("args err, c: %v", c)
 	}
 
-	if option.maxTotal < option.maxIdle || option.minIdle > option.maxIdle {
-		return nil, fmt.Errorf("args err, option: %v", option)
+	if c.maxTotal < c.maxIdle || c.minIdle > c.maxIdle {
+		return nil, fmt.Errorf("args err, c: %v", c)
 	}
 
 	return &ResourcePoolConfig{
 		name:     name,
-		maxTotal: option.maxTotal,
-		maxIdle:  option.maxIdle,
-		minIdle:  option.minIdle,
+		maxTotal: c.maxTotal,
+		maxIdle:  c.maxIdle,
+		minIdle:  c.minIdle,
 	}, nil
 }
