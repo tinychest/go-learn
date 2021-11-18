@@ -63,7 +63,7 @@ func typeSliceTest() {
 	if err := json.Unmarshal([]byte(j), &theSlice); err != nil {
 		panic(err)
 	} else {
-		util.PrintSliceInfo(theSlice)
+		util.PrintSlice(theSlice)
 	}
 }
 
