@@ -1,4 +1,4 @@
-package slice
+package string
 
 import (
 	"fmt"
@@ -15,6 +15,6 @@ func TestJoin(t *testing.T) {
 func TestSplit(t *testing.T) {
 	splits := strings.Split("", ",")
 
-	util.PrintSliceInfo(splits)
+	util.PrintSlice(splits)
 	fmt.Println(splits[0] == "")
 }
