@@ -4,6 +4,7 @@ import (
 	"testing"
 )
 
+// copy 的依据只有 len
 func TestCopy(t *testing.T) {
 	source := []int{1, 2, 3}
 
@@ -16,6 +17,4 @@ func TestCopy(t *testing.T) {
 	println(copy(target2, source)) // 0
 	println(copy(target3, source)) // 0
 	println(copy(target4, source)) // 3
-
-	// 结论：只有有空间的切片或数组 copy 才能够复制
 }

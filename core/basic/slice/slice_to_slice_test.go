@@ -10,13 +10,13 @@ func TestSliceToSlice(t *testing.T) {
 	intSlice := []int{1, 2, 3}
 
 	tempSlice := intSlice[:1:2]
-	util.PrintSliceInfo(tempSlice)
+	util.PrintSlice(tempSlice)
 
 	// 这个 append 直接影响了父切片里的元素
 	tempSlice = append(tempSlice, 4)
 
-	util.PrintSliceInfo(tempSlice)
-	util.PrintSliceInfo(intSlice)
+	util.PrintSlice(tempSlice)
+	util.PrintSlice(intSlice)
 }
 
 // 其实还是 append 和 切片的原理规则，当只有当 append 元素后，元素的数量大于 capacity，append 才会重新申请一个内存空间
@@ -25,15 +25,15 @@ func test1() {
 	intSlice := []int{1, 2, 3}
 
 	tempSlice := intSlice[:0:0]
-	// util.PrintSliceInfo(tempSlice)
-	// util.PrintSliceInfo([]int{})
+	// util.PrintSlice(tempSlice)
+	// util.PrintSlice([]int{})
 	// // 很特别的地址：0x0 length:0 capacity:0
-	// util.PrintSliceInfo(*new([]int))
+	// util.PrintSlice(*new([]int))
 
 	// 添加元素后切片元素个数为 1，大于切片的 capacity，所有会重新申请内存空间，创建一个新的切片
 	tempSlice = append(tempSlice, 4)
 	tempSlice = append(tempSlice, 5)
 	tempSlice = append(tempSlice, 6)
-	util.PrintSliceInfo(intSlice)
-	util.PrintSliceInfo(tempSlice)
+	util.PrintSlice(intSlice)
+	util.PrintSlice(tempSlice)
 }

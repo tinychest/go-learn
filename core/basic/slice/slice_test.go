@@ -5,34 +5,32 @@ import (
 	"testing"
 )
 
-// 切片性能陷阱：切片经由一通操作后，可能扩容的很大，之后假如要用到该切片的 几个元素，就不要继续使用该切片了（复制元素到新的小切片），占用太大空间得不到释放
+// 切片性能陷阱（内存泄漏）
+// 切片经由一通操作后，可能扩容的很大，之后假如要用到该切片的 几个元素，就不要继续使用该切片了（复制元素到新的小切片），占用太大空间得不到释放
+// 参见 https://mp.weixin.qq.com/s/dejNOtGwID6z9ExLLybDtA
 
-func TestSliceBasic(t *testing.T) {
-	//addressConceptTest()
+func TestBasic(t *testing.T) {
+	// addressConcept()
+	// expandConcept()
 
-	childSliceConceptTest()
-
-	// sliceExpandConcept()
+	childTest()
 }
 
-// 切片扩容概念
-func sliceExpandConcept() {
-	// 如果新申请容量（cap）大于2倍的旧容量（old>cap），最终容量（newcap）就是新申请的容量（cap）
-	// 如果旧切片长度小于1024，最终容量会是旧容量的两倍
-	// 如果旧切片长度大于等于1024，则最终容量（newcap）从旧容量（old.cap）开始循环增加原来的 1/4，直到大于或等于新申请的容量
-	// 如果最终容量（cap）计算值已处于最大值，则最终容量（cap）就是新申请容量
+// 扩容概念
+func expandConcept() {
+	// runtime/slice.go - growslice
+	// - 旧切片长度小于 1024，最终容量会是旧容量的两倍
+	// - 旧切片长度大于等于 1024，则最终容量（newcap）从旧容量（old.cap）开始循环增加原来的 1/4，直到大于或等于新申请的容量
+	// - 最终得出的容量（cap）值已处于最大值，则限定为最大值
 
-	// 详见：runtime/slice.go - growslice
-
-	// 因为底层源码无法断点调试，所以这里描述一下实验现象
-	// 切片为 nil、或者 len:0 cap:0 添加一个元素后 cap 都会变成 8（可以理解为，扩容有一个最小值 8）
+	// 0 → 1 → 2 → 4 → 8 → 16...
 }
 
 // 内存地址的概念测试
-func addressConceptTest() {
+func addressConcept() {
 	// 测试0：切片 [零值] 和 [初始化] 的地址
-	// 注意：虽然切片的本质是指向底层数组的指针，但是切片类型的变量的零值不是 nil
-	// 注意：虽然切片的零值不是 nil，但是切片类型的变量是可以赋为 nil 的
+	// - 切片的本质是指向底层数组的指针，但是切片类型的变量的零值不是 nil
+	// - 切片的零值不是 nil，但是切片类型的变量可以赋值为 nil
 	var intSlice []int
 	fmt.Printf("%p\n", intSlice)    // 0x0
 	fmt.Printf("%p\n", []int(nil))  // 0x0
@@ -64,14 +62,14 @@ func addressConceptTest() {
 	}(tempSlice)
 }
 
-func childSliceConceptTest() {
+func childTest() {
 	slice := []int{1, 2, 3}
 
-	// 取头舍尾，所以 childSlice 实际是 [2]
-	//childSlice := slice[1:len(slice)-1]
+	// 取头舍尾，所以实际是 [2]
+	// childSlice := slice[1:len(slice)-1]
 
-	// 定义上：子切片的定义不能超出父切片的范围
-	//println(childSlice[:2])
+	// 定义上，子切片的定义不能超出父切片的范围
+	// println(childSlice[:2])
 
 	fmt.Println(slice[2:])
 }
