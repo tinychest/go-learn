@@ -6,10 +6,24 @@ import (
 	"strings"
 )
 
-// 打印任意类型的 切片 的详细信息
+// PrintMap 打印 map
+// 其实使用 json 序列化的方式去打印，最简单，但是 json 只支持 string 类型的键
+func PrintMap(m interface{}) {
+	raw := fmt.Sprint(m)[3:]
+	raw = strings.ReplaceAll(raw, "[", "{")
+	raw = strings.ReplaceAll(raw, "]", "}")
+	fmt.Println(raw)
+}
+
+// PrintAddr 打印地址
+func PrintAddr(p interface{}) {
+	fmt.Printf("%p\n", p)
+}
+
+// PrintSlice 打印任意类型的 切片 的详细信息
 // 说明：这个完全是为学习阶段的 debug 方便，生产中不可能使用，一个反射的性能额外消耗，一个消耗空间，一个遍历的性能低下
-func PrintSliceInfo(param interface{}) {
-	printSliceInfo(sliceToInterfaceSlice(param), param)
+func PrintSlice(param interface{}) {
+	printSlice(sliceToInterfaceSlice(param), param)
 }
 
 func sliceToInterfaceSlice(param interface{}) []interface{} {
@@ -28,9 +42,9 @@ func sliceToInterfaceSlice(param interface{}) []interface{} {
 		panic(&ValueError{Method: "PrintSlice", Kind: value.Kind()})
 	}
 
-	slice := make([]interface{}, 0, value.Len())
-	for index := 0; index < value.Len(); index++ {
-		slice = append(slice, value.Index(index).Interface())
+	slice := make([]interface{}, 0, value.Cap())
+	for i := 0; i < value.Len(); i++ {
+		slice = append(slice, value.Index(i).Interface())
 	}
 
 	return slice
@@ -38,23 +52,23 @@ func sliceToInterfaceSlice(param interface{}) []interface{} {
 
 // 制定打印详细格式的打印方法
 // param：打印原参数的地址
-func printSliceInfo(slice []interface{}, param interface{}) {
+func printSlice(slice []interface{}, param interface{}) {
 	fmt.Printf("[%d/%d] %p %-11s\n", len(slice), cap(slice), param, sprintSlice(slice))
 }
 
 // 返回切片指定格式字符串的打印内容
 func sprintSlice(slice []interface{}) string {
-	builder := strings.Builder{}
+	b := strings.Builder{}
 
 	// 参照 print.go/doPrintln
-	builder.WriteString("[")
+	b.WriteString("[")
 	for index := 0; index < len(slice); index++ {
 		if index > 0 {
-			builder.WriteString(", ")
+			b.WriteString(", ")
 		}
-		builder.WriteString(fmt.Sprint(slice[index]))
+		b.WriteString(fmt.Sprint(slice[index]))
 	}
-	builder.WriteString("]")
+	b.WriteString("]")
 
-	return builder.String()
+	return b.String()
 }
