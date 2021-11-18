@@ -6,18 +6,18 @@ import (
 )
 
 func TestArray(t *testing.T) {
-	// intArray 类型：[3]int
-	intArray := [...]int{1, 2, 3}
-	intSlice := intArray[:]
+	// array 类型：[3]int
+	array := [...]int{1, 2, 3}
+	slice := array[:]
 
 	// 数组不同于切片的很重要的一点，数组为值类型 - 会发生拷贝
-	intArray2 := intArray
-	util.PrintSliceInfo(intArray)
-	util.PrintSliceInfo(intArray2)
+	array2 := array
+	util.PrintSlice(array)
+	util.PrintSlice(array2)
 
-	func(intArray [3]int) {
-		util.PrintSliceInfo(intArray)
-	}(intArray)
+	func(arr [3]int) {
+		util.PrintSlice(arr)
+	}(array)
 
-	_ = intSlice
+	_ = slice
 }

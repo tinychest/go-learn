@@ -3,8 +3,19 @@ package _struct
 import (
 	"fmt"
 	"go-learn/util/set"
-	"testing"
 )
+
+// 空结构体实例类型是不占用空间的 unsafe.Sizeof(struct{}{})
+
+func addrConcept() {
+	var a, b struct{}
+	// true
+	fmt.Println(a == b)
+	// addr equal
+	print(&a, "\n", &b, "\n")
+	// false
+	fmt.Println(&a == &b)
+}
 
 type tStruct struct{}
 
@@ -12,8 +23,7 @@ func (t *tStruct) Func() {
 	fmt.Println("call...")
 }
 
-// 空结构体实例类型是不占用空间的 unsafe.Sizeof(struct{}{})
-func TestEmptyStruct(t *testing.T) {
+func useConcept() {
 	// 例1：set - Go 中没有提供 set 的数据类型，只能用 map 来模拟（map[string]struct{}）
 	var s = set.NewString(4)
 	s.Add("123")

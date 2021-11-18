@@ -13,19 +13,20 @@ import (
 // 1.只要通道没有关闭，for range 就不会结束
 // 2.如果通道为 nil，for range 将被永远阻塞
 func TestForRange(t *testing.T) {
-	intSlice := []int{1, 2, 3}
+	s := []int{1, 2, 3}
 
 	// 0xc00000e480
 	// 0xc00000e488
 	// 0xc00000e490
-	for index := 0; index < len(intSlice); index++ {
-		fmt.Printf("%p\n", &intSlice[index])
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%p\n", &s[i])
 	}
 
 	// 0xc00000a320
 	// 0xc00000a320
 	// 0xc00000a320
-	for _, intValue := range intSlice {
-		fmt.Printf("%p\n", &intValue)
+	for _, v := range s {
+		// 注意，如果 v 是指针类型，且需要进行 append 操作，应该先 v := v
+		fmt.Printf("%p\n", &v)
 	}
 }
