@@ -9,12 +9,12 @@ import (
 
 func TestMap(t *testing.T) {
 	// testZeroValue()
-	// testExist()
+	testExist()
 	// testLength()
 	// testMapAddressConcept()
 	// testStructKey()
 	// TraversingMap()
-	testRemove()
+	// testRemove()
 }
 
 // 遍历的随机性
@@ -29,12 +29,12 @@ func TraversingMap() {
 func testZeroValue() {
 	var uninitializedMap map[int]int
 	// "true"
-	println(uninitializedMap == nil)
+	fmt.Println(uninitializedMap == nil)
 	// "map[]"
-	println(uninitializedMap)
+	fmt.Println(uninitializedMap)
 }
 
-// 删除
+// 删除（并没有真实释放空间）
 func testRemove() {
 	var theMap = map[string]string{
 		"name": "xm",
@@ -45,19 +45,20 @@ func testRemove() {
 	fmt.Printf("%v\n", theMap)
 }
 
-// 判断 map中是否有指定键对应的值
+// 判断 map 中是否有指定键对应的值，只能通过第 2 个返回值去判断，因为即使没有对应的键值，map 也会返回值类型对应的零值
 func testExist() {
-	theMap := make(map[int]int, 0)
+	m := map[string]struct{}{
+		"123": {},
+	}
 
-	println(theMap[1]) // 0
-	theMap[1] = 0
-	println(theMap[1]) // 0
+	v1, ok1 := m["123"]
+	v2, ok2 := m["456"]
 
-	// value := map[xxx]
-	// value, ok := map[xxx]
+	fmt.Println(v1, v2, v1 == v2)
+	fmt.Println(ok1, ok2)
 }
 
-// len 的概念（map 不支持 cap）
+// len 的概念（map 没有 cap 的概念）
 func testLength() {
 	// len: 0
 	var theMap map[int]int
