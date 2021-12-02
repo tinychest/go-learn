@@ -1,9 +1,18 @@
 package basic
 
-import "testing"
+import (
+	"testing"
+)
 
 // 在同一个 const group 中，如果常量定义与前一行的定义一致，则可以省略类型和值。编译时，会按照前一行的定义自动补全
 func TestConstValue(t *testing.T) {
+	// const (
+	// 	a1 = "1"
+	// 	a2 = iota
+	// 	a3
+	// )
+	// println(a1, a2, a3)
+
 	const (
 		a, b = "golang", 100
 		d, e

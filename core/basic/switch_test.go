@@ -5,9 +5,15 @@ import (
 	"testing"
 )
 
-// 1、匹配到了 case，执行完就结束了（不接着走下边的 case）
-// 2、没有匹配到 case，就走 default
-// 3、case 后可以使用勾好隔开，定义多个值
+/*
+【语法】
+- 匹配到了 case，执行完对应就结束了；和别的高级语言不同，是不会接着走下边的 case 的
+- case 后可以使用逗号隔开，定义多个值
+- 没有匹配到的 case，就走 default
+
+- 可以通过在 case 语句体的最后添加 fallthrough 关键字，来起来继续向下走的作用（无视下面 case 的条件，如果还有 fallthrough 就再接着走，default 也同样对待）
+*/
+
 func TestSwitch(t *testing.T) {
 	switchTypeTest("") // string
 	switchTypeTest(0)  // int
@@ -32,11 +38,11 @@ func switchTypeTest(param interface{}) {
 
 // 替代多层的 if else
 func TestReplaceIf(t *testing.T) {
-	i := 0
+	n := 0
 	switch {
-	case i > 0 && i <= 10:
-		t.Fatal("123")
-	case i > 10 && i <= 20:
-		t.Fatal("456")
+	case n > 0 && n <= 10:
+		println(123)
+	case n > 10 && n <= 20:
+		println(456)
 	}
 }

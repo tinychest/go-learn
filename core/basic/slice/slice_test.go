@@ -2,6 +2,7 @@ package slice
 
 import (
 	"fmt"
+	"go-learn/util"
 	"testing"
 )
 
@@ -16,6 +17,15 @@ func TestBasic(t *testing.T) {
 	childTest()
 }
 
+// 使用概念 没有初始化也是可以直接 append 使用的
+func useConcept() {
+	var s []string
+
+	util.PrintSlice(s)
+	s = append(s, "abc")
+	util.PrintSlice(s)
+}
+
 // 扩容概念
 func expandConcept() {
 	// runtime/slice.go - growslice
@@ -24,6 +34,14 @@ func expandConcept() {
 	// - 最终得出的容量（cap）值已处于最大值，则限定为最大值
 
 	// 0 → 1 → 2 → 4 → 8 → 16...
+
+	var s []int
+	// 注意添加元素，一定要通过循环去加，这样可测不出来，因为 Go 编译器有预处理
+	// s = append(s, 1, 2, 3)
+	for i := 0; i < 16; i++ {
+		s = append(s, 1)
+		util.PrintSlice(s)
+	}
 }
 
 // 内存地址的概念测试
