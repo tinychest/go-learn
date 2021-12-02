@@ -1,6 +1,6 @@
 module go-learn
 
-go 1.16
+go 1.17
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -9,6 +9,7 @@ require (
 	github.com/go-playground/validator/v10 v10.9.0
 	github.com/golang/mock v1.4.4
 	github.com/gomodule/redigo v1.8.5
+	github.com/nats-io/nats.go v1.13.1-0.20211018182449-f2416a8b1483
 	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/pkg/profile v1.5.0
 	github.com/robfig/cron/v3 v3.0.1
@@ -19,5 +20,6 @@ require (
 	golang.org/x/text v0.3.6
 	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
 	google.golang.org/protobuf v1.27.1
+	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
 )
