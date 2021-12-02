@@ -1,63 +1,42 @@
 package regex
 
-import (
-	"errors"
-	"fmt"
-	"regexp"
-	"strings"
-	"testing"
-)
+import "testing"
 
-// 校验字符串的格式是否是逗号隔开自然数的格式，且自然数不能重复
 func TestIdsValidate(t *testing.T) {
-	type FunctionParam struct {
-		ids string
+	type args struct {
+		idsStr string
 	}
-	testcases := []struct {
-		FunctionName  string
-		FunctionParam FunctionParam
-		ExpectError   bool
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
 	}{
-		{FunctionName: "IdQueryParamValidate", FunctionParam: FunctionParam{""}, ExpectError: true},
-		{FunctionName: "IdQueryParamValidate", FunctionParam: FunctionParam{"1 "}, ExpectError: true},
-		{FunctionName: "IdQueryParamValidate", FunctionParam: FunctionParam{"1,2,++"}, ExpectError: true},
-		{FunctionName: "IdQueryParamValidate", FunctionParam: FunctionParam{"1,2,2"}, ExpectError: true},
+		{
+			name:    "test01",
+			args:    args{idsStr: ""},
+			wantErr: true,
+		},
+		{
+			name:    "test02",
+			args:    args{idsStr: "1 "},
+			wantErr: true,
+		},
+		{
+			name:    "test03",
+			args:    args{idsStr: "1,2,++"},
+			wantErr: true,
+		},
+		{
+			name:    "test04",
+			args:    args{idsStr: "1,2,2"},
+			wantErr: true,
+		},
 	}
-
-	for _, testcase := range testcases {
-		t.Run("参数校验方法", func(t *testing.T) {
-			err := IdsValidate(testcase.FunctionParam.ids)
-			if (err != nil) != testcase.ExpectError {
-				t.Errorf("%s() error = %v, expect %v", testcase.FunctionName, err, testcase.ExpectError)
-				return
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := IdsValidate(tt.args.idsStr); (err != nil) != tt.wantErr {
+				t.Errorf("IdsValidate() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
-}
-
-func IdsValidate(ids string) error {
-	// 这里一定要加上 ^ $ 的前后限定，不然正则表达式的含义就变成了只要包含数据就可以
-	if rulePattern := regexp.MustCompile(`^\d+(,\d+)*$`); !rulePattern.MatchString(ids) {
-		fmt.Printf("参数格式非法：【ids：%s】\n", ids)
-		return errors.New("参数格式非法")
-	}
-
-	idStrSlice := strings.Split(ids, ",")
-
-	idDuplicateMap := make(map[string]int, len(idStrSlice))
-	for _, id := range idStrSlice {
-		idDuplicateMap[id] = idDuplicateMap[id] + 1
-	}
-	duplicateIds := make([]string, 0, len(idDuplicateMap))
-	for idStr, times := range idDuplicateMap {
-		if times > 1 {
-			duplicateIds = append(duplicateIds, idStr)
-		}
-	}
-	if len(duplicateIds) > 0 {
-		fmt.Printf("参数非法：【%s】 - 重复的id：%v\n", ids, duplicateIds)
-		return errors.New(fmt.Sprintf("参数非法，重复的元素：%v", duplicateIds))
-	}
-
-	return nil
 }
