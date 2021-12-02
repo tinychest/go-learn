@@ -1,0 +1,43 @@
+syntax = "proto3"; // 声明使用 protobuf3 的语法（默认 v2），必须作为文件非空、非注释的第一行
+
+package abc; // 命名空间，多个命名空间下可以有同名 message（如果存在 go_package，则将失效）
+
+// 指定生成的源码位置 和 包名，否则
+// protoc-gen-go: unable to determine Go import path for "hello.proto"
+option go_package = "./hello";
+
+// protobuf 中最基本的数据单元是 message，类似 Go 中的结构体
+// 定义一个 String 类型的消息体，最终生成的 Go 语言代码中对应一个 String 结构体
+// 包含三个属性：类型、字段名称、字段编号
+// 定义上，除了类型以外，均不可重复
+
+// 字段的值，字段编号，被称为标识号
+//	[1, 15] 的标识号在编码的时候会占用一个字节；[16, 2047] 两个，...
+//	取值范围 [1, 2^29 - 1]；其中 [19000, 19999] 不能使用
+message String {
+  // 定义基础整型值
+  string value = 1;
+  // 定义切片
+  repeated int64 ids = 2;
+  // 定义枚举
+  enum Gender {
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
+  }
+  Gender gender = 3;
+  // 只有一个字段有用
+  oneof test_oneof {
+    string name = 4;
+    int32 age = 5;
+  }
+  // map
+  map<string, string> projects = 6;
+  // 时间
+//  google.protobuf.Timestamp last_updated = 5;
+}
+
+// 导入其他 proto 中的 message
+//import "xxx.proto";
+// public 表示依赖传递
+//import public "xxx.proto";
