@@ -7,31 +7,25 @@ import (
 )
 
 /*
-一、简介
+【简介】
 Base64 编码是网络上最常见的用于传输 8Bit 字节码的编码方式之一
 是从二进制到字符的过程 ，可用于在 HTTP 环境下传递较长的标识信息
 采用 Base64 编码具有不可读性，需要解码后才能阅读
 
-二、base64 类库中提供的加解码实例
-StdEncoding
-对应协议：RFC 4648
-密文内容字符集：ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+【base64 类库中提供的加解码实例】
+[StdEncoding]
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/（填充 =）
+[StdEncoding]
+字符集相同，不填充
+[URLEncoding]
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_（填充 =）
+[RawURLEncoding]
+字符集相同，不填充
 
-URLEncoding
-对应协议：RFC 4648
-密文内容字符集：ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_
+【相关资料】
+详见 Base64.md
 
-1、区分一
-StdEncoding URLEncoding
-Std 和 URL 的区别在于密文内容的字符集，实际看下来就是一个字符集的特殊字符是 + / 而另一个是 - _
-
-2、区分二
-StdEncoding URLEncoding RawStdEncoding RawURLEncoding
-名字打头是否带 Raw 的区别在于编解码时的填充字符是什么。不带 Raw：=，带 Raw：无填充字符
-
-其他：
-https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
-
+【Base64 数据的内嵌样例】
 html：<img width="40" height="30" src="data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...." /">
 css：.demoImg{ background-image: url("data:image/jpg;base64,/9j/4QMZRXhpZgAASUkqAAgAAAAL...."); }
 */
@@ -56,7 +50,7 @@ func encoding(encoding *base64.Encoding, rawMsg string) string {
 	// EncodeToString
 	encodingMsg := encoding.EncodeToString(src)
 
-	printlnMsg(rawMsg, "Encoding encoded to", encodingMsg)
+	printlnProcess(rawMsg, "Encoding encoded to", encodingMsg)
 	return encodingMsg
 }
 
@@ -78,11 +72,11 @@ func decoding(encoding *base64.Encoding, encodingMsg string) string {
 	}
 
 	dstStr := string(dst)
-	printlnMsg(encodingMsg, "Encoding decoded to", dstStr)
+	printlnProcess(encodingMsg, "Encoding decoded to", dstStr)
 	return dstStr
 }
 
-func printlnMsg(raw, prefix, after string) {
+func printlnProcess(raw, prefix, after string) {
 	if len(raw) == 0 {
 		raw = "空"
 	}

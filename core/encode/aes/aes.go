@@ -1,4 +1,4 @@
-package encode
+package aes
 
 import (
 	"crypto/aes"

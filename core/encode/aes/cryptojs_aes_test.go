@@ -1,20 +1,20 @@
-package encode
+package aes
 
 import (
 	"testing"
 )
 
-func TestBeforeCryptoJSAES(t *testing.T) {
+func TestCryptoJSAES(t *testing.T) {
 	aeskey := []byte("asdaf")
 	ori := []byte("123")
 
-	enc, err := CryptoJSAESPreEncrypt(aeskey, ori)
+	enc, err := CryptoJSAESEncrypt(aeskey, ori)
 	if err != nil {
 		t.Fatal(err)
 	}
 	t.Log(string(enc))
 
-	dec, err := CryptoJSAESPreDecrypt(aeskey, enc)
+	dec, err := CryptoJSAESDecrypt(aeskey, enc)
 	if err != nil {
 		t.Fatal(err)
 	}

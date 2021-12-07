@@ -1,4 +1,4 @@
-package encode
+package aes
 
 import (
 	"crypto/aes"
@@ -19,7 +19,6 @@ import (
 //		real_cipherText = cipherText[16:]
 //		len(real_cipherText) 是 16 的整倍数
 
-// 解密方法
 func AES128CBC_PKCS7(aesKey, iv, cipherText []byte) []byte {
 	block, err := aes.NewCipher(aesKey)
 	if err != nil {

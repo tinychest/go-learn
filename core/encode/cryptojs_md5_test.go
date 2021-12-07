@@ -20,7 +20,7 @@ func MD5(word string) string {
 }
 
 func MD52(word string) string {
-	// hex.EncodeToString(md5.Sum([]byte(word))[:]) 这样会报红
+	// hex.EncodeToString(md5.Sum([]byte(word))[:])
 	bs := md5.Sum([]byte(word))
 	return hex.EncodeToString(bs[:])
 }

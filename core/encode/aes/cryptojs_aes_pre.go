@@ -1,4 +1,4 @@
-package encode
+package aes
 
 import (
 	"crypto/aes"
@@ -13,8 +13,8 @@ import (
 // 为了达到各项参数没有各项严谨的长度限制，需要在进行真正的原生 AES 算法处理之前，进行长度的处理（MD5 HASH 等给出特定位数结果的算法）
 
 func CryptoJSAESPreEncrypt(aesKey, cipherText []byte) ([]byte, error) {
-	aesKey = eutil.AESKey(aesKey)
-	iv := eutil.IV()
+	iv        := eutil.IV()
+	aesKey     = eutil.AESKey(aesKey)
 	cipherText = eutil.Cipher(cipherText)
 
 	block, err := aes.NewCipher(aesKey)
