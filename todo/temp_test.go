@@ -1,6 +1,7 @@
 package todo
 
 import (
+	"bytes"
 	"fmt"
 	"go-learn/util"
 	"regexp"
@@ -31,6 +32,41 @@ https://golangnote.com/topic/195.html（CloseReader → bs → CloseReader）
 // 1、omitempty 对结构体类型无用
 // 2、自定义 marshal 必须为值返回一个合法的数据
 // 3、A 嵌套 B，B 嵌套 C，A 实例能够直接调用 C 的方法
+
+// bytes.Buffer.Reset 方法中，重置底层字节数组是这样写的：b.buf = b.buf[:0]
+func TestSliceAddr(t *testing.T) {
+	buf := bytes.Buffer{}
+	buf.Reset()
+
+	s := make([]string, 0, 4)
+	s = append(s, "1")
+	util.PrintSlice(s)
+	s = s[:0]
+	util.PrintSlice(s)
+	s = s[:1]
+	util.PrintSlice(s) // 从这里的结果可以了解到，确实是复用空间，原来位置的值都没有变
+
+	// 所以 bytes.Buffer.Write 的相关方法都是，从指定下标开始覆盖编写
+}
+
+func TestWhatever(t *testing.T) {
+	// 1-65535
+	// portRange := `^([0-9]|[1-9]\d|[1-9]\d{2}|[1-9]\d{3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$`
+	// reg := regexp.MustCompile(portRange)
+	// for i := 1; i <= 65536; i++ {
+	// 	ok := reg.MatchString(strconv.Itoa(i))
+	// 	if !ok {
+	// 		println(i)
+	// 		break
+	// 	}
+	// }
+
+	portRange := `([0-9]|[1-9]\d|[1-9]\d{2}|[1-9]\d{3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])`
+	regStr := fmt.Sprintf(`^%s(\|\|%s)?$`, portRange, portRange)
+	reg := regexp.MustCompile(regStr)
+	fmt.Println(reg.MatchString("8080||5566||00"))
+
+}
 
 func TestI(t *testing.T) {
 	data := regexp.MustCompile(`\s+`).Split("a > 1", -1)
