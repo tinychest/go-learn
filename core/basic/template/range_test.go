@@ -13,5 +13,5 @@ func TestRange(t *testing.T) {
 		"list": []string{"1", "2", "3"},
 	}
 
-	fmt.Println(util.MustRender(tRange, data))
+	fmt.Println(util.MustRenderString(tRange, data))
 }

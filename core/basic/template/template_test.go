@@ -17,5 +17,5 @@ const tT = `{{/*我是注释*/}}
 func TestTemplate(t *testing.T) {
 	var data interface{}
 
-	fmt.Println(util.MustRender(tT, data))
+	fmt.Println(util.MustRenderString(tT, data))
 }

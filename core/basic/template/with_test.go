@@ -17,5 +17,5 @@ func TestWith(t *testing.T) {
 		"Word": "WITH",
 	}
 
-	fmt.Println(util.MustRender(tWith, data))
+	fmt.Println(util.MustRenderString(tWith, data))
 }

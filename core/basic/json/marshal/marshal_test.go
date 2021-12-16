@@ -7,11 +7,12 @@ import (
 )
 
 /*
-nil → "null"
-json → 和原来的值相比较，键的值和值的开头和结尾都多了双引号（并且可以正常反序列化回来）
+nil（pointer） → "null"
+json（string） → 和原来的值相比较，键、值的开头和结尾都多了双引号（并且可以正常反序列化回来）
 
-自定义序列化行为，需要注意，如果希望返回字符串类型，需要在 []byte 的内容补上 ""，否则，直接处理就报错
-可以参见源码细节：json.encOpts.quoted、func (bits floatEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) 的最后边
+自定义序列化行为（为类型实现 json.Marshaler）
+参见源码细节：json.encOpts.quoted、func (bits floatEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) 的最后边
+- MarshalJSON 方法必须返回一个合法的 json 数据，不行如：nil、[]byte("")，起码：[]byte("{}")、[]byte(`{"name":"小明"}`)
 
 不能通过为基础类型定义别名，再为别名定义自定义序列化行为的方式，来定义全局的基础类型序列化方式
 */

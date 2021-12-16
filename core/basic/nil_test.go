@@ -24,12 +24,13 @@ import (
 */
 
 func TestNil(t *testing.T) {
-	// interfaceNilTest()
+	interfaceNilTest()
 	// specialNilTest()
-	specialTest()
+	// specialTest()
 }
 
 func interfaceNilTest() {
+	// 将 interface{} 替换成 error 也能得到相同的结果
 	var nil1 interface{}
 	var nil2 interface{} = nil
 	var nil3 = (interface{})(nil)
@@ -47,12 +48,13 @@ func specialNilTest() {
 	// var null1 = interface{}((*string)(nil)) // 和上面等效
 	var null2 *string
 
-	println(null1 == (*string)(nil)) // true
-	println(null2 == (*string)(nil)) // true
-
 	println(null1 == null2) // true
 	println(null1 == nil)   // false
 	println(null2 == nil)   // true
+
+	println(null1 == (*string)(nil)) // true
+	println(null2 == (*string)(nil)) // true
+
 
 	// nilValue := reflect.ValueOf(null1)
 	// println(nilValue.Type().String()) // *string
@@ -61,7 +63,7 @@ func specialNilTest() {
 
 func specialTest() {
 	var i interface{}               // (nil nil) == nil → true
-	var iPtr = &i                   // (*interface{} &i) == nil → false（类型 和 值 都不匹配）
+	var iPtr = &i                   // (*interface{} &I1) == nil → false（类型 和 值 都不匹配）
 	var sPtr *string                // (*string nil) == nil → true（只看值，所以匹配）
 	var sPtrWrap interface{} = sPtr // (*string sPtr) == nil → false（类型不匹配）
 

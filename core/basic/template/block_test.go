@@ -10,7 +10,7 @@ import (
 )
 
 // 参考自：text/template/example_test.go
-// 语法体现：block + "" + range + println + define（Parse twice）+ join（Func）
+// 语法体现：block + "" + range + println + define（Parse twice）+ join（Inject Func）
 const (
 	master  = `Names:{{block "list" .}}{{"\n"}}{{range .}}{{println "-" .}}{{end}}{{end}}`
 	// join 不是内置的，需要在构建 template 时指定
@@ -27,7 +27,7 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.GetTemplateContent(handleTmpl, data)
+	result, err := util.AsString(handleTmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -38,7 +38,7 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	result, err = util.GetTemplateContent(overlayTmpl, data)
+	result, err = util.AsString(overlayTmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

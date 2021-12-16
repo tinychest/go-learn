@@ -15,13 +15,15 @@ type Account struct {
 // }
 
 func (p *Account) String() string {
-	// 注意不要像下面这样的方式在这里调用 fmt.Sprintf 方法 - 死递归
+	// 注意，不能在这里调用 fmt.Sprintf 方法 - 死递归
 	// return fmt.Sprintf("%s\n", p)
 	return "string..."
 }
 
-// NOTE 详见 fmt/doc.go
 /*
+详见 fmt/doc.go
+
+《占位符》
  %p：地址
  %T：类型
  %v：对应类型的默认格式
@@ -76,6 +78,14 @@ func TestPrintf(t *testing.T) {
 	// builtInPrintTest()
 }
 
+// builtin 包下有个 println，仅支持基础类型（时间类型都不支持） - 并不推荐使用
+func builtInPrintlnTest() {
+	// println([]byte("123"))                   // [3/3]0xc000045f4d
+	// fmt.Println([]byte("123"))               // [49 50 51]
+	// fmt.Printf("%s\n", []byte("123")) // 123
+	// fmt.Printf("%v\n", []byte("123")) // [49 50 51]
+}
+
 func vsFormatTest() {
 	var a = Account{"小明", "123"}
 
@@ -105,14 +115,6 @@ func qFormatTest() {
 	fmt.Printf("%s\n", theM)
 	fmt.Printf("%v\n", theM)
 	fmt.Printf("%q\n", theM) // 引号
-}
-
-func builtInPrintTest() {
-	// builtin 包下有个 println
-	// println([]byte("123"))                   // [3/3]0xc000045f4d
-	// fmt.Println([]byte("123"))               // [49 50 51]
-	// fmt.Printf("%s\n", []byte("123")) // 123
-	// fmt.Printf("%v\n", []byte("123")) // [49 50 51]
 }
 
 // 动态模板

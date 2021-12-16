@@ -18,7 +18,7 @@ func TestFuncs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.GetTemplateContent(tmpl, data)
+	result, err := util.AsString(tmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

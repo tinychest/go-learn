@@ -14,7 +14,7 @@ json 只支持 string 的键类型，而 json 中，对 map 的处理只支持�
 【语法】
 - `json:"<字段名>[,omitempty][,string]"`
 参数1：默认的字段名是结构体属性的字段名，而这里的值可以改变该值
-参数2：当字段为零值时，不序列化该字段
+参数2：当字段为零值时，不序列化该字段（对结构体类型无效）
 参数3：以 string 的数据类型序列化字段（只认 string 类型的字段进行反序列化）
 
 - `json:"-"`
@@ -29,12 +29,13 @@ json 只支持 string 的键类型，而 json 中，对 map 的处理只支持�
 
 【拓展】
 - 实现指定的序列化接口来指定 结构体实例 序列化的行为（反序列化同理）
-    注意，再次调用 json.Marshal 或者 Unmarshal 方法的死递柜
+    注意，再次调用 json.Marshal 或者 Unmarshal 方法的死递归
 
-- 注意实例之间的互相引用，规避 json: unsupported value: encountered a cycle via *xxx.Xxx
+- 注意实例之间的互相引用，规避 (json: unsupported value: encountered a cycle via *xxx.Xxx)
 
-- 源码标记（MarshalJSON encode.go/423 → encode.go/467 → encode.go/477）
-- 源码标记（simpleLetterEqualFold decode.go/704）
+【源码标记】
+- MarshalJSON encode.go/423 → encode.go/467 → encode.go/477
+- simpleLetterEqualFold decode.go/704
     使用一种巧妙的 & 运算符运用，来忽略大小写的
 */
 type User struct {

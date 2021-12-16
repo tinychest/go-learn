@@ -2,7 +2,7 @@ package util
 
 import . "reflect"
 
-// 将参数中所有 string 类型的字段值存储到一个 []string 作为返回值
+// ToString 将参数中所有 string 类型的字段值存储到一个 []string 作为返回值
 // 参数类型支持：字符串、结构体[R]、切片（结构体[R]、字符串，不要求切片中的元素类型是一致的） - R：Recursive
 // 宏观来说，目前只支持 string 基础类型
 func ToString(param interface{}) []string {

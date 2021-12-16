@@ -32,6 +32,8 @@ func testZeroValue() {
 	fmt.Println(uninitializedMap == nil)
 	// "map[]"
 	fmt.Println(uninitializedMap)
+
+	// map 未初始化，取值没有问题，但是存值 panic
 }
 
 // 删除（并没有真实释放空间）

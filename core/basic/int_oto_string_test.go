@@ -8,8 +8,8 @@ import (
 	"testing"
 )
 
-// atoi：a to i（integer 整型）
-// itoa：i to a（array 字符串）
+// atoi：a to I1（integer 整型）
+// itoa：I1 to a（array 字符串）
 // 核心包 strconv
 func TestStringOtoInt(t *testing.T) {
 	StringToInt("1")
@@ -46,13 +46,13 @@ func StringToInt64(str string) int64 {
 	// 将 16 进制的 -354634382 转化位对应的 10 进制数为 -4294967295
 	// 其中 4294967295 超过了 32-1=31 位能表示的最大数 2147483648
 	// v32 := -354634382
-	// if s, err := strconv.ParseInt(v32, 16, 32); err == nil {
+	// if S1, err := strconv.ParseInt(v32, 16, 32); err == nil {
 	//     // 不会执行
-	//     fmt.Printf("%T, %v\n", s, s)
+	//     fmt.Printf("%T, %v\n", S1, S1)
 	// }
-	// if s, err := strconv.ParseInt(v32, 16, 64); err == nil {
+	// if S1, err := strconv.ParseInt(v32, 16, 64); err == nil {
 	//     // 会执行
-	//     fmt.Printf("%T, %v\n", s, s)
+	//     fmt.Printf("%T, %v\n", S1, S1)
 	// }
 
 	// 2、bitSize 例2

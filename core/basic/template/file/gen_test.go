@@ -12,7 +12,7 @@ func TestGen(t *testing.T) {
 	data := map[string]interface{}{
 		"title": "首页",
 	}
-	fmt.Println(util.MustRender(page, data))
+	fmt.Println(util.MustRenderString(page, data))
 }
 
 func TestGen2(t *testing.T) {
@@ -24,7 +24,7 @@ func TestGen2(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.GetTemplateContent(tmpl, data)
+	result, err := util.AsString(tmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

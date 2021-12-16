@@ -12,5 +12,5 @@ const tP = `{{println "say:" .}}`
 func TestPrintln(t *testing.T) {
 	data := "hello"
 
-	fmt.Println(util.MustRender(tP, data))
+	fmt.Println(util.MustRenderString(tP, data))
 }

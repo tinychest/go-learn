@@ -21,7 +21,7 @@ func TestCondition(t *testing.T) {
 		"Word":   "Monster",
 	}
 
-	fmt.Println(util.MustRender(tIf, data))
+	fmt.Println(util.MustRenderString(tIf, data))
 }
 
 // if A then B else A
@@ -32,5 +32,5 @@ func TestCondition2(t *testing.T) {
 		"B": "2",
 	}
 
-	fmt.Println(util.MustRender(tAnd, data))
+	fmt.Println(util.MustRenderString(tAnd, data))
 }

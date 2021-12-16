@@ -11,7 +11,7 @@ import (
 func TestType(t *testing.T) {
 	s := "1" // string 和 rune 切片之间可以直接互相转换
 	c := '1'
-	fmt.Printf("s：%T\n", s)
+	fmt.Printf("S1：%T\n", s)
 	fmt.Printf("c：%T\n", c)
 
 	// rune(int32) 可以直接转 byte(uint8)

@@ -5,16 +5,39 @@ import (
 	"text/template"
 )
 
-func Render(tmplStr string, params interface{}) (string, error) {
-	tmpl, err := template.New("test").Parse(tmplStr)
+func MustRender(tmplStr string, injectFuncs ...map[string]interface{}) *template.Template {
+	result, err := Render(tmplStr, injectFuncs...)
+	if err != nil {
+		panic(err)
+	}
+	return result
+}
+
+func MustRenderString(tmplStr string, params interface{}, injectFuncs ...map[string]interface{}) string {
+	result, err := RenderString(tmplStr, params, injectFuncs...)
+	if err != nil {
+		panic(err)
+	}
+	return result
+}
+
+func Render(tmplStr string, injectFuncs ...map[string]interface{}) (*template.Template, error) {
+	tpl := template.New("test")
+	if len(injectFuncs) != 0 {
+		tpl.Funcs(injectFuncs[0])
+	}
+	return tpl.Parse(tmplStr)
+}
+
+func RenderString(tmplStr string, params interface{}, injectFuncs ...map[string]interface{}) (string, error) {
+	tmpl, err := Render(tmplStr, injectFuncs...)
 	if err != nil {
 		return "", err
 	}
-
-	return GetTemplateContent(tmpl, params)
+	return AsString(tmpl, params)
 }
 
-func GetTemplateContent(tmpl *template.Template, params interface{}) (string, error) {
+func AsString(tmpl *template.Template, params interface{}) (string, error) {
 	// 输出到控制台
 	// var writer io.Writer = os.Stdout
 	// 输出到自定义 buffer
@@ -24,12 +47,4 @@ func GetTemplateContent(tmpl *template.Template, params interface{}) (string, er
 		return "", err
 	}
 	return writer.String(), nil
-}
-
-func MustRender(tmplStr string, params interface{}) string {
-	result, err := Render(tmplStr, params)
-	if err != nil {
-		panic(err)
-	}
-	return result
 }
