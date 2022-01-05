@@ -10,7 +10,7 @@ import (
 
 // 下面两个文章说的很好，博主格局大，说事情有条理，结合实例来说，说的清清楚楚，还有拓展
 // https://mp.weixin.qq.com/s?__biz=MzUzNTY5MzU2MA==&mid=2247488111&idx=1&sn=4e4eb013481d030c0ccfdfd3f143c0bf&chksm=fa80c3f8cdf74aee9314df27c27e4ee4eb38cc7971222f756b546b0de2f74ac76410cc0bd4ca&scene=178&cur_album_id=1326949382503219201#rd
-// https://mp.weixin.qq.com/s?__biz=MzUzNTY5MzU2MA==&mid=2247487689&idx=1&sn=051594d3f745643e48da384c3af3be91&chksm=fa80c15ecdf748488edce7900ca9d7eb78d0c7fdc622b3c046eaeedcb24143c709630ec23372&token=1042060650&lang=zh_CN&scene=21#wechat_redirect
+// https://mp.weixin.qq.com/s/qAKQm9CVNxk-ltUxHql1nw
 
 // NewLimiter
 // 参数1：向桶中投放令牌的频率，每多少时间放一个，或者每秒放多少个（无论如果传参，执行速率始终是均匀的）
