@@ -22,7 +22,6 @@ Memory profiling 记录堆内存分配时的堆栈信息，忽略栈内存分配
 内存性能分析启用时，默认每1000次采样1次，这个比例是可以调整的。因为内存性能分析是基于采样的，因此基于内存分析数据来判断程序所有的内存使用情况是很困难的
 
 【阻塞性能分析（Go 语言特有，因为通道特有）】
-
 block profiling 阻塞性能分析用来记录一个 Goroutine 等待一个共享资源花费的时间，在判断程序的并发瓶颈时会很有用
 
 阻塞的场景包括：
@@ -36,7 +35,7 @@ block profiling 阻塞性能分析用来记录一个 Goroutine 等待一个共�
 【锁性能分析】
 mutex profiling 和 block profiling 类似，更专注于因为锁竞争导致的等待或延时
 
-- 1、CPU Profiling 详解
+[CPU Profiling 详解]
 在 main 函数开头加上：
     pprof.StartCPUProfile(os.Stdout)
     defer pprof.StopCPUProfile()
@@ -62,7 +61,7 @@ mutex profiling 和 block profiling 类似，更专注于因为锁竞争导致�
 (pprof) top --cum
 (pprof) help
 
-- 2、Memory Profiling 详解
+[Memory Profiling 详解]
 详见 memory_profile_test.go，得到的 mem.pprof，通过如下命令解析：
     go tool pprof -http=:9999 ....../mem.pprof
 

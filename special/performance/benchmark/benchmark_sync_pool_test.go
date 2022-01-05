@@ -12,8 +12,8 @@ go test -bench="Unmarshal" . -benchmem
 goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark/pool
-BenchmarkUnmarshal-8                9969            127896 ns/op            1376 B/op          7 allocs/op
-BenchmarkUnmarshalWithPool-8        9999            125913 ns/op             224 B/op          6 allocs/op
+Benchmark_Unmarshal-8                9969            127896 ns/op            1376 B/op          7 allocs/op
+Benchmark_UnmarshalWithPool-8        9999            125913 ns/op             224 B/op          6 allocs/op
 PASS
 ok      go-learn/unit_test/benchmark/pool       2.771s
 
@@ -43,14 +43,14 @@ var studentPool = sync.Pool{
 	},
 }
 
-func BenchmarkUnmarshal(b *testing.B) {
+func Benchmark_Unmarshal(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		stu := &Student{}
 		_ = json.Unmarshal(buf, stu)
 	}
 }
 
-func BenchmarkUnmarshalWithPool(b *testing.B) {
+func Benchmark_UnmarshalWithPool(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		stu := studentPool.Get().(*Student)
 		_ = json.Unmarshal(buf, stu)

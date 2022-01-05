@@ -26,13 +26,13 @@ goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark
 BenchmarkNew-8                  23528396                54.2 ns/op
-BenchmarkReflectNew-8           11646188                94.4 ns/op
+Benchmark_ReflectNew-8           11646188                94.4 ns/op
 PASS
 ok      go-learn/unit_test/benchmark    2.581s
 
 在创建实例上，存在不能忽视的性能差距
 */
-func BenchmarkNew(b *testing.B) {
+func Benchmark_New(b *testing.B) {
 	var config *Config
 	for i := 0; i < b.N; i++ {
 		config = new(Config)
@@ -40,7 +40,7 @@ func BenchmarkNew(b *testing.B) {
 	_ = config
 }
 
-func BenchmarkReflectNew(b *testing.B) {
+func Benchmark_ReflectNew(b *testing.B) {
 	var config *Config
 	typ := reflect.TypeOf(Config{})
 	b.ResetTimer()
@@ -58,7 +58,7 @@ go test -bench="Set$" .
 goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark
-BenchmarkSet-8                          1000000000            0.626 ns/op
+Benchmark_Set-8                          1000000000            0.626 ns/op
 BenchmarkReflect_FieldSet-8             39997999              30.2 ns/op
 BenchmarkReflect_FieldByNameSet-8       3986682               310 ns/op
 PASS
@@ -68,7 +68,7 @@ ok      go-learn/unit_test/benchmark    3.702s
 对于一个普通的拥有 4 个字段的结构体 Config 来说，使用反射给每个字段赋值，相比直接赋值，性能劣化约 100 - 1000 倍。其中，FieldByName 的性能相比 Field 劣化 10 倍
 通过名称赋值和下标赋值的性能差距很好理解，因为根据名称是有一个查找过程的，时间复杂度为 O(n)
 */
-func BenchmarkSet(b *testing.B) {
+func Benchmark_Set(b *testing.B) {
 	config := new(Config)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -134,7 +134,7 @@ go test -bench="Set$" .
 goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark
-BenchmarkSet-8                                  1000000000               0.640 ns/op
+Benchmark_Set-8                                  1000000000               0.640 ns/op
 BenchmarkReflect_FieldSet-8                     35322998                30.6 ns/op
 BenchmarkReflect_FieldByNameSet-8                3896040               328 ns/op
 BenchmarkReflect_FieldByNameCacheSet-8          17644048                69.7 ns/op

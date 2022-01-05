@@ -26,14 +26,14 @@ is a compiler optimization to remove code which does not affect the program resu
 
 debug.go
 ```
-// +build debug
+/// +build debug
 package main
 const debug = true
 ```
 
 release.go
 ```
-// +build !debug
+/// +build !debug
 package main
 const debug = false
 ```

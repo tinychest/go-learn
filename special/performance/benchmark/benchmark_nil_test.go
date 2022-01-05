@@ -19,7 +19,7 @@ ok      go-learn/unit_test/benchmark    2.425s
 结论：这恐怖的性能差距
 */
 
-func BenchmarkNil(b *testing.B) {
+func Benchmark_Nil(b *testing.B) {
 	var strPtr *string
 
 	for i := 0; i < b.N; i++ {
@@ -27,7 +27,7 @@ func BenchmarkNil(b *testing.B) {
 	}
 }
 
-func BenchmarkNilStr(b *testing.B) {
+func Benchmark_NilStr(b *testing.B) {
 	var strPtr *string
 
 	for i := 0; i < b.N; i++ {
