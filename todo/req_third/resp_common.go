@@ -1,33 +1,9 @@
-package req
+package req_third
 
 import (
 	"errors"
 	"reflect"
 )
-
-const (
-	DefaultSuccessCode = 200
-	DefaultErrTip      = ""
-)
-
-// IResponse 响应接口定义
-type IResponse interface {
-	SuccessCode() int
-	ErrTip() string
-}
-
-// 默认实现 + 实例
-var theDefault = new(defaultResponse)
-
-type defaultResponse struct{}
-
-func (r defaultResponse) SuccessCode() int {
-	return DefaultSuccessCode
-}
-
-func (r defaultResponse) ErrTip() string {
-	return DefaultErrTip
-}
 
 // CommonResponse 通用响应结构
 type CommonResponse struct {
