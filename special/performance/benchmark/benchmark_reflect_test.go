@@ -11,9 +11,9 @@ import (
 */
 
 type Config struct {
-	Name    string `json:"server-name"`
-	IP      string `json:"server-ip"`
-	URL     string `json:"server-url"`
+	Name    string `json:"server_name"`
+	IP      string `json:"server_ip"`
+	URL     string `json:"server_url"`
 	Timeout string `json:"timeout"`
 }
 
@@ -25,14 +25,14 @@ go test -bench="New$" .
 goos: windows
 goarch: amd64
 pkg: go-learn/unit_test/benchmark
-BenchmarkNew-8                  23528396                54.2 ns/op
+Benchmark_DirectNew-8            23528396                54.2 ns/op
 Benchmark_ReflectNew-8           11646188                94.4 ns/op
 PASS
 ok      go-learn/unit_test/benchmark    2.581s
 
-在创建实例上，存在不能忽视的性能差距
+在创建实例上，存在不能忽视的性能差距；上面是 Go 1.16 的基准测试结果，Go 1.17 中，通过反射创建的性能得到了提升
 */
-func Benchmark_New(b *testing.B) {
+func Benchmark_DirectNew(b *testing.B) {
 	var config *Config
 	for i := 0; i < b.N; i++ {
 		config = new(Config)
