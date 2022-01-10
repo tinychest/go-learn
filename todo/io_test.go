@@ -20,6 +20,9 @@ func TestIO(t *testing.T) {
 	// []byte io.ReadAll(io.Reader)
 	// []byte ioutil.ReadAll(io.Reader)
 
+	// 【bufio.Writer】
+	// 带有缓存区的 Writer（回忆 Java 中的 BufferedOutputStream，注意，一定要 flush 的事项）
+
 	// 【其他】
 	// 类比 /dev/null，这里也有黑洞的概念
 	// io.Copy(ioutil.Discard, resp.Body)

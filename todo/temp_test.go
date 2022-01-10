@@ -1,11 +1,131 @@
 package todo
 
 import (
+	"context"
+	"encoding/binary"
+	"encoding/json"
+	"errors"
+	"fmt"
+	errors2 "github.com/pkg/errors"
+	"go-learn/core"
 	"go-learn/util"
+	"math"
 	"testing"
+	"time"
 )
 
-// 测试个屁，值类型在栈内存中（调用一个方法，就会开辟一个方法栈）
+// TODO 类型的转换规则具体原理：Int64 有时可以直接用，有时不行
+
+func TestKKK(t *testing.T) {
+	var s []string
+
+	s2 := append([]string{}, s...)
+
+	util.PrintSlice(s2)
+}
+
+// package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
+
+type Name []string
+
+func (n *Name) Append(value string) {
+	*n = append(*n, value)
+}
+
+func TestAbc(t *testing.T) {
+	// var n *Name // gg *nil panic
+	// var n = new(Name) // ok
+	var n = Name{}
+	n.Append("123")
+}
+
+func TestCtx(t *testing.T) {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+
+	select {
+	case <-ctx.Done():
+		fmt.Println("done")
+	}
+
+	<-ctx.Done()
+	fmt.Println("done")
+
+	<-ctx.Done()
+	fmt.Println("done")
+
+	// 死锁
+	// select {}
+
+	// 死锁（c 没有关闭，也没有给值的地方）
+	// select {
+	// case <-c:
+	// }
+}
+
+func TestAlert(t *testing.T) {
+	var p interface{} = new(core.Person)
+	v, ok := p.(core.Person)
+	fmt.Println(v, ok)
+}
+
+func TestFloat642Byte(t *testing.T) {
+	f := 2.33
+	bs := Float642Byte(f)
+	fmt.Println(string(bs))
+	f = Byte2Float64(bs)
+	fmt.Println(f)
+}
+
+func Float642Byte(float float64) []byte {
+	bits := math.Float64bits(float)
+	bytes := make([]byte, 8)
+	binary.LittleEndian.PutUint64(bytes, bits)
+	return bytes
+}
+
+func Byte2Float64(bytes []byte) float64 {
+	bits := binary.LittleEndian.Uint64(bytes)
+	return math.Float64frombits(bits)
+}
+
+func TestUnmarshalSingle(t *testing.T) {
+	var bs []uint8
+	bs = []byte("1.0")
+
+	var i float64
+	err := json.Unmarshal(bs, &i)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(i)
+}
+
+func TestErr(t *testing.T) {
+	// Go 原生类库
+	err := errors.New("MySQL error")
+	err = fmt.Errorf("查询出错: %w", err)
+	err = fmt.Errorf("模块出错: %w", err)
+	fmt.Println("--------------")
+	fmt.Println(err) // 上面拼串的结果
+	fmt.Println("--------------")
+	fmt.Println(errors.Unwrap(err)) // 解开一层
+
+	// 三方类库
+	err = errors.New("mysql error")
+	err = errors2.Wrap(err, "查询出错")
+	err = errors2.Wrap(err, "模块出错")
+	fmt.Println("--------------")
+	fmt.Println(err)
+	// fmt.Println("--------------")
+	// fmt.Println(errors2.Unwrap(err)) // 无用
+	fmt.Println("--------------")
+	fmt.Printf("stack trace:\n%+v\n", err) // 错误的堆栈信息
+	fmt.Println("--------------")
+	fmt.Println(errors2.Cause(err)) // 解到最底层（第一个错误）
+}
+
+// 接口类型，是值类型，没有地址传递的概念
 func TestInterfaceWrapAddr(t *testing.T) {
 	type p struct{}
 
