@@ -15,6 +15,8 @@ import (
 )
 
 // TODO 类型的转换规则具体原理：Int64 有时可以直接用，有时不行
+// TODO 文案：标准库 ✔ 原生 ❌
+// TODO syscall.Syscall
 
 func TestKKK(t *testing.T) {
 	var s []string
