@@ -1,7 +1,6 @@
 package concurrency
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -24,7 +23,7 @@ forLoop:
 	for {
 		select {
 		case intValue := <-intBufferChannel:
-			fmt.Printf("从通道读取：%d\n", intValue)
+			t.Logf("从通道读取：%d\n", intValue)
 		default:
 			if len(intBufferChannel) == 0 {
 				break forLoop
@@ -38,7 +37,7 @@ forLoop:
 	for index := 0; index < estimateCircleCount; index++ {
 		select {
 		case intValue := <-intBufferChannel:
-			fmt.Printf("从通道读取：%d\n", intValue)
+			t.Logf("从通道读取：%d\n", intValue)
 		}
 	}
 
@@ -47,6 +46,6 @@ forLoop:
 
 	// 这里和 for range slice 不同的是，for range chan 不能定义两个返回值的接收形式
 	for intValue := range intBufferChannel {
-		fmt.Printf("从通道读取：%d\n", intValue)
+		t.Logf("从通道读取：%d\n", intValue)
 	}
 }

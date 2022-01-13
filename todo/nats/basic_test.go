@@ -8,35 +8,35 @@ import (
 )
 
 func TestNATS(t *testing.T) {
-	// natsBasicTest()
-	natsStreamBasicTest()
+	// natsBasicTest(t)
+	natsStreamBasicTest(t)
 }
 
-func natsBasicTest() {
+func natsBasicTest(t *testing.T) {
 	// Connect to a server
 	nc, err := nats.Connect(nats.DefaultURL)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	// Simple Async Subscriber
 	_, err = nc.Subscribe("ORDERS.*", func(m *nats.Msg) {
-		fmt.Printf("Received a message: %s\n", string(m.Data))
+		t.Logf("Received a message: %s\n", string(m.Data))
 	})
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	// Simple Publisher
 	err = nc.Publish("ORDERS.a", []byte("Hello World"))
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	time.Sleep(1 * time.Second)
 }
 
-func natsStreamBasicTest() {
+func natsStreamBasicTest(t *testing.T) {
 	var (
 		nc  *nats.Conn
 		js  nats.JetStreamContext
@@ -45,12 +45,12 @@ func natsStreamBasicTest() {
 
 	nc, err = nats.Connect(nats.DefaultURL)
 	if err != nil {
-		panic(fmt.Errorf("连接：%w", err))
+		t.Fatal(fmt.Errorf("连接：%w", err))
 	}
 
 	js, err = nc.JetStream(nats.PublishAsyncMaxPending(256))
 	if err != nil {
-		panic(fmt.Errorf("创建 context：%w", err))
+		t.Fatal(fmt.Errorf("创建 context：%w", err))
 	}
 
 	_, err = js.AddStream(&nats.StreamConfig{
@@ -58,18 +58,18 @@ func natsStreamBasicTest() {
 		Subjects: []string{"ORDERS.*"},
 	})
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 
 	_, err = js.Publish("ORDERS.scratch", []byte("hello"))
 	if err != nil {
-		panic(fmt.Errorf("发布消息：%w", err))
+		t.Fatal(fmt.Errorf("发布消息：%w", err))
 	}
 
 	_, err = js.Subscribe("ORDERS.*", func(m *nats.Msg) {
-		fmt.Printf("Received a JetStream message: %s\n", string(m.Data))
+		t.Logf("Received a JetStream message: %s\n", string(m.Data))
 	})
 	if err != nil {
-		panic(fmt.Errorf("订阅消息：%w", err))
+		t.Fatal(fmt.Errorf("订阅消息：%w", err))
 	}
 }

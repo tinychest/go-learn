@@ -12,5 +12,5 @@ const tVar = `Name: {{.Name}}, Age: {{.Age}}`
 func TestVar(t *testing.T) {
 	data := core.Person{Age: 23, Name: "xiaoming"}
 
-	fmt.Println(util.MustRenderString(tVar, data))
+	t.Log(util.MustRenderString(tVar, data))
 }

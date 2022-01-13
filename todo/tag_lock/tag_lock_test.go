@@ -1,7 +1,6 @@
 package tag_lock
 
 import (
-	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -23,14 +22,14 @@ func TestTagLock1(t *testing.T) {
 	go func() {
 		lock, _ := verLock.LoadOrStore(k, &sync.Mutex{})
 		lock.(sync.Locker).Lock()
-		fmt.Println("Goroutine 没有被锁住")
+		t.Log("Goroutine 没有被锁住")
 	}()
 
 	// 休息一会，不然每次都是这里 main 执行完就结束了
 	time.Sleep(time.Second)
 	lock, _ := verLock.LoadOrStore(k, &sync.Mutex{})
 	lock.(sync.Locker).Lock()
-	fmt.Println("主 没有被锁住")
+	t.Log("主 没有被锁住")
 }
 
 // 不同锁互不影响
@@ -40,11 +39,11 @@ func TestTagLock2(t *testing.T) {
 	go func() {
 		lock, _ := verLock.LoadOrStore(key{2020}, &sync.Mutex{})
 		lock.(sync.Locker).Lock()
-		fmt.Println("Goroutine 没有被锁住")
+		t.Log("Goroutine 没有被锁住")
 	}()
 
 	time.Sleep(time.Second)
 	lock, _ := verLock.LoadOrStore(key{2021}, &sync.Mutex{})
 	lock.(sync.Locker).Lock()
-	fmt.Println("主 没有被锁住")
+	t.Log("主 没有被锁住")
 }

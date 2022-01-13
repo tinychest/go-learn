@@ -1,7 +1,6 @@
 package _reflect
 
 import (
-	"fmt"
 	. "reflect" // 介绍反射的包，必然进行包导入
 	"testing"
 )
@@ -12,13 +11,9 @@ import (
 // 例，beego orm 的 QueryRows 就使用了一个很巧妙的做法，就是你把指定规则的容器传进来，我把数据放进去
 func TestReflectApi(t *testing.T) {
 	var i int
-	var iPtr = &i
-	var iPtrPtr = &iPtr
+	var ip = &i
+	var param interface{} = &ip
 
-	tt(iPtrPtr)
-}
-
-func tt(param interface{}) {
 	// Value：数据类型在反射中的表现形式
 	// Kind：类别
 	// Type：具体类型
@@ -29,13 +24,13 @@ func tt(param interface{}) {
 	value := ValueOf(param)
 	kind := value.Kind()
 	typ := value.Type()
-	fmt.Printf("[Kind：%s] [Type：%v] [Value：%v]\n", kind, typ, value)
+	t.Logf("[Kind：%s] [Type：%v] [Value：%v]\n", kind, typ, value)
 
 	// [bool Value.IsNil]
 	// [Value Value.Elem]：interface 真实的值, Ptr 解引用
 	// [Value Value.Indirect]：核心就是调用 Elem 方法
 	indirect := Indirect(value)
-	fmt.Printf("[Kind：%s] [Type：%v] [Indirect：%v]\n", indirect.Kind(), indirect.Type(), indirect)
+	t.Logf("[Kind：%s] [Type：%v] [Indirect：%v]\n", indirect.Kind(), indirect.Type(), indirect)
 
 	// [Value New(Type)]：根据指定类型创建一个实例
 	// [Value Append(Value, ..Value)]：如果确认了方法第一个参数是切片类型，就可以通过该方法向切片中添加元素
@@ -59,7 +54,7 @@ func tt(param interface{}) {
 		println("NO NO NO")
 	}
 
-	fmt.Printf("%v\n", *(param.(*int)))
+	t.Logf("%v\n", *(param.(*int)))
 
 	// [int Value.NumField]：Struct 中字段的数量
 	// [Value Value.Field(int)]：Struct 中指定下标的字段

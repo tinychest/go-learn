@@ -32,10 +32,10 @@ func TestString(t *testing.T) {
 // string 直接通过下标取值得到的类型是 uint8 byte 字节，是对应的字节数组的长度，而不是对应的字符数组的长度
 func TestLen(t *testing.T) {
 	printLen := func(str string) {
-		fmt.Println(len(str))                    // 字节数
-		fmt.Println(len([]byte(str)))            // 字节数
-		fmt.Println(len([]rune(str)))            // 字符数
-		fmt.Println(utf8.RuneCountInString(str)) // 字符数
+		t.Log(len(str))                    // 字节数
+		t.Log(len([]byte(str)))            // 字节数
+		t.Log(len([]rune(str)))            // 字符数
+		t.Log(utf8.RuneCountInString(str)) // 字符数
 	}
 
 	printLen("我") // 3 3 1 1
@@ -43,10 +43,10 @@ func TestLen(t *testing.T) {
 }
 
 // 演示 strconv.QuoteRune 方法
-func TestCharAt(*testing.T) {
+func TestCharAt(t *testing.T) {
 	s := "我是"
-	fmt.Printf("%c\n", []rune(s)[0])
-	fmt.Printf("%s\n", strconv.QuoteRune([]rune(s)[0]))
+	t.Logf("%c\n", []rune(s)[0])
+	t.Logf("%s\n", strconv.QuoteRune([]rune(s)[0]))
 }
 
 // 遍历 string 的每一个字符

@@ -2,7 +2,6 @@ package main
 
 import (
 	"crypto/sha256"
-	"fmt"
 	"hash"
 	"math/rand"
 	"strconv"
@@ -56,7 +55,7 @@ func foo7(n int) string {
 }
 
 func TestAlloc7(t *testing.T) {
-	fmt.Println("Allocs:", int(testing.AllocsPerRun(100, func() {
+	t.Log("Allocs:", int(testing.AllocsPerRun(100, func() {
 		foo7(rand.Int())
 	})))
 }

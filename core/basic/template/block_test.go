@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"go-learn/util"
 	"log"
 	"strings"
@@ -12,7 +11,7 @@ import (
 // 参考自：text/template/example_test.go
 // 语法体现：block + "" + range + println + define（Parse twice）+ join（Inject Func）
 const (
-	master  = `Names:{{block "list" .}}{{"\n"}}{{range .}}{{println "-" .}}{{end}}{{end}}`
+	master = `Names:{{block "list" .}}{{"\n"}}{{range .}}{{println "-" .}}{{end}}{{end}}`
 	// join 不是内置的，需要在构建 template 时指定
 	overlay = `{{define "list"}} {{join . ", "}}{{end}}`
 )
@@ -31,7 +30,7 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(result)
+	t.Log(result)
 
 	// three
 	overlayTmpl, err := template.Must(handleTmpl.Clone()).Parse(overlay)
@@ -42,5 +41,5 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(result)
+	t.Log(result)
 }

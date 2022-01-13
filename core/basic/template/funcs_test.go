@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"go-learn/util"
 	"strings"
 	"testing"
@@ -23,5 +22,5 @@ func TestFuncs(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	fmt.Println(result)
+	t.Log(result)
 }

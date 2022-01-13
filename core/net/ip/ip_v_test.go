@@ -1,7 +1,6 @@
 package ip
 
 import (
-	"fmt"
 	"net"
 	"testing"
 )
@@ -14,10 +13,10 @@ func TestParseIP(t *testing.T) {
 	ipLocalV6 := "0:0:0:0:0:0:0:1"
 
 	ipv4 := net.ParseIP(ipLocalV4)
-	fmt.Println(ipv4)
-	fmt.Println(ipv4.To16())
+	t.Log(ipv4)
+	t.Log(ipv4.To16())
 
 	ipv6 := net.ParseIP(ipLocalV6)
-	fmt.Println(ipv6)
-	fmt.Println(ipv6.To4())
+	t.Log(ipv6)
+	t.Log(ipv6.To4())
 }

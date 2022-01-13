@@ -3,7 +3,6 @@ package _embed
 import (
 	"bytes"
 	"embed"
-	"fmt"
 	"io/ioutil"
 	"testing"
 )
@@ -19,7 +18,7 @@ func TestReadOneIns(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(string(content))
+	t.Log(string(content))
 }
 
 func TestReadOne(t *testing.T) {
@@ -27,5 +26,5 @@ func TestReadOne(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(string(content))
+	t.Log(string(content))
 }

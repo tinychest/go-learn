@@ -1,7 +1,6 @@
 package encode
 
 import (
-	"fmt"
 	"net/url"
 	"testing"
 )
@@ -13,17 +12,17 @@ func TestUrlParse(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(r1)
+	t.Log(r1)
 
 	r2, err := url.ParseQuery(theUrl)
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(r2) // values 类型 map[string][]string
+	t.Log(r2) // values 类型 map[string][]string
 
 	r3, err := url.ParseQuery(theUrl)
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(r3)
+	t.Log(r3)
 }

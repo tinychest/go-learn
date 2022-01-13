@@ -22,23 +22,23 @@ var (
 )
 
 func TestErr(t *testing.T) {
-	// testUnwrap()
-	// testIs()
-	testAs()
+	// testUnwrap(t)
+	// testIs(t)
+	testAs(t)
 }
 
 // errors.Unwrap
-func testUnwrap() {
-	fmt.Println(errors.Unwrap(err13)) // <nil>
-	fmt.Println(errors.Unwrap(err23)) // 2 1
+func testUnwrap(t *testing.T) {
+	t.Log(errors.Unwrap(err13)) // <nil>
+	t.Log(errors.Unwrap(err23)) // 2 1
 }
 
 // errors.Is
-func testIs() {
-	fmt.Println(err13 == err11)          // false
-	fmt.Println(err23 == err21)          // false
-	fmt.Println(errors.Is(err13, err11)) // false
-	fmt.Println(errors.Is(err23, err21)) // true
+func testIs(t *testing.T) {
+	t.Log(err13 == err11)          // false
+	t.Log(err23 == err21)          // false
+	t.Log(errors.Is(err13, err11)) // false
+	t.Log(errors.Is(err23, err21)) // true
 }
 
 // errors.As
@@ -56,23 +56,23 @@ func (e MyError) Name() string {
 
 // errors.Unwrap 是解一层，并返回，没有实现 Unwrap 体系，则返回 nil
 // errors.As 和 errors.Is 不断 errors.Unwrap 直到找到指定的容器（参数2）类型的层，并赋值给容器
-func testAs() {
+func testAs(t *testing.T) {
 	myErr := MyError{msg: "error1"}
 	wrapErr := fmt.Errorf("errorf %w", myErr)
 
 	// 没有执行
 	if e, ok := wrapErr.(MyError); ok {
-		fmt.Println("1 " + e.Name())
+		t.Log("1 " + e.Name())
 	}
 
 	// 执行
 	var e MyError
 	if ok := errors.As(wrapErr, &e); ok {
-		fmt.Println("2 " + e.Name())
+		t.Log("2 " + e.Name())
 	}
 
 	// 只看类型，下面这样都 ok
-	fmt.Println(err11)
-	fmt.Println(errors.As(err13, &err11))
-	fmt.Println(err11)
+	t.Log(err11)
+	t.Log(errors.As(err13, &err11))
+	t.Log(err11)
 }

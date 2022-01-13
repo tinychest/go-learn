@@ -9,7 +9,7 @@ import (
 func TestReturn(t *testing.T) {
     p := getPerson()
     // 0xc00003c570
-    fmt.Printf("%p\n", &p)
+    t.Logf("%p\n", &p)
 
     // 结论：地址值是不同的，即在函数返回值中也是值传递拷贝的这个道理
 }

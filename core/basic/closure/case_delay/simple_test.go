@@ -1,17 +1,16 @@
 package case_delay
 
 import (
-	"fmt"
 	"testing"
 )
 
-func TestDelay(*testing.T) {
-	case1()
+func TestDelay(t *testing.T) {
+	case1(t)
 }
 
-func case1() {
+func case1(t *testing.T) {
 	n := 0
-	f := func() {fmt.Println(n)}
+	f := func() { t.Log(n) }
 	n++
 
 	f()

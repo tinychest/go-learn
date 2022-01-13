@@ -1,7 +1,6 @@
 package _iterator
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -11,6 +10,6 @@ func TestIterator(t *testing.T) {
 	iterator := intSlice.Iterator()
 
 	for iterator.HasNext() {
-		fmt.Println(iterator.Next())
+		t.Log(iterator.Next())
 	}
 }

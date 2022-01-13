@@ -1,7 +1,6 @@
 package sort
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,5 +9,5 @@ func TestInsertSort(t *testing.T) {
 
 	InsertSort(arr)
 
-	fmt.Println(arr)
+	t.Log(arr)
 }

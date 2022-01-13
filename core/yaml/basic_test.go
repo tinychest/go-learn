@@ -2,9 +2,9 @@ package yaml
 
 import (
 	"encoding/json"
-	"fmt"
 	"testing"
 )
+
 // 测试结论：
 // 1、支持 yaml 标签，不支持 yml 标签
 // 2、映射关系：配置字段名 原封不动；结构体字段名、无标签=转化为全小写、有标签=转化为大写
@@ -23,5 +23,5 @@ func TestBasic(t *testing.T) {
 	configLoad("abc.yml", ys)
 	result, _ := json.Marshal(ys)
 
-	fmt.Println(string(result))
+	t.Log(string(result))
 }

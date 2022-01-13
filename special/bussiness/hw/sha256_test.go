@@ -3,18 +3,11 @@ package hw
 import (
 	"crypto/sha256"
 	"encoding/hex"
-	"fmt"
-	"go-learn/util"
 	"testing"
 )
 
 func TestSha256(t *testing.T) {
-	var (
-		json1 string
-		json2 string
-	)
-	util.Use(json1)
-	util.Use(json2)
+	var json1, json2 string
 
 	// Golang  ：a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
 	// Java 原生：a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
@@ -28,5 +21,7 @@ func TestSha256(t *testing.T) {
 
 	sha256Bytes := sha256.Sum256([]byte(json1))
 	contentSha256 := hex.EncodeToString(sha256Bytes[:])
-	fmt.Println(contentSha256)
+	t.Log(json1)
+	t.Log(json2)
+	t.Log(contentSha256)
 }

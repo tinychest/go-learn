@@ -47,14 +47,14 @@ func TestCtx(t *testing.T) {
 
 	select {
 	case <-ctx.Done():
-		fmt.Println("done")
+		t.Log("done")
 	}
 
 	<-ctx.Done()
-	fmt.Println("done")
+	t.Log("done")
 
 	<-ctx.Done()
-	fmt.Println("done")
+	t.Log("done")
 
 	// 死锁
 	// select {}
@@ -68,15 +68,15 @@ func TestCtx(t *testing.T) {
 func TestAlert(t *testing.T) {
 	var p interface{} = new(core.Person)
 	v, ok := p.(core.Person)
-	fmt.Println(v, ok)
+	t.Log(v, ok)
 }
 
 func TestFloat642Byte(t *testing.T) {
 	f := 2.33
 	bs := Float642Byte(f)
-	fmt.Println(string(bs))
+	t.Log(string(bs))
 	f = Byte2Float64(bs)
-	fmt.Println(f)
+	t.Log(f)
 }
 
 func Float642Byte(float float64) []byte {
@@ -100,7 +100,7 @@ func TestUnmarshalSingle(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(i)
+	t.Log(i)
 }
 
 func TestErr(t *testing.T) {
@@ -108,23 +108,23 @@ func TestErr(t *testing.T) {
 	err := errors.New("MySQL error")
 	err = fmt.Errorf("查询出错: %w", err)
 	err = fmt.Errorf("模块出错: %w", err)
-	fmt.Println("--------------")
-	fmt.Println(err) // 上面拼串的结果
-	fmt.Println("--------------")
-	fmt.Println(errors.Unwrap(err)) // 解开一层
+	t.Log("--------------")
+	t.Log(err) // 上面拼串的结果
+	t.Log("--------------")
+	t.Log(errors.Unwrap(err)) // 解开一层
 
 	// 三方类库
 	err = errors.New("mysql error")
 	err = errors2.Wrap(err, "查询出错")
 	err = errors2.Wrap(err, "模块出错")
-	fmt.Println("--------------")
-	fmt.Println(err)
-	// fmt.Println("--------------")
-	// fmt.Println(errors2.Unwrap(err)) // 无用
-	fmt.Println("--------------")
-	fmt.Printf("stack trace:\n%+v\n", err) // 错误的堆栈信息
-	fmt.Println("--------------")
-	fmt.Println(errors2.Cause(err)) // 解到最底层（第一个错误）
+	t.Log("--------------")
+	t.Log(err)
+	// t.Log("--------------")
+	// t.Log(errors2.Unwrap(err)) // 无用
+	t.Log("--------------")
+	t.Logf("stack trace:\n%+v\n", err) // 错误的堆栈信息
+	t.Log("--------------")
+	t.Log(errors2.Cause(err)) // 解到最底层（第一个错误）
 }
 
 // 接口类型，是值类型，没有地址传递的概念

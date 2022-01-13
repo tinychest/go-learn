@@ -1,7 +1,6 @@
 package number
 
 import (
-	"fmt"
 	"math"
 	"testing"
 )
@@ -12,10 +11,10 @@ import (
 func TestInf(t *testing.T) {
 	// i1, i2 := 1, 0
 	// i := i1 / i2 // 直接 panic
-	// fmt.Println(i)
+	// t.Log(i)
 
 	f1, f2 := 1.0, -1.0
-	nan1, nan2 := f1 / 0, f2 / 0
-	fmt.Println(math.IsInf(nan1, 0))
-	fmt.Println(math.IsInf(nan2, 0))
+	nan1, nan2 := f1/0, f2/0
+	t.Log(math.IsInf(nan1, 0))
+	t.Log(math.IsInf(nan2, 0))
 }

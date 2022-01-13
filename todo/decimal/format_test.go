@@ -1,7 +1,6 @@
 package decimal
 
 import (
-	"fmt"
 	"math"
 	"math/big"
 	"testing"
@@ -18,10 +17,10 @@ func TestBasic(t *testing.T) {
 
 	f := func(a, b float64) {
 		if a == b {
-			fmt.Println(true)
+			t.Log(true)
 			return
 		}
-		fmt.Println(false, a, b)
+		t.Log(false, a, b)
 	}
 
 	f(c1, v1)
@@ -33,14 +32,14 @@ func TestPBasic(t *testing.T) {
 	const c1 = 0.03
 	var v1 = c1
 
-	fmt.Println(c1*1 + 0.005)
-	fmt.Println(v1*1 + 0.005)
+	t.Log(c1*1 + 0.005)
+	t.Log(v1*1 + 0.005)
 
 	// 好像并没有什么用
 	b1 := big.NewFloat(c1)
 	b1.Mul(b1, big.NewFloat(1))
 	b1.Add(b1, big.NewFloat(0.005))
-	fmt.Println(b1.Float64())
+	t.Log(b1.Float64())
 }
 
 func TestRound(t *testing.T) {
@@ -80,21 +79,21 @@ func TestFloor(t *testing.T) {
 func TestName(t *testing.T) {
 	v := 0.00000007
 
-	// fmt.Println(v * 100)     // 7.000000000000001e-06
-	// fmt.Println(v * 1000)    // 7.000000000000001e-05
-	// fmt.Println(v * 10000)   // 0.0007000000000000001
-	// fmt.Println(v * 100000)  // 0.007
-	// fmt.Println(v * 1000000) // 0.07
+	// t.Log(v * 100)     // 7.000000000000001e-06
+	// t.Log(v * 1000)    // 7.000000000000001e-05
+	// t.Log(v * 10000)   // 0.0007000000000000001
+	// t.Log(v * 100000)  // 0.007
+	// t.Log(v * 1000000) // 0.07
 
-	// fmt.Printf("%.20f\n", v*100)
-	// fmt.Printf("%.20f\n", v*1000)
-	// fmt.Printf("%.20f\n", v*10000)
-	// fmt.Printf("%.20f\n", v*100000)
-	// fmt.Printf("%.20f\n", v*1000000)
+	// t.Logf("%.20f\n", v*100)
+	// t.Logf("%.20f\n", v*1000)
+	// t.Logf("%.20f\n", v*10000)
+	// t.Logf("%.20f\n", v*100000)
+	// t.Logf("%.20f\n", v*1000000)
 
 	v2 := v * 10000
 	v3 := v2 * 10000000
-	fmt.Println(v3)
+	t.Log(v3)
 }
 
 /*

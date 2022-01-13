@@ -2,7 +2,6 @@ package unmarshal
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-learn/core"
 	"go-learn/util"
 	"testing"
@@ -30,33 +29,33 @@ v
 */
 func TestUnmarshal(t *testing.T) {
 	// map
-	typeMapTest()
+	typeMapTest(t)
 
 	// slice
-	// typeSliceTest()
+	// typeSliceTest(t)
 
 	// interface
-	// typeInterfaceTest()
+	// typeInterfaceTest(t)
 
 	// 如果接口没有定义方法，则现象同上
-	// customInterfaceTest()
+	// customInterfaceTest(t)
 
 	// 字段类型不确定，字段值类型确定
-	valueTest()
+	valueTest(t)
 }
 
-func typeMapTest() {
+func typeMapTest(t *testing.T) {
 	j := `{"name":"xiaoming", "age":11}`
 
 	var theMap map[string]interface{}
 	if err := json.Unmarshal([]byte(j), &theMap); err != nil {
 		panic(err)
 	} else {
-		fmt.Println(theMap)
+		t.Log(theMap)
 	}
 }
 
-func typeSliceTest() {
+func typeSliceTest(t *testing.T) {
 	j := `[{"name":"xiaoming", "age":10}, {"name":"xiaohong", "age":11}]`
 
 	var theSlice = make([]*core.Person, 0, 2)
@@ -67,18 +66,18 @@ func typeSliceTest() {
 	}
 }
 
-func typeInterfaceTest() {
+func typeInterfaceTest(t *testing.T) {
 	j := `{"name":"xiaoming", "age":11}`
 
 	var r interface{}
 	if err := json.Unmarshal([]byte(j), &r); err != nil {
 		panic(err)
 	} else {
-		fmt.Println(r)
+		t.Log(r)
 	}
 }
 
-func customInterfaceTest() {
+func customInterfaceTest(t *testing.T) {
 	// I 中不定义方法 → ok，定义了 → panic
 	type I interface {
 		Hello()
@@ -89,11 +88,11 @@ func customInterfaceTest() {
 	if err := json.Unmarshal([]byte(j), i); err != nil {
 		panic(err)
 	} else {
-		fmt.Println(i)
+		t.Log(i)
 	}
 }
 
-func valueTest() {
+func valueTest(t *testing.T) {
 	type S struct {
 		P interface{}
 	}
@@ -103,9 +102,9 @@ func valueTest() {
 		P: new(core.Person),
 	}
 
-	fmt.Printf("%p\n", s.P)
+	t.Logf("%p\n", s.P)
 	if err := json.Unmarshal([]byte(j), s); err != nil {
 		panic(err)
 	}
-	fmt.Printf("%p\n", s.P)
+	t.Logf("%p\n", s.P)
 }

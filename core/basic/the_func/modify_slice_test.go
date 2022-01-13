@@ -1,7 +1,6 @@
 package the_func
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 )
@@ -28,7 +27,7 @@ func (bs Books) Modify2() {
 func TestModify(t *testing.T) {
 	var books = Books{{"book01"}}
 	books.Modify()
-	fmt.Println(books)
+	t.Log(books)
 }
 
 // TODO 添加元素失败（迷惑）
@@ -36,6 +35,6 @@ func TestModify2(t *testing.T) {
 	var books = Books(make([]Book, 0, 4))
 	books = append(books, Book{"book"})
 
-	util.PrintSlice(books)
 	books.Modify2()
+	util.PrintSlice(books)
 }

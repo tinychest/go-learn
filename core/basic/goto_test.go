@@ -1,7 +1,6 @@
 package basic
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -13,5 +12,5 @@ func TestGoto(t *testing.T) {
 	}
 
 label:
-	fmt.Println("走到 Label 了")
+	t.Log("走到 Label 了")
 }

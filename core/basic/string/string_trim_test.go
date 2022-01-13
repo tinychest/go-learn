@@ -1,7 +1,6 @@
 package string
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 )
@@ -12,6 +11,6 @@ func TestStringTrim(t *testing.T) {
 	s := "User.Univ"
 	cutset := "User."
 
-	fmt.Println(strings.TrimPrefix(s, cutset))
-	fmt.Println(strings.TrimLeft(s, cutset))
+	t.Log(strings.TrimPrefix(s, cutset))
+	t.Log(strings.TrimLeft(s, cutset))
 }

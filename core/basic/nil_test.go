@@ -1,7 +1,6 @@
 package basic
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -24,51 +23,50 @@ import (
 */
 
 func TestNil(t *testing.T) {
-	interfaceNilTest()
-	// specialNilTest()
-	// specialTest()
+	interfaceNilTest(t)
+	// specialNilTest(t)
+	// specialTest(t)
 }
 
-func interfaceNilTest() {
+func interfaceNilTest(t *testing.T) {
 	// 将 interface{} 替换成 error 也能得到相同的结果
 	var nil1 interface{}
 	var nil2 interface{} = nil
 	var nil3 = (interface{})(nil)
 	var nil4 = []interface{}{nil}[0]
 
-	println(nil1 == nil)
-	println(nil2 == nil)
-	println(nil3 == nil)
-	println(nil4 == nil)
+	t.Log(nil1 == nil)
+	t.Log(nil2 == nil)
+	t.Log(nil3 == nil)
+	t.Log(nil4 == nil)
 }
 
 // 很具有代表意义的测试样例
-func specialNilTest() {
+func specialNilTest(t *testing.T) {
 	var null1 interface{} = (*string)(nil)
 	// var null1 = interface{}((*string)(nil)) // 和上面等效
 	var null2 *string
 
-	println(null1 == null2) // true
-	println(null1 == nil)   // false
-	println(null2 == nil)   // true
+	t.Log(null1 == null2) // true
+	t.Log(null1 == nil)   // false
+	t.Log(null2 == nil)   // true
 
-	println(null1 == (*string)(nil)) // true
-	println(null2 == (*string)(nil)) // true
-
+	t.Log(null1 == (*string)(nil)) // true
+	t.Log(null2 == (*string)(nil)) // true
 
 	// nilValue := reflect.ValueOf(null1)
-	// println(nilValue.Type().String()) // *string
-	// println(nilValue.Kind().String()) // ptr
+	// t.Log(nilValue.Type().String()) // *string
+	// t.Log(nilValue.Kind().String()) // ptr
 }
 
-func specialTest() {
+func specialTest(t *testing.T) {
 	var i interface{}               // (nil nil) == nil → true
 	var iPtr = &i                   // (*interface{} &I1) == nil → false（类型 和 值 都不匹配）
 	var sPtr *string                // (*string nil) == nil → true（只看值，所以匹配）
 	var sPtrWrap interface{} = sPtr // (*string sPtr) == nil → false（类型不匹配）
 
-	fmt.Println(iPtr == (*interface{})(nil)) // false，类型相同，但是值不同（一个有，一个没有）
+	t.Log(iPtr == (*interface{})(nil)) // false，类型相同，但是值不同（一个有，一个没有）
 
-	fmt.Println(reflect.TypeOf(sPtrWrap)) // *string
-	fmt.Println(reflect.TypeOf(iPtr))     // *interface {}
+	t.Log(reflect.TypeOf(sPtrWrap)) // *string
+	t.Log(reflect.TypeOf(iPtr))     // *interface {}
 }

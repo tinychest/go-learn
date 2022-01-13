@@ -1,7 +1,6 @@
 package sort
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,5 +9,5 @@ func TestHalfSearch(t *testing.T) {
 
 	index, ok := HalfSearch(11, array)
 
-	fmt.Println(index, ok)
+	t.Log(index, ok)
 }

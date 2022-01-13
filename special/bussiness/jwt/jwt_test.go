@@ -1,7 +1,6 @@
 package jwt
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"testing"
 	"time"
@@ -35,16 +34,16 @@ func TestJWT(t *testing.T) {
 
 	tokenStr, err := Sign(info)
 	if err != nil {
-		fmt.Println("签发失败", err)
+		t.Log("签发失败", err)
 	}
 
 	tokenInfo, err := Parse(tokenStr)
 	if err != nil {
-		fmt.Println("解析失败", err)
+		t.Log("解析失败", err)
 		return
 	}
 
-	fmt.Printf("%+#v", tokenInfo)
+	t.Logf("%+#v", tokenInfo)
 }
 
 // Sign 签发

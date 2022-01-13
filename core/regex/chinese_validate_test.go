@@ -1,7 +1,6 @@
 package regex
 
 import (
-	"fmt"
 	"regexp"
 	"testing"
 )
@@ -22,8 +21,8 @@ func TestChineseRegexMatch(t *testing.T) {
 	// _ = regexp.MustCompile(demoRegex2)
 	var reg3 = regexp.MustCompile(demoRegex3)
 
-	fmt.Println(reg1.MatchString("一")) // true
-	fmt.Println(reg3.MatchString("一")) // false
+	t.Log(reg1.MatchString("一")) // true
+	t.Log(reg3.MatchString("一")) // false
 }
 
 // 测试什么样的字符串才能匹配 demoRegex3
@@ -31,6 +30,6 @@ func TestChineseRegexMatch(t *testing.T) {
 func TestDemoRegex3Match(t *testing.T) {
 	var reg3 = regexp.MustCompile(demoRegex3)
 
-	fmt.Println(reg3.MatchString("一"))
-	fmt.Println(reg3.MatchString(``))
+	t.Log(reg3.MatchString("一"))
+	t.Log(reg3.MatchString(``))
 }

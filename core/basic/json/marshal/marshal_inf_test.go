@@ -2,7 +2,6 @@ package marshal
 
 import (
 	"encoding/json"
-	"fmt"
 	"testing"
 )
 
@@ -15,6 +14,6 @@ func TestMarshalInf(t *testing.T) {
 	if result, err := json.Marshal(f); err != nil {
 		t.Fatal(err)
 	} else {
-		fmt.Println(string(result))
+		t.Log(string(result))
 	}
 }

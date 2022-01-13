@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"hash"
 	"math/rand"
 	"strconv"
@@ -48,7 +47,7 @@ func foo8(n int) string {
 }
 
 func TestAlloc8(t *testing.T) {
-	fmt.Println("Allocs:", int(testing.AllocsPerRun(100, func() {
+	t.Log("Allocs:", int(testing.AllocsPerRun(100, func() {
 		foo8(rand.Int())
 	})))
 }

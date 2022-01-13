@@ -1,7 +1,6 @@
 package concurrency
 
 import (
-	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -43,7 +42,7 @@ func TestTimeoutSimulate(t *testing.T) {
 // 方式1 - 基于以下语法特性
 // 1、time.Sleep
 // 2、select 每次只有一个 case 会执行，以及没有符合条件的 case，将走 default 的特性
-func timeoutTest() {
+func timeoutTest(t *testing.T) {
 	var (
 		runtimeSecond = 4
 		timeoutSecond = 3
@@ -73,15 +72,15 @@ func timeoutTest() {
 	// 接收任务执行结果
 	select {
 	case intValue := <-taskChannel:
-		fmt.Printf("从通道接收：%d\n", intValue)
+		t.Logf("从通道接收：%d\n", intValue)
 	case <-timeoutChannel:
-		fmt.Printf("达到 %d 超时时间\n", timeoutSecond)
+		t.Logf("达到 %d 超时时间\n", timeoutSecond)
 	}
 }
 
 // 方式2 - 改进方式1中，存在的任务 Goroutine 没有结束的资源泄露情况（可以通过 t.Log(runtime.NumGoroutine()) 查看）
 // Goroutine 没能退出是因为通道没有接收值的了，所以被阻塞住，所以解决核心就是防止阻塞住
-func timeoutTest2() {
+func timeoutTest2(t *testing.T) {
 	var (
 		runtimeSecond = 4
 		timeoutSecond = 3
@@ -109,14 +108,14 @@ func timeoutTest2() {
 
 	select {
 	case intValue := <-taskChannel:
-		fmt.Printf("从通道接收：%d\n", intValue)
+		t.Logf("从通道接收：%d\n", intValue)
 	case <-timeoutChannel:
-		fmt.Printf("达到 %d 超时时间\n", timeoutSecond)
+		t.Logf("达到 %d 超时时间\n", timeoutSecond)
 	}
 }
 
 // 方式3 - 推出 time 包下 api 的用法，以及对逻辑完成时，Goroutine 结果通知通道的处理
-func timeoutTest3() {
+func timeoutTest3(t *testing.T) {
 	var (
 		finish      = false
 		rwLock      sync.RWMutex
@@ -139,7 +138,7 @@ loop:
 		select {
 		// 接收结果
 		case result := <-taskChannel:
-			fmt.Printf("从通道接收：%d\n", result)
+			t.Logf("从通道接收：%d\n", result)
 		// 超时逻辑
 		case <-time.After(3 * time.Second):
 			println("达到最大超时时间，主 Goroutine 结束")

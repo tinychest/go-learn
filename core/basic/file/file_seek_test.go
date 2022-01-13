@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"os"
 	"testing"
 )
@@ -27,19 +26,18 @@ import (
 //	io.SeekStart、io.SeekCurrent、io.SeekEnd
 // 返回值 ret：移动后，参照参文件头的位移数
 func TestSeek(t *testing.T) {
-	seekTest()
-	moveAndWriteTest()
+	seekTest(t)
+	moveAndWriteTest(t)
 }
 
-
-func seekTest() {
+func seekTest(t *testing.T) {
 	var (
 		f   *os.File
 		ret int64
 		err error
 	)
 	if f, err = os.OpenFile("D:/text.txt", os.O_RDWR, 0); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 
@@ -48,22 +46,22 @@ func seekTest() {
 	// whence 1 返回 3
 	// whence 2 返回 9
 	if ret, err = f.Seek(3, 2); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
-	fmt.Println(ret)
+	t.Log(ret)
 	// whence 0 返回 4
 	// whence 1 返回 7
 	// whence 2 返回 10
 	if ret, err = f.Seek(4, 2); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
-	fmt.Println(ret)
+	t.Log(ret)
 }
 
 // 在空文件中，直接移动文件指针，进行写操作，看下效果
-func moveAndWriteTest() {
+func moveAndWriteTest(t *testing.T) {
 	var (
 		f   *os.File
 		err error
@@ -71,15 +69,15 @@ func moveAndWriteTest() {
 
 	// 以 读写 模式打开文件
 	if f, err = os.OpenFile("D:/text.txt", os.O_RDWR, 0); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 	if _, err = f.Seek(3, 0); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 	if _, err = f.WriteString("123"); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 }

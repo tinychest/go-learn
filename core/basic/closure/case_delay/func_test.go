@@ -1,7 +1,6 @@
 package case_delay
 
 import (
-	"fmt"
 	"go-learn/core"
 	"testing"
 )
@@ -10,15 +9,15 @@ var ps = []core.Person{
 	{Name: "小明"}, {Name: "小红"}, {Name: "小光"},
 }
 
-func TestDelayFunc(*testing.T) {
-	mistake()
+func TestDelayFunc(t *testing.T) {
+	mistake(t)
 }
 
-func mistake() {
+func mistake(t *testing.T) {
 	var pfs []func()
 	for _, item := range ps {
 		pfs = append(pfs, func() {
-			fmt.Println(item.Name)
+			t.Log(item.Name)
 		})
 	}
 

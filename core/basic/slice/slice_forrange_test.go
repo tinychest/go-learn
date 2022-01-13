@@ -1,7 +1,6 @@
 package slice
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -45,10 +44,10 @@ func TestForRangeEffectToSlice(t *testing.T) {
 		p.values[0] = 1
 	}
 
-	fmt.Println("persons1: ", persons1)
-	fmt.Println("persons2: ", *persons2)
-	fmt.Println("persons3: ", *persons3[0], *persons3[1])
-	fmt.Println("persons4: ", *(*persons4)[0], *(*persons4)[1])
+	t.Log("persons1: ", persons1)
+	t.Log("persons2: ", *persons2)
+	t.Log("persons3: ", *persons3[0], *persons3[1])
+	t.Log("persons4: ", *(*persons4)[0], *(*persons4)[1])
 
 	// 结论：for range 结构会对要遍历的 slice（不能遍历指针类型，强行用一个指针类型，实际遍历还是要解引用，白搭）
 	// 进行一次拷贝，和函数调用的参数传值的概念是一样的 - 只有指针类型，即指向了真实数据的地址，才能起到修改的效果

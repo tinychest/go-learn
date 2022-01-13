@@ -1,7 +1,6 @@
 package regex
 
 import (
-	"fmt"
 	"regexp"
 	"testing"
 )
@@ -17,5 +16,5 @@ func TestTuo(t *testing.T) {
 
 	reg := regexp.MustCompile(r)
 	ok := reg.MatchString(s)
-	fmt.Println(ok)
+	t.Log(ok)
 }

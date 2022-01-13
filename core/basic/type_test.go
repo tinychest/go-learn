@@ -1,7 +1,6 @@
 package basic
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -11,14 +10,14 @@ import (
 func TestType(t *testing.T) {
 	s := "1" // string 和 rune 切片之间可以直接互相转换
 	c := '1'
-	fmt.Printf("S1：%T\n", s)
-	fmt.Printf("c：%T\n", c)
+	t.Logf("S1：%T\n", s)
+	t.Logf("c：%T\n", c)
 
 	// rune(int32) 可以直接转 byte(uint8)
-	println(byte(c))
+	t.Log(byte(c))
 
-	fmt.Printf("en: %T, cn: %T\n", 'a', '啊')
+	t.Logf("en: %T, cn: %T\n", 'a', '啊')
 
 	// 整型可以直接转浮点型
-	println(float64(1))
+	t.Log(float64(1))
 }

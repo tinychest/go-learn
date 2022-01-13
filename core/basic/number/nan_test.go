@@ -1,7 +1,6 @@
 package number
 
 import (
-	"fmt"
 	"math"
 	"testing"
 )
@@ -13,14 +12,14 @@ func TestNanCompare(t *testing.T) {
 
 	inf := math.Inf(1)
 	if 0x7FF0000000000000 < inf {
-		fmt.Println("小")
+		t.Log("小")
 	}
 	if 0x7FF0000000000000 > inf {
-		fmt.Println("大")
+		t.Log("大")
 	}
 
-	fmt.Println(nan)               // NaN
-	fmt.Println(math.NaN())        // NaN
-	fmt.Println(nan == math.NaN()) // false
-	fmt.Println(math.NaN() == math.NaN()) // false
+	t.Log(nan)                      // NaN
+	t.Log(math.NaN())               // NaN
+	t.Log(nan == math.NaN())        // false
+	t.Log(math.NaN() == math.NaN()) // false
 }

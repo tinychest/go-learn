@@ -65,10 +65,10 @@ func TestJson(t *testing.T) {
 
 	// 如果希望输出的结果是，格式化了的，可以使用 MarshalIndent
 	if userJsonStr, err := json.Marshal(&user); err == nil {
-		fmt.Printf("%s\n", userJsonStr)
+		t.Logf("%s\n", userJsonStr)
 	}
 
 	// if err := json.Unmarshal([]byte(`{"AgE":"11","Na":"小红"}`), userPtr); err == nil {
-	// 	fmt.Printf("%v\n", *userPtr)
+	// 	t.Logf("%v\n", *userPtr)
 	// }
 }

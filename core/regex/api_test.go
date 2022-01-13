@@ -18,47 +18,47 @@ SubexpNames       单独拿出来说，获取正则表达式中所有定义捕�
 */
 
 func TestRegex(t *testing.T) {
-	wordExpressTest()
+	wordExpressTest(t)
 
-	// quoteTest("")
-	// singleTest()
+	// quoteTest(t)
+	// singleTest(t)
 	//
 	// r := regexp.MustCompile(`(?P<Year>\d{4})-(?P<Month>\d{2})-(?P<Day>\d{2})`)
-	// fmt.Printf("%#v\n", r.FindStringSubmatch(`2015-05-27`))
-	// fmt.Printf("%#v\n", r.SubexpNames())
+	// t.Logf("%#v\n", r.FindStringSubmatch(`2015-05-27`))
+	// t.Logf("%#v\n", r.SubexpNames())
 	//
-	// println(matchTest("\\d{4}-\\d{2}-\\d{2}", "2020-01-01"))
-	// println(findAllStringSubmatchTest("`^(\\d+)([hd])-(\\d+)$`", "2d-4"))
-	// println(findStringSubMatchTest(`\d+-(\d+)-`, "1-22-"))
+	// t.Log(matchTest("\\d{4}-\\d{2}-\\d{2}", "2020-01-01"))
+	// t.Log(findAllStringSubmatchTest("`^(\\d+)([hd])-(\\d+)$`", "2d-4"))
+	// t.Log(findStringSubMatchTest(`\d+-(\d+)-`, "1-22-"))
 }
 
 // 技术：regexp.QuoteMeta
 // 业务：如果，参数将会被作为正则表达式中的常量部分，那么为了严谨，因为对特殊字符进行转义处理
-func quoteTest(reg string) {
-	reg = `*`
+func quoteTest(t *testing.T) {
+	reg := `*`
 	reg = regexp.QuoteMeta(reg)
-	fmt.Println(reg)
+	t.Log(reg)
 }
 
 // 技术：正则表达式不加 开始、结束符 带来的逻辑上的差异
-func singleTest() {
+func singleTest(t *testing.T) {
 	var regex string
 	// regex1 := `^\d$`         // false
 	// regex2 := `\d+(,\d+)?`   // true
 	// regex3 := `^\d+(,\d+)?$` // false
 	compile, _ := regexp.Compile(regex)
-	println(compile.MatchString("-1"))
+	t.Log(compile.MatchString("-1"))
 }
 
 // 技术：\b 在正则表达式的作用 单词边界
-func wordExpressTest() {
+func wordExpressTest(t *testing.T) {
 	tableName := "xxx"
 
 	r := fmt.Sprintf(`\b` + tableName + `(_\d+)?\b`)
 	q := `SELECT * FROM xxx JOIN xxx_1 ON id_xxx_2`
 
 	matches := regexp.MustCompile(r).FindAllString(q, -1)
-	fmt.Println(matches)
+	t.Log(matches)
 }
 
 // 技术：Match

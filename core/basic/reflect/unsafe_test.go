@@ -1,7 +1,6 @@
 package _reflect
 
 import (
-	"fmt"
 	"reflect"
 	"strings"
 	"testing"
@@ -123,10 +122,9 @@ func practiceTest(t *testing.T) {
 	/* 二、将一个非类型安全指针值转换为一个 uintptr 值，然后使用此 uintptr 值。（作用不大） */
 	type K struct{ a int }
 	var k K
-	println(&t)                                     // 0xc6233120a8
-	fmt.Printf("%p\n", &k)                          // 0xc6233120a8
-	fmt.Printf("%x\n", uintptr(unsafe.Pointer(&k))) // c6233120a8
-
+	t.Log(&t)                                   // 0xc6233120a8
+	t.Logf("%p\n", &k)                          // 0xc6233120a8
+	t.Logf("%x\n", uintptr(unsafe.Pointer(&k))) // c6233120a8
 
 	/* 三、将一个非类型安全指针转换为一个 uintptr 值，然后此 uintptr 值参与各种算术运算，再将算术运算的结果 uintptr 值转回非类型安全指针。 */
 	// 下面的操作更推荐使用 unsafe.Add
@@ -139,12 +137,11 @@ func practiceTest(t *testing.T) {
 	const s2 = unsafe.Sizeof(M{}.y[0])
 	m := M{y: [3]int16{123, 456, 789}}
 	p := unsafe.Pointer(&m)
-	ty2 := (*int16)(unsafe.Pointer(uintptr(p)+s1+s2+s2)) // m.y[2]的内存地址
-	fmt.Println(*ty2) // 789
+	ty2 := (*int16)(unsafe.Pointer(uintptr(p) + s1 + s2 + s2)) // m.y[2]的内存地址
+	t.Log(*ty2)                                                // 789
 
 	/* 四、将非类型安全指针值转换为 uintptr 值并传递给 syscall.Syscall 函数调用 */
 	// TODO 学习了解 syscall.Syscall 后，来完善这块内容
-
 
 	/* 五、将 reflect.Value.Pointer 或者 reflect.Value.UnsafeAddr 方法的 uintptr 返回值立即转换为非类型安全指针 */
 	// （自己理解：这几个点都是要告诉你，避免使用 unsafe 时，GC 将该处内存空间回收了）
@@ -196,10 +193,9 @@ func practiceTest(t *testing.T) {
 	// 否则。为什么说否则，因为这个表现已经和 Go 语言定义标准大相径庭了（字符串开辟在不可修改内存区）
 	str := strings.Join([]string{"Go", "land"}, "")
 	ss := String2ByteSlice(str)
-	fmt.Printf("%s\n", ss) // Goland
+	t.Logf("%s\n", ss) // Goland
 	ss[5] = 'g'
-	fmt.Println(str) // Golang
-
+	t.Log(str) // Golang
 
 	/* 作者给出了几个非常好的参考例子 */
 

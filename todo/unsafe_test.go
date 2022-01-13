@@ -1,7 +1,6 @@
 package todo
 
 import (
-	"fmt"
 	"testing"
 	"unsafe"
 )
@@ -12,7 +11,7 @@ func TestRun(t *testing.T) {
 	var out int
 	doThing(out, func(out interface{}) {
 		if limited == 0 {
-			fmt.Printf("limited is zero. %d\n", limited) // Prints 42
+			t.Logf("limited is zero. %d\n", limited) // Prints 42
 		}
 		limited++
 	})

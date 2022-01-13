@@ -48,10 +48,10 @@ os.Lstat 返回文件信息，如果文件是软链接则返回软链接的信�
 
 func TestOpenFile(t *testing.T) {
 	if err := openFileTest("D:/text.txt", "3"); err != nil {
-		fmt.Println("操作失败-" + err.Error())
+		t.Log("操作失败-" + err.Error())
 		return
 	}
-	fmt.Println("操作成功")
+	t.Log("操作成功")
 }
 
 // os.OpenFile 默认行为

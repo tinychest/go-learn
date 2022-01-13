@@ -1,7 +1,6 @@
 package sort
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -11,5 +10,5 @@ func TestQuickSort(t *testing.T) {
 
 	QuickSort(s)
 
-	fmt.Println(s)
+	t.Log(s)
 }

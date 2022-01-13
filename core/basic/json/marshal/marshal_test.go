@@ -2,7 +2,6 @@ package marshal
 
 import (
 	"encoding/json"
-	"fmt"
 	"testing"
 )
 
@@ -18,21 +17,21 @@ json（string） → 和原来的值相比较，键、值的开头和结尾都�
 */
 func TestMarshal(t *testing.T) {
 	// nil
-	nilTest()
+	nilTest(t)
 
 	// string json
-	strJsonTest()
+	strJsonTest(t)
 }
 
-func nilTest() {
+func nilTest(t *testing.T) {
 	if s, err := json.Marshal(nil); err != nil {
 		panic(err)
 	} else {
-		fmt.Println(string(s) == "null")
+		t.Log(string(s) == "null")
 	}
 }
 
-func strJsonTest() {
+func strJsonTest(t *testing.T) {
 	j := `{"name":"xiaoming", "age":11}`
 
 	// marshal
@@ -40,11 +39,11 @@ func strJsonTest() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(string(r))
+	t.Log(string(r))
 
 	// unmarshal
 	if err = json.Unmarshal(r, &j); err != nil {
 		panic(err)
 	}
-	fmt.Println(j)
+	t.Log(j)
 }

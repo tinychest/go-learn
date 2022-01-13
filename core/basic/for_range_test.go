@@ -1,7 +1,6 @@
 package basic
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -19,7 +18,7 @@ func TestForRange(t *testing.T) {
 	// 0xc00000e488
 	// 0xc00000e490
 	for i := 0; i < len(s); i++ {
-		fmt.Printf("%p\n", &s[i])
+		t.Logf("%p\n", &s[i])
 	}
 
 	// 0xc00000a320
@@ -27,6 +26,6 @@ func TestForRange(t *testing.T) {
 	// 0xc00000a320
 	for _, v := range s {
 		// 注意，如果 v 是指针类型，且需要进行 append 操作，应该先 v := v
-		fmt.Printf("%p\n", &v)
+		t.Logf("%p\n", &v)
 	}
 }

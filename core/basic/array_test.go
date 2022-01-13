@@ -1,20 +1,19 @@
 package basic
 
 import (
-	"fmt"
 	"go-learn/util"
 	"reflect"
 	"testing"
 )
 
 func TestArray(t *testing.T) {
-	arrayIsValueTest()
-	// arrayToSliceTest()
-	// sliceToArrayTest()
+	arrayIsValueTest(t)
+	// arrayToSliceTest(t)
+	// sliceToArrayTest(t)
 }
 
 // 数组不同于切片的很重要的一点，数组为值类型 - 会发生拷贝
-func arrayIsValueTest() {
+func arrayIsValueTest(t *testing.T) {
 	// 引用类型
 	slice := []int{1, 2, 3}
 	util.PrintAddr(slice)
@@ -24,17 +23,17 @@ func arrayIsValueTest() {
 	util.PrintAddr(array)
 }
 
-func arrayToSliceTest() {
+func arrayToSliceTest(t *testing.T) {
 	array := [...]int{1, 2, 3}
 	slice := array[:]
 
-	fmt.Println(reflect.TypeOf(slice).String())
+	t.Log(reflect.TypeOf(slice).String())
 }
 
 // Go 1.17 后支持将 slice 转成 array 了（记得修改 go.mod 中定义的版本）
-func sliceToArrayTest() {
+func sliceToArrayTest(t *testing.T) {
 	slice := []int{1, 2, 3}
 	array := *(*[3]int)(slice)
 
-	fmt.Println(reflect.TypeOf(array).String())
+	t.Log(reflect.TypeOf(array).String())
 }

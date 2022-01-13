@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
-	"fmt"
 	"math/rand"
 	"strconv"
 	"testing"
@@ -33,7 +32,7 @@ func foo6(n int) string {
 }
 
 func TestAlloc6(t *testing.T) {
-	fmt.Println("Allocs:", int(testing.AllocsPerRun(100, func() {
+	t.Log("Allocs:", int(testing.AllocsPerRun(100, func() {
 		foo6(rand.Int())
 	})))
 }

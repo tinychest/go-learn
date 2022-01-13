@@ -1,12 +1,11 @@
 package todo
 
 import (
-	"fmt"
 	"testing"
 )
 
 type p struct {
-	value int
+	value    int
 	children []*p
 }
 
@@ -18,7 +17,7 @@ func traverse(node *p, do func(indicator *p)) {
 }
 
 func TestTraverse(t *testing.T) {
-	tree := p {
+	tree := p{
 		value: 1,
 		children: []*p{
 			{
@@ -51,5 +50,5 @@ func TestTraverse(t *testing.T) {
 			node.value = v.value
 		})
 	}
-	fmt.Println(1)
+	t.Log(1)
 }

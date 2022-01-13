@@ -10,8 +10,8 @@ import (
 // TestMD5
 func TestMD5(t *testing.T) {
 	word := "123"
-	fmt.Printf("%s MD5 To %s\n", word, MD5(word))
-	fmt.Printf("%s MD5 To %s\n", word, MD52(word))
+	t.Logf("%s MD5 To %s\n", word, MD5(word))
+	t.Logf("%s MD5 To %s\n", word, MD52(word))
 }
 
 // 这个方法等同于前端 CryptoJS.MD5 方法

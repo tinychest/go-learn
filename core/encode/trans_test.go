@@ -1,11 +1,11 @@
 package encode
 
 import (
-	"fmt"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"golang.org/x/text/transform"
 	"testing"
 )
+
 /*
 《概念》
 1.Golang 默认不支持 UTF-8 以外的字符集
@@ -22,8 +22,8 @@ func TestUTF8ToGBK(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	fmt.Println(n)
-	fmt.Println(result)
+	t.Log(n)
+	t.Log(result)
 
 	// GBK → UTF8（需要借助三方包 mahonia）
 }

@@ -31,12 +31,12 @@ strings.Builder.Grow 的参数也是 字节数
 */
 
 func TestGrow(t *testing.T) {
-	// growTest1()
-	// growTest2()
-	// growBestPracticeTest()
+	// growTest1(t)
+	// growTest2(t)
+	// growBestPracticeTest(t)
 }
 
-func growTest1() {
+func growTest1(t *testing.T) {
 	b := strings.Builder{}
 
 	// 初始，len 0 cap 0；扩容后 len 0 cap 2
@@ -51,7 +51,7 @@ func growTest1() {
 }
 
 // Grow 不是直接扩容，这个方法的调用含义是，保证 Builder 能写入指定字节数的数据，底层数据而不进行扩容
-func growTest2() {
+func growTest2(t *testing.T) {
 	b := strings.Builder{}
 
 	b.Grow(10)
@@ -69,7 +69,7 @@ func growTest2() {
 }
 
 // 在某些情况下，能够大幅提升性能的做法，参见：strings.Join
-func growBestPracticeTest() {
+func growBestPracticeTest(t *testing.T) {
 	p := []string{"abc", "d", "e", "kk", "2357"}
 	b := strings.Builder{}
 

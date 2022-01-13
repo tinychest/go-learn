@@ -1,7 +1,6 @@
 package aes
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -14,6 +13,6 @@ func TestAES(t *testing.T) {
 	enc := AESEncrypt(key, ori)
 	dec := AESDecrypt(key, enc)
 
-	fmt.Println(enc)
-	fmt.Println(dec == ori)
+	t.Log(enc)
+	t.Log(dec == ori)
 }

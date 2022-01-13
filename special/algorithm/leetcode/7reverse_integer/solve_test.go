@@ -1,19 +1,18 @@
 package _reverse_integer
 
 import (
-	"fmt"
 	"math"
 	"testing"
 )
 
 func TestSum(t *testing.T) {
-	fmt.Println(2<<30)
-	fmt.Println(int(math.Pow(2, 31)))
-	fmt.Println(2<<30-1)
-	fmt.Println(int(math.Pow(2, 31))-1)
+	t.Log(2 << 30)
+	t.Log(int(math.Pow(2, 31)))
+	t.Log(2<<30 - 1)
+	t.Log(int(math.Pow(2, 31)) - 1)
 
-	fmt.Println(-2<<30)
-	fmt.Println(-int(math.Pow(2, 31)))
+	t.Log(-2 << 30)
+	t.Log(-int(math.Pow(2, 31)))
 }
 
 func Test_reverse(t *testing.T) {

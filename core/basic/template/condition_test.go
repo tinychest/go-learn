@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 )
@@ -21,16 +20,17 @@ func TestCondition(t *testing.T) {
 		"Word":   "Monster",
 	}
 
-	fmt.Println(util.MustRenderString(tIf, data))
+	t.Log(util.MustRenderString(tIf, data))
 }
 
 // if A then B else A
 const tAnd = `{{and .A .B}}`
+
 func TestCondition2(t *testing.T) {
 	data := map[string]string{
 		"A": "1",
 		"B": "2",
 	}
 
-	fmt.Println(util.MustRenderString(tAnd, data))
+	t.Log(util.MustRenderString(tAnd, data))
 }

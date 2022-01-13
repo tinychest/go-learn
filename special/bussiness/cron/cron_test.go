@@ -1,7 +1,6 @@
 package help
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
@@ -25,14 +24,14 @@ func TestCron(t *testing.T) {
 		{
 			Name: "测试 cron",
 			Cron: "* * * * * ?",
-			Job:  func() error {
+			Job: func() error {
 				println("我是方法...")
 				return nil
 			},
 		},
 	}.Start()
 	if err != nil {
-		fmt.Println(err)
+		t.Log(err)
 	}
 
 	time.Sleep(time.Hour)

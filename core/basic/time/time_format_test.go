@@ -2,7 +2,6 @@ package time
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-learn/const/time_format"
 	"testing"
 	"time"
@@ -14,10 +13,10 @@ func TestTimeFormat(t *testing.T) {
 	dateString := forNow(time_format.FmtDate)
 	timeString := forNow(time_format.FmtTime)
 
-	println(dateAndTimeString1)
-	println(dateAndTimeString2)
-	println(dateString)
-	println(timeString)
+	t.Log(dateAndTimeString1)
+	t.Log(dateAndTimeString2)
+	t.Log(dateString)
+	t.Log(timeString)
 }
 
 func forNow(format string) string {
@@ -32,6 +31,6 @@ func TestPrintTime(t *testing.T) {
 	n := time.Now()
 	nJSON, _ := json.Marshal(n)
 
-	fmt.Println(n)
-	fmt.Println(string(nJSON))
+	t.Log(n)
+	t.Log(string(nJSON))
 }

@@ -66,19 +66,19 @@ func TestDownloadPic(t *testing.T) {
 	)
 
 	if resp, err = http.Get(picUrl); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 
 	if f, err = os.Create("D:/1.png"); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
 	defer f.Close()
 
 	if err = writeFile(f, resp.Body); err != nil {
-		fmt.Println(err)
+		t.Log(err)
 		return
 	}
-	fmt.Println("下载图片成功")
+	t.Log("下载图片成功")
 }

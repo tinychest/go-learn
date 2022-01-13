@@ -15,8 +15,8 @@ func TestPrintProcess(t *testing.T) {
 	bar := fmt.Sprintf("\x0c[%%-%vs]", col)
 
 	for i := 0; i < col; i++ {
-		fmt.Printf(bar, strings.Repeat("=", i)+">")
+		t.Logf(bar, strings.Repeat("=", i)+">")
 		time.Sleep(100 * time.Millisecond)
 	}
-	fmt.Printf(bar+" Done!", strings.Repeat("=", col))
+	t.Logf(bar+" Done!", strings.Repeat("=", col))
 }

@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 )
@@ -13,5 +12,5 @@ func TestRange(t *testing.T) {
 		"list": []string{"1", "2", "3"},
 	}
 
-	fmt.Println(util.MustRenderString(tRange, data))
+	t.Log(util.MustRenderString(tRange, data))
 }

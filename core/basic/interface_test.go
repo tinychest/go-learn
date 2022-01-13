@@ -1,7 +1,6 @@
 package basic
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -15,6 +14,7 @@ type I2 interface {
 
 // 实现1
 type S1 struct{}
+
 // 实现2
 type S2 struct{}
 
@@ -42,20 +42,20 @@ func case1() {
 	i1 = i2
 }
 
-func case2(*testing.T) {
+func case2(t *testing.T) {
 	var theP interface{} = new(S1)
 
 	// 显式接口
 	if theI, ok := theP.(I1); ok {
 		theI.hello()
 	} else {
-		fmt.Println("not impl I1 interface")
+		t.Log("not impl I1 interface")
 	}
 
 	// 匿名接口（也可以理解成是否实现了指定的方法签名）
 	if theI, ok := theP.(interface{ Hello() }); ok {
 		theI.Hello()
 	} else {
-		fmt.Println("not impl Hello Func")
+		t.Log("not impl Hello Func")
 	}
 }

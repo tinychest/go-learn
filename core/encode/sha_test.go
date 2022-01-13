@@ -4,7 +4,6 @@ import (
 	"crypto/sha1"
 	"crypto/sha256"
 	"encoding/hex"
-	"fmt"
 	"testing"
 )
 
@@ -14,7 +13,7 @@ func TestSHA256(t *testing.T) {
 	sum256 := sha256.Sum256([]byte(password))
 
 	// println 不接受数组类型（编译不通过）
-	println(sum256[:])
+	t.Log(sum256[:])
 }
 
 func TestSha1(t *testing.T) {
@@ -27,7 +26,7 @@ func TestSha1(t *testing.T) {
 	println(hex.EncodeToString(theSha1.Sum(nil)))
 
 	// 每次都能得到一个恒定的结果：da39a3ee5e6b4b0d3255bfef95601890afd80709
-	fmt.Println(hex.EncodeToString(sha1.New().Sum(nil)))
+	t.Log(hex.EncodeToString(sha1.New().Sum(nil)))
 	// 这种是错误的，不能这样去写
-	fmt.Println(hex.EncodeToString(sha1.New().Sum([]byte(param))))
+	t.Log(hex.EncodeToString(sha1.New().Sum([]byte(param))))
 }

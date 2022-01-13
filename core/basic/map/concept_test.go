@@ -1,7 +1,6 @@
 package _map
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 )
@@ -16,7 +15,7 @@ type item struct {
 	Value int
 }
 
-func TestStructSlice1(_ *testing.T) {
+func TestStructSlice1(t *testing.T) {
 	var m = map[string]data{
 		"123": {
 			Name:  "123",
@@ -29,23 +28,23 @@ func TestStructSlice1(_ *testing.T) {
 		v1 = m["123"]
 		v2 = m["123"]
 	)
-	fmt.Printf("%p\n", &v1)
-	fmt.Printf("%p\n", &v2)
+	t.Logf("%p\n", &v1)
+	t.Logf("%p\n", &v2)
 
 	// 2、但是，切片的地址是相同的
 	var (
 		s1 = m["123"].Slice
 		s2 = m["123"].Slice
 	)
-	fmt.Printf("%p\n", s1)
-	fmt.Printf("%p\n", s2)
+	t.Logf("%p\n", s1)
+	t.Logf("%p\n", s2)
 
 	// 且改动有效
 	s1[0] = 0
-	fmt.Println(m)
+	t.Log(m)
 }
 
-func TestStructSlice2(_ *testing.T) {
+func TestStructSlice2(t *testing.T) {
 	list := []item{{"a", 1}, {"a", 2}, {"b", 1}}
 
 	var m = map[string]data{}
@@ -60,12 +59,12 @@ func TestStructSlice2(_ *testing.T) {
 	util.PrintSlice(temp.Slice)
 	temp.Slice = append(temp.Slice, 1)
 	util.PrintSlice(temp.Slice)
-	fmt.Println(m)
+	t.Log(m)
 
 	// 结论，对于 map[string]struct 的 value.field 是 slice 类型 的更新，一定得用：获取 map 的值（拷贝值） → 对拷贝进行更新 → 更新 map 的值
 }
 
-func TestStructPtrSlice(*testing.T) {
+func TestStructPtrSlice(t *testing.T) {
 	list := []item{{"a", 1}, {"a", 2}, {"b", 1}}
 
 	var m = map[string]*data{}
@@ -81,5 +80,5 @@ func TestStructPtrSlice(*testing.T) {
 		temp.Slice = append(temp.Slice, v.Value)
 	}
 
-	fmt.Printf("%#v %#v\n", m["a"], m["b"])
+	t.Logf("%#v %#v\n", m["a"], m["b"])
 }

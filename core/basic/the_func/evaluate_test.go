@@ -1,7 +1,6 @@
 package the_func
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -28,8 +27,8 @@ func TestEvaluate(t *testing.T) {
 	var g1 = p.Pages2 // 已是正规化，属主实参 p 的一个副本将被存储下来，此副本的值为 b 值的地址；当 b 被修改后，此修改可以通过对此地址值解引用而反映出来
 	var g2 = b.Pages2 // 正规化为 (&p).Pages2，同理
 	b.Name = "book02"
-	fmt.Println(f1()) // book01
-	fmt.Println(f2()) // book01
-	fmt.Println(g1()) // book02
-	fmt.Println(g2()) // book02
+	t.Log(f1()) // book01
+	t.Log(f2()) // book01
+	t.Log(g1()) // book02
+	t.Log(g2()) // book02
 }

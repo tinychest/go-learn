@@ -1,7 +1,6 @@
 package hw
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
@@ -9,7 +8,7 @@ import (
 // 华为：20210308T024104Z
 // 本地：20210308T024550Z
 func TestXDate(t *testing.T) {
-	fmt.Println(XSdkData())
+	t.Log(XSdkData())
 }
 
 func XSdkData() string {

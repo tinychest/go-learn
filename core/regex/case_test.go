@@ -17,7 +17,7 @@ func TestCase01(t *testing.T) {
 
 	s := " WWW aWWW bWWW cWWW 123WWW abcWWW"
 	res := reg.FindAllString(s, -1)
-	fmt.Println(res)
+	t.Log(res)
 }
 
 // 目标串是否是 以多个端口号通过 || 隔开的格式
@@ -36,6 +36,5 @@ func TestRegPortSplit(t *testing.T) {
 	portRange := `([0-9]|[1-9]\d|[1-9]\d{2}|[1-9]\d{3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])`
 	regStr := fmt.Sprintf(`^%s(\|\|%s)?$`, portRange, portRange)
 	reg := regexp.MustCompile(regStr)
-	fmt.Println(reg.MatchString("8080||5566||00"))
-
+	t.Log(reg.MatchString("8080||5566||00"))
 }

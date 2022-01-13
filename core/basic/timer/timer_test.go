@@ -1,7 +1,6 @@
 package timer
 
 import (
-	"fmt"
 	"testing"
 	"time"
 )
@@ -45,13 +44,13 @@ timer.Stop：
 const interval = time.Second
 
 func TestTimer(t *testing.T) {
-	// timerTest()
-	timerStopTest()
-	// tickerTest()
+	// timerTest(t)
+	timerStopTest(t)
+	// tickerTest(t)
 }
 
 // 你可以直接写一个简单 case <-time.After(interval) 但那会产生大量的垃圾
-func timerTest() {
+func timerTest(t *testing.T) {
 	before := time.Now()
 
 	timer := time.NewTimer(interval)
@@ -59,17 +58,17 @@ func timerTest() {
 		timer.Reset(interval)
 
 		now := time.Now()
-		fmt.Println(now.Sub(before))
+		t.Log(now.Sub(before))
 		before = now
 	}
 }
 
-func timerStopTest() {
+func timerStopTest(t *testing.T) {
 	timer := time.NewTimer(interval)
 
-	fmt.Println(1)
+	t.Log(1)
 	time.Sleep(interval)
-	fmt.Println(2)
+	t.Log(2)
 
 	// 这里的 Reset 没有起到效果（这里就应该按照源码提示那样处理）
 	if !timer.Stop() {
@@ -77,29 +76,29 @@ func timerStopTest() {
 	}
 	timer.Reset(interval)
 	<-timer.C
-	fmt.Println("3")
+	t.Log("3")
 
 	timer.Reset(interval)
 	<-timer.C
-	fmt.Println("4")
+	t.Log("4")
 }
 
 // ticker.C 同样，返回的是一个只读通道（无法关闭），调用 ticker.Stop 不意味着关闭 ticker.C
-func tickerTest() {
+func tickerTest(t *testing.T) {
 	// NewTicker 只会执行一次
 	for range time.NewTicker(interval).C {
-		fmt.Println("one second later...")
+		t.Log("one second later...")
 	}
 }
 
 // 定时器以 3 秒 ←→ 1 秒 交替形式的执行
-func tickerTest2() {
+func tickerTest2(t *testing.T) {
 	sum := 0
 	before := time.Now()
 	ticker := time.NewTicker(time.Second)
 
 	for now := range ticker.C {
-		fmt.Println(now.Sub(before))
+		t.Log(now.Sub(before))
 		before = now
 
 		sum++
