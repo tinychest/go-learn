@@ -6,7 +6,7 @@ import (
 )
 
 /*
-内存对齐
+内存对齐（Address alignment guarantee）
 
 一个结构体实例所占据的空间等于各字段占据空间之和，再加上内存对齐的空间大小
 
