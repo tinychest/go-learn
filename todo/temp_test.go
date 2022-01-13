@@ -96,9 +96,8 @@ func TestUnmarshalSingle(t *testing.T) {
 	bs = []byte("1.0")
 
 	var i float64
-	err := json.Unmarshal(bs, &i)
-	if err != nil {
-		panic(err)
+	if err := json.Unmarshal(bs, &i); err != nil {
+		t.Fatal(err)
 	}
 	t.Log(i)
 }

@@ -15,6 +15,6 @@ func TestQuickWriteToFile(t *testing.T) {
 	}
 	err := QuickWriteToFile("quick_data", head, body...)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 }

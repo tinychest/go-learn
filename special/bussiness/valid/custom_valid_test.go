@@ -11,7 +11,7 @@ import (
 
 func TestCustomValid(t *testing.T) {
 	if err := v.RegisterValidation("checkMobile", checkMobile); err != nil {
-		panic(fmt.Errorf("注册自定义校验规则失败: %w", err))
+		t.Fatal(fmt.Errorf("注册自定义校验规则失败: %w", err))
 	}
 
 	// 参见：github.com/go-playground/validator/v10@v10.9.0/_examples/translations/main.go:103
@@ -23,7 +23,7 @@ func TestCustomValid(t *testing.T) {
 		return t
 	})
 	if err != nil {
-		panic(fmt.Errorf("注册自定义翻译规则失败: %w", err))
+		t.Fatal(fmt.Errorf("注册自定义翻译规则失败: %w", err))
 	}
 }
 

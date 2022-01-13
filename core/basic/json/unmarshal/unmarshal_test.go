@@ -49,7 +49,7 @@ func typeMapTest(t *testing.T) {
 
 	var theMap map[string]interface{}
 	if err := json.Unmarshal([]byte(j), &theMap); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		t.Log(theMap)
 	}
@@ -60,7 +60,7 @@ func typeSliceTest(t *testing.T) {
 
 	var theSlice = make([]*core.Person, 0, 2)
 	if err := json.Unmarshal([]byte(j), &theSlice); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		util.PrintSlice(theSlice)
 	}
@@ -71,7 +71,7 @@ func typeInterfaceTest(t *testing.T) {
 
 	var r interface{}
 	if err := json.Unmarshal([]byte(j), &r); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		t.Log(r)
 	}
@@ -86,7 +86,7 @@ func customInterfaceTest(t *testing.T) {
 	j := `{"name":"xiaoming"}`
 	i := new(I)
 	if err := json.Unmarshal([]byte(j), i); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		t.Log(i)
 	}
@@ -104,7 +104,7 @@ func valueTest(t *testing.T) {
 
 	t.Logf("%p\n", s.P)
 	if err := json.Unmarshal([]byte(j), s); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	t.Logf("%p\n", s.P)
 }

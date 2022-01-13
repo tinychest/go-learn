@@ -18,6 +18,6 @@ func TestQuickEntityWriteToFile(t *testing.T) {
 	}
 	err := QuickWriteToFileWithEntity("quick_entity", body)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 }

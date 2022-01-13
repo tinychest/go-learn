@@ -25,7 +25,7 @@ func TestMarshal(t *testing.T) {
 
 func nilTest(t *testing.T) {
 	if s, err := json.Marshal(nil); err != nil {
-		panic(err)
+		t.Fatal(err)
 	} else {
 		t.Log(string(s) == "null")
 	}
@@ -37,13 +37,13 @@ func strJsonTest(t *testing.T) {
 	// marshal
 	r, err := json.Marshal(j)
 	if err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	t.Log(string(r))
 
 	// unmarshal
 	if err = json.Unmarshal(r, &j); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	t.Log(j)
 }

@@ -14,7 +14,7 @@ func TestCopier(t *testing.T) {
 	// 非指针 → err
 	// 类型不匹配 → no error、not copy
 	if err := copier.Copy(&s2, s1); err != nil {
-		panic(err)
+		t.Fatal(err)
 	}
 	util.PrintSlice(s1)
 	util.PrintSlice(s2)
