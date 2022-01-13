@@ -7,21 +7,34 @@ import (
 	"unsafe"
 )
 
-// 利用反射修改结构体实例字段的值
 func TestReflectSetField(t *testing.T) {
-	person1 := &core.Person{Age: 10, Name: "小明"}
-	person2 := &core.Person{Age: 11, Name: "小红"}
+	// reflectSetTest(t)
+	unsafeSetTest(t)
+}
 
-	// 实际情况可能是接口类型为 interface{}，当确定为指定的接口体类型，就做特定的操作
+func reflectSetTest(t *testing.T) {
+	p := &core.Person{Age: 10, Name: "小明"}
 
-	nameField, _ := TypeOf(person1).Elem().FieldByName("Name")
+	ValueOf(p).Elem().FieldByName("Name").Set(ValueOf("大明"))
 
-	namePtr1 := uintptr(unsafe.Pointer(person1)) + nameField.Offset
-	namePtr2 := uintptr(unsafe.Pointer(person2)) + nameField.Offset
+	t.Log(p)
+}
 
-	*((*string)(unsafe.Pointer(namePtr1))) = "大明"
-	*((*string)(unsafe.Pointer(namePtr2))) = "大红"
+func unsafeSetTest(t *testing.T) {
+	p := &core.Person{Age: 10, Name: "小明"}
 
-	println(person1)
-	println(person2)
+	// 方式一、借助反射获取到的 offset
+	nameField, _ := TypeOf(p).Elem().FieldByName("Name")
+	nameAddr := uintptr(unsafe.Pointer(&p)) + nameField.Offset
+	*(*string)(unsafe.Pointer(nameAddr)) = "大明"
+	t.Log(p)
+
+	// 方式二、使用 unsafe
+	nameAddr = uintptr(unsafe.Pointer(&p)) + unsafe.Offsetof(p.Name)
+	*(*string)(unsafe.Pointer(nameAddr)) = "大明"
+	t.Log(p)
+
+	// 方式三、使用 unsafe.Add 方法
+	*(*string)(unsafe.Add(unsafe.Pointer(&p), unsafe.Offsetof(p.Name))) = "大明"
+	t.Log(p)
 }
