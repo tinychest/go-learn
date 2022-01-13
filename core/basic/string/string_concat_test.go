@@ -68,7 +68,7 @@ func growTest2() {
 	printBuilderInfo(&b)
 }
 
-// 在某些情况下，能够大幅提升性能的做法
+// 在某些情况下，能够大幅提升性能的做法，参见：strings.Join
 func growBestPracticeTest() {
 	p := []string{"abc", "d", "e", "kk", "2357"}
 	b := strings.Builder{}
