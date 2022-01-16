@@ -8,7 +8,7 @@ import (
 /*
 【简介】
 goconvey 是 Go 的第三方测试框架（https://github.com/smartystreets/goconvey）
-- 比 Go 原生自带的 testing 包具有更简单易用的语法（断言：So、testify 的 assert(返回 bool 值) 和 require(会中断)）
+- 比 Go 标准库自带的 testing 包具有更简单易用的语法（断言：So、testify 的 assert(返回 bool 值) 和 require(会中断)）
 - 在项目目录下，启动运行 "go convey 编译生成的二进制文件"，访问 8080 端口能够在浏览器中查看项目中所有单元测试的结果（只要当前程序运行，浏览器的结果就会实时更新）
 
 【安装】

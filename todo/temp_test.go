@@ -19,11 +19,11 @@ import (
 // TODO syscall.Syscall
 
 func TestKKK(t *testing.T) {
-	var s []string
+	var k interface{} = 1
 
-	s2 := append([]string{}, s...)
-
-	util.PrintSlice(s2)
+	switch k.(type) {
+	case interface{}: // 万能匹配？
+	}
 }
 
 // package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
@@ -103,7 +103,7 @@ func TestUnmarshalSingle(t *testing.T) {
 }
 
 func TestErr(t *testing.T) {
-	// Go 原生类库
+	// Go 标准库
 	err := errors.New("MySQL error")
 	err = fmt.Errorf("查询出错: %w", err)
 	err = fmt.Errorf("模块出错: %w", err)

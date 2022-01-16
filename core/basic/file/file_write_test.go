@@ -38,7 +38,7 @@ func writeFile(f *os.File, data io.ReadCloser) error {
 	// 	return
 	// }
 
-	// 方式三（原生 手写）
+	// 方式三（手写）
 	var buf = make([]byte, 1024)
 	var n = 1
 	for i := 1; n > 0; i++ {

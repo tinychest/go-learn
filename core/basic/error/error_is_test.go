@@ -2,11 +2,10 @@ package error
 
 import (
 	"errors"
-	"fmt"
 	"testing"
 )
 
-type MyError1 struct{
+type MyError1 struct {
 	s string
 }
 
@@ -26,12 +25,11 @@ func (e MyError2) Unwrap() error {
 	return e.error
 }
 
-
 func TestErrIs(t *testing.T) {
 	var e1 error = MyError1{}
 	var e2 error = MyError2{e1}
 
-	t.Log(e1 == e2) // 呃，当然为 false
+	t.Log(e1 == e2)          // 呃，当然为 false
 	t.Log(errors.Is(e2, e1)) // false
 
 	// 问：有什么办法可以让上面从逻辑上说 “相同” 的错误，进行比较，返回 true

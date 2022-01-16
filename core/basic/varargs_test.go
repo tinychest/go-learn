@@ -66,7 +66,7 @@ func arrayTest() {
 	// printVarargs(array...)
 }
 
-// 原生函数的泛型行为对比
+// 标准库函数的泛型行为对比
 func compareTest() {
 	f := func(_ ...interface{}) {}
 

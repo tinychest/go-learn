@@ -7,5 +7,5 @@ package decimal
 
 参考1：Java BigDecimal 的实现原理（太复杂了）
 参考2：三方库（github.com/wadey/go-rounding）
-惨考3：Go 原生的 big 类库（没发现实际的效果）
+惨考3：Go 标准库的 big（没发现实际的效果）
 */

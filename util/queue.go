@@ -1,7 +1,5 @@
 package util
 
-// TODO list 包下有提供默认实现
-
 type Queue struct {
 	Head *Node
 	Tail *Node

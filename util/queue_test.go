@@ -1,6 +1,7 @@
 package util
 
 import (
+	"container/list"
 	"fmt"
 	"strconv"
 	"testing"
@@ -16,15 +17,26 @@ func TestQueue(t *testing.T) {
 		fmt.Print(strconv.Itoa(elem.(int)) + " ")
 	}
 	fmt.Println()
+}
 
-	// 2
-	q = NewQueue()
-	for !q.IsEmpty() {
-		elem, _ := q.Out()
-		fmt.Print(strconv.Itoa(elem.(int)) + " ")
+// 标准库 list
+func TestList(t *testing.T) {
+	l := list.New()
+	// l.PushBack()
+	// l.PushFront()
+	// l.Remove()
+	// l.Len()
+	// l.Init() // clear
+	// l.Back() // latest elem
+
+	l.PushBack(1)
+	l.PushBack(2)
+	l.PushBack(3)
+
+	// t.Log(l.Back().Value)
+	// t.Log(l.Back().Prev().Value)
+
+	for v := l.Front(); v != nil; v = v.Next() {
+		t.Log(v.Value)
 	}
-	fmt.Println()
-
-	// 3
-	fmt.Println(NewQueue().Out())
 }

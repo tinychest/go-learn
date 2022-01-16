@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-// 这里内存性能分析，并没有使用 Go 的原生类库 runtime/pprof，而是一个易用性更强的库 pkg/profile，它封装了 runtime/pprof 的接口，使用起来更简单
+// 这里内存性能分析，并没有使用 Go 的标准库 runtime/pprof，而是一个易用性更强的库 pkg/profile，它封装了 runtime/pprof 的接口，使用起来更简单
 
 // 辅助方法
 const letterBytes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

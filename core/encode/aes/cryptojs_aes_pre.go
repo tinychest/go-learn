@@ -10,7 +10,7 @@ import (
 )
 
 // CryptoJSAESPreEncrypt
-// 为了达到各项参数没有各项严谨的长度限制，需要在进行真正的原生 AES 算法处理之前，进行长度的处理（MD5 HASH 等给出特定位数结果的算法）
+// 为了达到各项参数没有各项严谨的长度限制，需要在进行真正的标准库 AES 算法处理之前，进行长度的处理（MD5 HASH 等给出特定位数结果的算法）
 
 func CryptoJSAESPreEncrypt(aesKey, cipherText []byte) ([]byte, error) {
 	iv        := eutil.IV()

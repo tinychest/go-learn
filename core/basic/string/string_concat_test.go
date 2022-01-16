@@ -22,7 +22,7 @@ import (
 [Grow 的扩容]：n 小于 cap - len，底层切片就不扩容，否则扩容到原来 cap 的两倍 + n
 
 【其他】
-len 原生函数返回的是参数的 字节数
+len 返回的是参数的 字节数
 strings.Builder.Grow 的参数也是 字节数
 编码差异，详见 basic_test.go
 

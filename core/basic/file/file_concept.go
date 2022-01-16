@@ -1,6 +1,6 @@
 package file
 
-// 操作文件相关的 原生api 主要在：os 包下
+// 操作文件相关的 标准库api 主要在：os 包下
 
 func list() {
 	// os.Mkdir()
