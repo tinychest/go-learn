@@ -12,10 +12,10 @@ func RPCClient() {
 		panic(fmt.Errorf("dialing err: %w", err))
 	}
 
-	param := dto.Param{}
+	args := dto.Args{}
 	reply := dto.Reply{}
 
-	err = client.Call("hello.Hello", param, &reply)
+	err = client.Call("hello.Hello", args, &reply)
 	if err != nil {
 		panic(err)
 	}
@@ -47,10 +47,10 @@ func getClient() *rpc.Client {
 func RPCClientReuse() {
 	client := getClient()
 
-	param := dto.Param{}
+	args := dto.Args{}
 	reply := dto.Reply{}
 
-	err := client.Call("hello.Hello", param, &reply)
+	err := client.Call("hello.Hello", args, &reply)
 	if err != nil {
 		panic(err)
 	}

@@ -5,12 +5,12 @@ import (
 )
 
 type IHello interface {
-	Hello(p *dto.Param, r *dto.Reply) error
+	Hello(*dto.Args, *dto.Reply) error
 }
 
 type Hello struct{}
 
-func (s *Hello) Hello(param *dto.Param, reply *dto.Reply) error {
+func (s *Hello) Hello(args *dto.Args, reply *dto.Reply) error {
 	reply.Code = 200
 	reply.Message = "hello"
 	return nil

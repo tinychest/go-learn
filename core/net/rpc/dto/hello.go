@@ -1,6 +1,6 @@
 package dto
 
-type Param struct {
+type Args struct {
 	Message string `json:"message"`
 }
 

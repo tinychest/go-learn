@@ -13,14 +13,14 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 	w.Header()["Content-Type"] = []string{"application/json"}
 
 	// 获取参数
-	var param = new(dto.Param)
+	var args = new(dto.Args)
 
 	bs, err := io.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
 	}
 	if len(bs) != 0 {
-		err = json.Unmarshal(bs, &param)
+		err = json.Unmarshal(bs, &args)
 		if err != nil {
 			panic(err)
 		}

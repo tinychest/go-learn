@@ -15,11 +15,11 @@ func main() {
 	}
 
 	var reply = &hello.String{}
-	var param = &hello.String{
+	var args = &hello.String{
 		Value: "hello ming",
 	}
 
-	err = client.Call("HelloService.Hello", param, &reply)
+	err = client.Call("HelloService.Hello", args, &reply)
 	if err != nil {
 		panic(err)
 	}
