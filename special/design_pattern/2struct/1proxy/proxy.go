@@ -31,7 +31,7 @@ func (p *{{$.ProxyStructName}}Proxy) {{ .Name }} ({{ .Params }}) ({{ .Results }}
 	{{ .ResultNames }} = p.child.{{ .Name }}({{ .ParamNames }})
 
 	// after 这里可能也有一些监控统计的逻辑
-	log.Printf("user login cost time: %s", time.Now().Sub(start))
+	fmt.Printf("user login cost time: %s", time.Now().Sub(start))
 
 	return {{ .ResultNames }}
 }

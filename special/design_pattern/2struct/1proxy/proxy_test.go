@@ -26,7 +26,7 @@ func (p *UserProxy) Login(username, password string) (r0 error) {
 	r0 = p.child.Login(username, password)
 
 	// after 这里可能也有一些监控统计的逻辑
-	log.Printf("user login cost time: %s", time.Now().Sub(start))
+	fmt.Printf("user login cost time: %s", time.Now().Sub(start))
 
 	return r0
 }

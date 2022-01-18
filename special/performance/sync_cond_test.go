@@ -1,7 +1,7 @@
 package performance
 
 import (
-	"log"
+	"fmt"
 	"sync"
 	"testing"
 	"time"
@@ -49,19 +49,19 @@ func read(name string, c *sync.Cond) {
 	for !done {
 		c.Wait()
 	}
-	log.Println(name, "starts reading")
+	fmt.Println(name, "starts reading")
 	c.L.Unlock()
 }
 
 func write(name string, c *sync.Cond) {
-	log.Println(name, "starts writing")
+	fmt.Println(name, "starts writing")
 	time.Sleep(time.Second)
 
 	c.L.Lock()
 	done = true
 	c.L.Unlock()
 
-	log.Println(name, "wakes all")
+	fmt.Println(name, "wakes all")
 
 	c.Broadcast()
 }
