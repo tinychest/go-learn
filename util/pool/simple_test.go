@@ -3,7 +3,6 @@ package pool
 import (
 	"github.com/panjf2000/ants/v2"
 	"go-learn/util"
-	"log"
 	"testing"
 )
 
@@ -52,7 +51,7 @@ func TestSimple(t *testing.T) {
 					res3 = append(res3, data.(int))
 				})
 				if err != nil {
-					log.Fatal(err)
+					panic(err)
 				}
 			}
 

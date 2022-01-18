@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -11,7 +10,7 @@ import (
 func main() {
 	conn, err := net.Dial("tcp", "localhost:1234")
 	if err != nil {
-		log.Fatal("net.Dial:", err)
+		panic(fmt.Errorf("net.Dial: %w", err))
 	}
 
 	client := rpc.NewClientWithCodec(jsonrpc.NewClientCodec(conn))
@@ -19,7 +18,7 @@ func main() {
 	var reply string
 	err = client.Call("HelloService.Hello", "hello", &reply)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	fmt.Println(reply)

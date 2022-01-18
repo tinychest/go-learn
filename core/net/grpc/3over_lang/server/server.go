@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -17,18 +17,18 @@ func (s *HelloService) Hello(request string, reply *string) error {
 func main() {
 	err := rpc.RegisterName("HelloService", new(HelloService))
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
-			log.Fatal("Accept error:", err)
+			panic(fmt.Errorf("accept error: %w", err))
 		}
 
 		go rpc.ServeCodec(jsonrpc.NewServerCodec(conn))

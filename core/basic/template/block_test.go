@@ -2,7 +2,6 @@ package template
 
 import (
 	"go-learn/util"
-	"log"
 	"strings"
 	"testing"
 	"text/template"
@@ -35,7 +34,7 @@ func TestComplex(t *testing.T) {
 	// three
 	overlayTmpl, err := template.Must(handleTmpl.Clone()).Parse(overlay)
 	if err != nil {
-		log.Fatal(err)
+		t.Fatal(err)
 	}
 	result, err = util.AsString(overlayTmpl, data)
 	if err != nil {

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	_safer2 "go-learn/core/net/grpc/2safer"
-	"log"
 	"net/rpc"
 )
 
@@ -33,13 +32,13 @@ func NewHelloClient(network, address string) (*HelloClient, error) {
 func main0() {
 	client, err := rpc.Dial("tcp", "localhost:1234")
 	if err != nil {
-		log.Fatal("dialing:", err)
+		panic(fmt.Errorf("dialing: %w", err))
 	}
 
 	var reply string
 	err = client.Call(_safer2.HelloServiceName+".Hello", "hello", &reply)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
 
@@ -47,11 +46,11 @@ func main0() {
 func main() {
 	client, err := NewHelloClient("tcp", ":1234")
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	var reply string
 	if err = client.Hello("hello", &reply); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	fmt.Println(reply)
 }

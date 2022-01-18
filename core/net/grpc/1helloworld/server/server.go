@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"go-learn/core/net/grpc/1helloworld"
-	"log"
 	"net"
 	"net/rpc"
 )
@@ -14,12 +14,12 @@ func main() {
 
 	listener, err := net.Listen("tcp", ":1234")
 	if err != nil {
-		log.Fatal("ListenTCP error:", err)
+		panic(fmt.Errorf("ListenTCP error: %w", err))
 	}
 
 	conn, err := listener.Accept()
 	if err != nil {
-		log.Fatal("Accept error", err)
+		panic(fmt.Errorf("accept error: %w", err))
 	}
 
 	rpc.ServeConn(conn)

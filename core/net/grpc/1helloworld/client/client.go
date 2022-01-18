@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"go-learn/core/net/grpc/proto/hello"
-	"log"
 	"net/rpc"
 )
 
@@ -12,7 +11,7 @@ import (
 func main() {
 	client, err := rpc.Dial("tcp", "localhost:1234")
 	if err != nil {
-		log.Fatal("dialing err:", err)
+		panic(fmt.Errorf("dialing err: %w", err))
 	}
 
 	var reply = &hello.String{}
@@ -22,7 +21,7 @@ func main() {
 
 	err = client.Call("HelloService.Hello", param, &reply)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	fmt.Println("success rpc result:", reply)
 }
