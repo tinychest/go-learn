@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-learn/core/net/rpc/2safer"
+	_safer2 "go-learn/core/net/grpc/2safer"
 	"log"
 	"net"
 	"net/rpc"
@@ -14,8 +14,8 @@ func (p *HelloService) Hello(request string, reply *string) error {
 	return nil
 }
 
-func RegisterHelloService(svc _safer.HelloService) error {
-	return rpc.RegisterName(_safer.HelloServiceName, svc)
+func RegisterHelloService(svc _safer2.HelloService) error {
+	return rpc.RegisterName(_safer2.HelloServiceName, svc)
 }
 
 func main() {

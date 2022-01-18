@@ -2,19 +2,19 @@ package main
 
 import (
 	"fmt"
-	"go-learn/core/net/rpc/2safer"
+	_safer2 "go-learn/core/net/grpc/2safer"
 	"log"
 	"net/rpc"
 )
 
-var _ _safer.HelloService = (*HelloClient)(nil)
+var _ _safer2.HelloService = (*HelloClient)(nil)
 
 type HelloClient struct {
 	*rpc.Client
 }
 
 func (p *HelloClient) Hello(request string, reply *string) error {
-	return p.Client.Call(_safer.HelloServiceName+".Hello", request, reply)
+	return p.Client.Call(_safer2.HelloServiceName+".Hello", request, reply)
 }
 
 func NewHelloClient(network, address string) (*HelloClient, error) {
@@ -37,7 +37,7 @@ func main0() {
 	}
 
 	var reply string
-	err = client.Call(_safer.HelloServiceName+".Hello", "hello", &reply)
+	err = client.Call(_safer2.HelloServiceName+".Hello", "hello", &reply)
 	if err != nil {
 		log.Fatal(err)
 	}

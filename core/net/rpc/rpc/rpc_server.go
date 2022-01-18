@@ -1,12 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"net/rpc"
 )
 
 func main() {
+	// 注册路由
 	_ = rpc.RegisterName("hello", new(Hello))
 
 	listener, err := net.Listen("tcp", ":1234")
@@ -20,7 +22,7 @@ func main() {
 			log.Fatal("Accept error", err)
 		}
 
-		log.Println("new request...")
+		fmt.Println("new request...")
 		rpc.ServeConn(conn) // 源码注释上说，应该异步调用的
 	}
 }

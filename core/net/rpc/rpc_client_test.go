@@ -1,4 +1,4 @@
-package http_rpc
+package rpc
 
 import (
 	"testing"

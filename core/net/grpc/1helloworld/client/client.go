@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"go-learn/special/proto/hello"
+	"go-learn/core/net/grpc/proto/hello"
 	"log"
 	"net/rpc"
 )

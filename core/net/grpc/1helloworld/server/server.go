@@ -1,7 +1,7 @@
 package main
 
 import (
-	helloworld "go-learn/core/net/rpc/1helloworld"
+	"go-learn/core/net/grpc/1helloworld"
 	"log"
 	"net"
 	"net/rpc"

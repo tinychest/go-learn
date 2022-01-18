@@ -1,15 +1,15 @@
-package http_rpc
+package rpc
 
 import (
-	"go-learn/special/performance/benchmark/http_rpc/dto"
-	"log"
+	"fmt"
+	"go-learn/core/net/rpc/dto"
 	"net/rpc"
 )
 
 func RPCClient() {
 	client, err := rpc.Dial("tcp", "localhost:1234")
 	if err != nil {
-		log.Fatal("dialing err:", err)
+		panic(fmt.Errorf("dialing err: %w", err))
 	}
 
 	param := dto.Param{}
@@ -17,13 +17,15 @@ func RPCClient() {
 
 	err = client.Call("hello.Hello", param, &reply)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-	// log.Println("success rpc result:", reply)
+	fmt.Println(reply)
+
+	// fmt.Println("success rpc result:", reply)
 	// 不关闭，服务端不会释放连接，导致第二次发起连接阻塞
 	err = client.Close()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
 
@@ -35,7 +37,7 @@ func getClient() *rpc.Client {
 	if conn == nil {
 		conn, err = rpc.Dial("tcp", "localhost:1234")
 		if err != nil {
-			log.Fatal("dialing err:", err)
+			panic(fmt.Errorf("dialing err: %w", err))
 		}
 	}
 
@@ -50,6 +52,6 @@ func RPCClientReuse() {
 
 	err := client.Call("hello.Hello", param, &reply)
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }

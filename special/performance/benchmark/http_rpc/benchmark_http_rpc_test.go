@@ -1,6 +1,7 @@
 package http_rpc
 
 import (
+	"go-learn/core/net/rpc"
 	"testing"
 )
 
@@ -19,18 +20,18 @@ import (
 
 func Benchmark_HTTPCall(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		HTTPClient()
+		rpc.HTTPClient()
 	}
 }
 
 func Benchmark_RPCCall(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		RPCClient()
+		rpc.RPCClient()
 	}
 }
 
 func Benchmark_RPCReuseCall(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		RPCClientReuse()
+		rpc.RPCClientReuse()
 	}
 }

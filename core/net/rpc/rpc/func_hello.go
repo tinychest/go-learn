@@ -1,6 +1,8 @@
 package main
 
-import "go-learn/special/performance/benchmark/http_rpc/dto"
+import (
+	"go-learn/core/net/rpc/dto"
+)
 
 type IHello interface {
 	Hello(p *dto.Param, r *dto.Reply) error

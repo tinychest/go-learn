@@ -1,7 +1,8 @@
-package http_rpc
+package rpc
 
 import (
-	"go-learn/special/performance/benchmark/http_rpc/dto"
+	"fmt"
+	"go-learn/core/net/rpc/dto"
 	"go-learn/util/req"
 )
 
@@ -13,5 +14,5 @@ func HTTPClient() {
 		panic(err)
 	}
 
-	// log.Println(*res)
+	fmt.Println(*res)
 }

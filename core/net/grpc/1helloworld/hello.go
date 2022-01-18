@@ -1,6 +1,8 @@
 package helloworld
 
-import "go-learn/special/proto/hello"
+import (
+	"go-learn/core/net/grpc/proto/hello"
+)
 
 // HelloService is rpc server obj
 type HelloService struct{}

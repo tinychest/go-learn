@@ -1,7 +1,7 @@
 package dto
 
 type Param struct {
-	Message string
+	Message string `json:"message"`
 }
 
 type Reply struct {
