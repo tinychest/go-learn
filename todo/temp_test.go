@@ -10,13 +10,49 @@ import (
 	"go-learn/core"
 	"go-learn/util"
 	"math"
+	"sync"
 	"testing"
 	"time"
 )
 
 // TODO 类型的转换规则具体原理：Int64 有时可以直接用，有时不行
-// TODO 文案：标准库 ✔ 原生 ❌
 // TODO syscall.Syscall
+
+func TestOnce(t *testing.T) {
+	o := sync.Once{}
+	f := func(n int) {
+		t.Log("print start", n)
+		time.Sleep(3 * time.Second)
+		t.Log("print end", n)
+	}
+
+	wg := sync.WaitGroup{}
+	wg.Add(2)
+
+	go func() {
+		t.Log("run start", 1)
+		o.Do(func() {
+			t.Log("do start", 1)
+			f(1)
+			t.Log("do end", 1)
+			wg.Done()
+		})
+		t.Log("run end", 1)
+	}()
+
+	go func() {
+		t.Log("run start", 2)
+		o.Do(func() {
+			t.Log("do start", 2)
+			f(2)
+			t.Log("do end", 2)
+			wg.Done()
+		})
+		t.Log("run end", 2)
+	}()
+
+	wg.Wait()
+}
 
 func TestKKK(t *testing.T) {
 	var k interface{} = 1
