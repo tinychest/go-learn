@@ -49,11 +49,12 @@ func GetJson(url string, query url.Values, result interface{}) error {
 	}
 
 	// 后置
+	defer resp.Body.Close()
 	return respJsonHandle(resp, desc, result)
 }
 
 // PostJson 请求 json 数据（参数也是 json 数据）
-func PostJson(url string, query url.Values, args interface{}, result interface{}) error {
+func PostJson(url string, query url.Values, args interface{}, result interface{}) (err error) {
 	// 前置
 	if err := preHandle(url, result); err != nil {
 		panic(err)
@@ -64,13 +65,8 @@ func PostJson(url string, query url.Values, args interface{}, result interface{}
 		desc = theDefault
 	}
 
-	var (
-		bs  []byte
-		err error
-	)
-	if args == nil {
-		bs = []byte(`{}`)
-	} else {
+	var bs = []byte(`{}`)
+	if args != nil {
 		bs, err = json.Marshal(args)
 		if err != nil {
 			return fmt.Errorf("%s %s %w", desc.ErrTip(), "准备请求参数失败", err)
@@ -83,6 +79,7 @@ func PostJson(url string, query url.Values, args interface{}, result interface{}
 	}
 
 	// 后置
+	defer resp.Body.Close()
 	return respJsonHandle(resp, desc, result)
 }
 

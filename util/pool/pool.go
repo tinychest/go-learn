@@ -28,14 +28,14 @@ func start(c inner, output chan<- interface{}) {
 	)
 	group.Start()
 	defer group.Close()
-	defer close(taskChan)
-	defer close(resultChan)
-	defer close(output)
+
+	// resultChan、errChan 自然回收
 
 	defer c.cancel()
 
 	// 接收结果
 	go func() {
+		defer close(output)
 		for i := 0; i < c.tasker.GetTotal(); i++ {
 			select {
 			case <-c.ctx.Done():
@@ -51,8 +51,10 @@ func start(c inner, output chan<- interface{}) {
 		c.cancel()
 	}()
 
-	// 发送任务
+	// 发放任务
 	go func() {
+		// NOTE 一定要在这里关闭，实际出现过下边向 taskChan 发送数据的时候，taskChan 关闭了（几率非常小）
+		defer close(taskChan)
 		for i := 0; i < c.tasker.GetTotal(); i++ {
 			select {
 			case <-c.ctx.Done():

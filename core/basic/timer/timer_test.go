@@ -45,11 +45,15 @@ const interval = time.Second
 
 func TestTimer(t *testing.T) {
 	// timerTest(t)
-	timerStopTest(t)
+	// timerStopTest(t)
+
 	// tickerTest(t)
+	// tickerTest2(t)
+	tickerTest3(t)
+	// tickerTest4(t)
 }
 
-// 你可以直接写一个简单 case <-time.After(interval) 但那会产生大量的垃圾
+// 你可以直接写一个简单的 case <-time.After(interval) 但那会产生大量的垃圾
 func timerTest(t *testing.T) {
 	before := time.Now()
 
@@ -83,30 +87,57 @@ func timerStopTest(t *testing.T) {
 	t.Log("4")
 }
 
-// ticker.C 同样，返回的是一个只读通道（无法关闭），调用 ticker.Stop 不意味着关闭 ticker.C
+// 每秒执行一次
 func tickerTest(t *testing.T) {
-	// NewTicker 只会执行一次
 	for range time.NewTicker(interval).C {
 		t.Log("one second later...")
 	}
 }
 
-// 定时器以 3 秒 ←→ 1 秒 交替形式的执行
+// 每秒执行一次
 func tickerTest2(t *testing.T) {
-	sum := 0
-	before := time.Now()
-	ticker := time.NewTicker(time.Second)
+	for range time.Tick(time.Second) {
+		t.Log("one second later...")
+	}
+}
 
+// ticker.C 同样，返回的是一个只读通道（无法关闭）
+// ticker.Stop 不意味着关闭 ticker.C
+func tickerTest3(t *testing.T) {
+	flag := true
+
+	before := time.Now()
+
+	ticker := time.NewTicker(interval)
 	for now := range ticker.C {
 		t.Log(now.Sub(before))
 		before = now
 
-		sum++
+		if flag {
+			ticker.Stop() // 单独执行这个结果是导致程序死锁
+			ticker.Reset(2 * time.Second) // 尝试在执行一次 1 秒后，后面都以 2 秒的间隔执行（实际只起作用一次，执行一次后，又恢复到 1 秒一次）
+			flag = false
+		}
+	}
+}
 
-		if sum%2 == 0 {
+// 以 3 秒 ←→ 1 秒 交替的间隔实践形式执行
+func tickerTest4(t *testing.T) {
+	flag := false
+
+	before := time.Now()
+
+	ticker := time.NewTicker(time.Second)
+	for now := range ticker.C {
+		t.Log(now.Sub(before))
+		before = now
+
+		if flag {
 			ticker.Reset(time.Second)
+			flag = false
 		} else {
 			ticker.Reset(3 * time.Second)
+			flag = true
 		}
 	}
 }
