@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	over "go-learn/core/net/grpc/3over_lang"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -16,7 +17,7 @@ func main() {
 	client := rpc.NewClientWithCodec(jsonrpc.NewClientCodec(conn))
 
 	var reply string
-	err = client.Call("HelloService.Hello", "hello", &reply)
+	err = client.Call(over.HelloServiceName+".Hello", "hello", &reply)
 	if err != nil {
 		panic(err)
 	}

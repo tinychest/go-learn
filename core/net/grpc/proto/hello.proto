@@ -6,7 +6,7 @@ package abc; // 命名空间，多个命名空间下可以有同名 message（�
 // protoc-gen-go: unable to determine Go import path for "hello.proto"
 option go_package = "./hello";
 
-// protobuf 中最基本的数据单元是 message，类似 Go 中的结构体
+// protobuf 中最基本的数据单元是 message，类比于 Go 中的结构体
 // 定义一个 String 类型的消息体，最终生成的 Go 语言代码中对应一个 String 结构体
 // 包含三个属性：类型、字段名称、字段编号
 // 定义上，除了类型以外，均不可重复

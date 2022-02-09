@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	over "go-learn/core/net/grpc/3over_lang"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -15,7 +16,7 @@ func (s *HelloService) Hello(request string, reply *string) error {
 }
 
 func main() {
-	err := rpc.RegisterName("HelloService", new(HelloService))
+	err := rpc.RegisterName(over.HelloServiceName, new(HelloService))
 	if err != nil {
 		panic(err)
 	}
