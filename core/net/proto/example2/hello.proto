@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package abc;
+
+option go_package = "./hello";
+
+service Hello {
+  rpc Hello(HelloArgs) returns (HelloReply) {}
+}
+
+message HelloArgs {
+  string year = 1;
+}
+
+message HelloReply {
+  repeated string univCodes = 1;
+}

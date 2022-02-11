@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package p1;
+
+option go_package = "/hello";
+
+message String {
+  string value = 1;
+}

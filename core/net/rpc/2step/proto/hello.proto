@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package hello;
+
+option go_package = "/hello";
+
+message Args {
+  string value = 1;
+}
+
+message Reply {
+  string value = 1;
+}
