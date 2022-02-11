@@ -4,19 +4,71 @@ import (
 	"context"
 	"encoding/binary"
 	"encoding/json"
-	"errors"
 	"fmt"
-	errors2 "github.com/pkg/errors"
-	"go-learn/core"
 	"go-learn/util"
 	"math"
-	"sync"
 	"testing"
 	"time"
 )
 
 // TODO 类型的转换规则具体原理：Int64 有时可以直接用，有时不行
 // TODO syscall.Syscall
+
+// package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
+
+func TestOne(t *testing.T) {
+	s := struct {
+		time.Time
+		N int
+	}{
+		time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
+		5,
+	}
+
+	// typ := reflect.TypeOf(s)
+	// marshalerType := reflect.TypeOf((*json.Marshaler)(nil)).Elem()
+	// b := reflect.PtrTo(typ).Implements(marshalerType)
+	//
+	// fmt.Println(b)
+
+	m, _ := json.Marshal(s)
+	fmt.Printf("%s", m)
+}
+
+type People interface {
+	Show()
+}
+
+type Student struct{}
+
+func (stu *Student) Show() {}
+
+func live() People {
+	var stu *Student
+	return stu
+}
+
+func TestW(t *testing.T) {
+	// 返回 - 值：nil，类型：*Student
+	// (*Student)(nil) - 值：nil，类型：*student
+	// nil - 值：nil，类型：nil
+	if live() == (*Student)(nil) {
+		fmt.Println("AAAAAAA")
+	} else {
+		fmt.Println("BBBBBBB")
+	}
+}
+
+func TestSwith(t *testing.T) {
+	// interface{} 万能匹配类型；调换下面 case 的顺序，可以达到打印结果不同的效果
+	var i interface{} = 1
+	switch i.(type) {
+	case interface{}:
+		t.Log(2)
+	case int:
+		t.Log(1)
+	}
+}
 
 func TestOnce(t *testing.T) {
 	o := sync.Once{}
@@ -54,57 +106,39 @@ func TestOnce(t *testing.T) {
 	wg.Wait()
 }
 
-func TestKKK(t *testing.T) {
-	var k interface{} = 1
+func TestChan(t *testing.T) {
+	c := make(chan int)
+	close(c)
 
-	switch k.(type) {
-	case interface{}: // 万能匹配？
-	}
-}
-
-// package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
-
-type Name []string
-
-func (n *Name) Append(value string) {
-	*n = append(*n, value)
-}
-
-func TestAbc(t *testing.T) {
-	// var n *Name // gg *nil panic
-	// var n = new(Name) // ok
-	var n = Name{}
-	n.Append("123")
-}
-
-func TestCtx(t *testing.T) {
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
+	// panic，因为 case 会尝试去做，也就是实际 case 后的语句会执行
 	select {
-	case <-ctx.Done():
-		t.Log("done")
+	case c <- 1:
+		fmt.Println("执行了")
+	default:
+		fmt.Println("不执行")
 	}
-
-	<-ctx.Done()
-	t.Log("done")
-
-	<-ctx.Done()
-	t.Log("done")
-
-	// 死锁
-	// select {}
-
-	// 死锁（c 没有关闭，也没有给值的地方）
-	// select {
-	// case <-c:
-	// }
 }
 
-func TestAlert(t *testing.T) {
-	var p interface{} = new(core.Person)
-	v, ok := p.(core.Person)
-	t.Log(v, ok)
+func TestUnmarshalSingle(t *testing.T) {
+	var bs []uint8
+	bs = []byte("1.0")
+
+	var i float64
+	if err := json.Unmarshal(bs, &i); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(i)
+}
+
+// 接口类型，是值类型，没有地址传递的概念
+func TestInterfaceWrapAddr(t *testing.T) {
+	type p struct{}
+
+	// 测试
+	var p1 interface{} = p{}
+	var p2 = p1
+	util.PrintAddr(p1)
+	util.PrintAddr(p2)
 }
 
 func TestFloat642Byte(t *testing.T) {
@@ -125,50 +159,4 @@ func Float642Byte(float float64) []byte {
 func Byte2Float64(bytes []byte) float64 {
 	bits := binary.LittleEndian.Uint64(bytes)
 	return math.Float64frombits(bits)
-}
-
-func TestUnmarshalSingle(t *testing.T) {
-	var bs []uint8
-	bs = []byte("1.0")
-
-	var i float64
-	if err := json.Unmarshal(bs, &i); err != nil {
-		t.Fatal(err)
-	}
-	t.Log(i)
-}
-
-func TestErr(t *testing.T) {
-	// Go 标准库
-	err := errors.New("MySQL error")
-	err = fmt.Errorf("查询出错: %w", err)
-	err = fmt.Errorf("模块出错: %w", err)
-	t.Log("--------------")
-	t.Log(err) // 上面拼串的结果
-	t.Log("--------------")
-	t.Log(errors.Unwrap(err)) // 解开一层
-
-	// 三方类库
-	err = errors.New("mysql error")
-	err = errors2.Wrap(err, "查询出错")
-	err = errors2.Wrap(err, "模块出错")
-	t.Log("--------------")
-	t.Log(err)
-	// t.Log("--------------")
-	// t.Log(errors2.Unwrap(err)) // 无用
-	t.Log("--------------")
-	t.Logf("stack trace:\n%+v\n", err) // 错误的堆栈信息
-	t.Log("--------------")
-	t.Log(errors2.Cause(err)) // 解到最底层（第一个错误）
-}
-
-// 接口类型，是值类型，没有地址传递的概念
-func TestInterfaceWrapAddr(t *testing.T) {
-	type p struct{}
-
-	// 测试
-	var p1 interface{} = p{}
-	var p2 = p1
-	util.PrintAddr(p1)
-	util.PrintAddr(p2)
 }
