@@ -70,40 +70,32 @@ func TestSwith(t *testing.T) {
 	}
 }
 
-func TestOnce(t *testing.T) {
-	o := sync.Once{}
-	f := func(n int) {
-		t.Log("print start", n)
-		time.Sleep(3 * time.Second)
-		t.Log("print end", n)
-	}
+func TestContext(t *testing.T) {
+	// 1.ctx 的赋值操作，应当按照切片去理解
+	// 2.值不会被覆盖，你站在越底层，取得的就是越底层的值
 
-	wg := sync.WaitGroup{}
-	wg.Add(2)
+	const key = "name"
+	ctx := context.Background()
 
-	go func() {
-		t.Log("run start", 1)
-		o.Do(func() {
-			t.Log("do start", 1)
-			f(1)
-			t.Log("do end", 1)
-			wg.Done()
-		})
-		t.Log("run end", 1)
+	ctx1 := context.WithValue(ctx, key, "1")
+	t.Log(ctx1.Value(key))
+
+	ctx2 := context.WithValue(ctx1, key, "2")
+	t.Log(ctx1.Value(key))
+	t.Log(ctx2.Value(key))
+}
+
+// panic 两次会打印两次信息
+// 两次 panic 后，recover 恢复的是时间上，后面一个 panic，第一个 panic 被吞了
+func TestPanicTwice(t *testing.T) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+		}
 	}()
+	defer panic(456)
 
-	go func() {
-		t.Log("run start", 2)
-		o.Do(func() {
-			t.Log("do start", 2)
-			f(2)
-			t.Log("do end", 2)
-			wg.Done()
-		})
-		t.Log("run end", 2)
-	}()
-
-	wg.Wait()
+	panic(123)
 }
 
 func TestChan(t *testing.T) {
