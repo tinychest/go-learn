@@ -40,6 +40,4 @@ HTTP/2 对消息头进行了压缩，能够节省网络流量。
 
 [其他]
 https://pkg.go.dev/encoding/gob
-
-TODO 定义一个较为完整的 proto、基于 grpc 的包 给出样例
 */
