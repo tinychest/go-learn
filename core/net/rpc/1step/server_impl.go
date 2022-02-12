@@ -1,5 +1,7 @@
 package helloworld
 
+import "fmt"
+
 type helloService struct{}
 
 func NewHelloService() IHello {
@@ -7,6 +9,7 @@ func NewHelloService() IHello {
 }
 
 func (s *helloService) Hello(args *Args, reply *Reply) error {
-	reply.Value = "hello:" + args.Value
+	fmt.Println("a new call:", args.Value)
+	reply.Value = "Hello! I'm server!"
 	return nil
 }

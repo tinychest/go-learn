@@ -15,6 +15,7 @@ func TestServerRun(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	if err = server.Serve(l); err != nil {
 		t.Fatal(err)
 	}

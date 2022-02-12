@@ -1,6 +1,9 @@
 package _step
 
-import "go-learn/core/net/rpc/2step/proto/hello"
+import (
+	"fmt"
+	"go-learn/core/net/rpc/2step/proto/hello"
+)
 
 type helloService struct{}
 
@@ -9,6 +12,7 @@ func NewHelloService() IHello {
 }
 
 func (p *helloService) Hello(args *hello.Args, reply *hello.Reply) error {
+	fmt.Println("a new call:", args.Value)
 	reply.Value = "hello:" + args.GetValue()
 	return nil
 }

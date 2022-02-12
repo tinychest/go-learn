@@ -13,6 +13,7 @@ func TestClientCall(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	// 对 rpc 调用进行超时设定
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
