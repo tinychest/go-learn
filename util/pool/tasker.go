@@ -2,9 +2,14 @@ package pool
 
 type Task func() (data interface{}, err error)
 
+type Result struct {
+	res interface{}
+	err error
+}
+
 type Tasker interface {
-	GetTotal() int
-	GetTask(index int) Task
+	Total() int
+	Task(index int) Task
 }
 
 type tasker struct {
@@ -19,10 +24,10 @@ func newTasker(total int, getter func(index int) Task) Tasker {
 	}
 }
 
-func (t *tasker) GetTotal() int {
+func (t *tasker) Total() int {
 	return t.total
 }
 
-func (t *tasker) GetTask(index int) Task {
+func (t *tasker) Task(index int) Task {
 	return t.getter(index)
 }

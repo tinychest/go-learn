@@ -2,24 +2,21 @@ package pool
 
 import "fmt"
 
-// 工人，执行任务的基础单位
+// Worker 工人，每个都会对应一个 Goroutine，执行任务的基础单位
 type Worker struct {
 	// 接收任务
 	taskChan <-chan Task
-	// 内部发生错误，向外部告知错误信息（整个逻辑将会结束）
-	errChan chan<- error
 	// 输出结果
-	resultChan chan<- interface{}
-	// 外部通知结束的通道
+	resultChan chan<- *Result
+	// 外部（工作组）通知结束的通道
 	closeSignal <-chan struct{}
 }
 
-func NewWorker(input <-chan Task, err chan<- error, output chan<- interface{}, close <-chan struct{}) *Worker {
+func NewWorker(taskChan <-chan Task, resultChan chan<- *Result, closeSignal <-chan struct{}) *Worker {
 	return &Worker{
-		taskChan:    input,
-		errChan:     err,
-		resultChan:  output,
-		closeSignal: close,
+		taskChan:    taskChan,
+		resultChan:  resultChan,
+		closeSignal: closeSignal,
 	}
 }
 
@@ -28,38 +25,32 @@ func (w *Worker) Start() {
 }
 
 func (w *Worker) start() {
-	var (
-		task   Task
-		result interface{}
-		err    error
-	)
-
-	// 假如执行任务发生 panic，可能会导致核心机制的结果接收 goroutine 无法结束
 	defer w.panicHandle()
 
-	for task = range w.taskChan {
-		// 退出：内部发生错误
-		if result, err = task(); err != nil {
-			w.errChan <- err
-			return
-		}
-		// 退出：外部要求
+	for task := range w.taskChan {
+		res, err := task()
 		select {
 		case <-w.closeSignal:
 			return
 		default:
 		}
-		// 退出：不符合机制要求，任务执行的结果不能为空
-		if result == nil {
-			w.errChan <- fmt.Errorf("任务执行结果为空")
+
+		select {
+		case <-w.closeSignal:
 			return
+		case w.resultChan <- &Result{res: res, err: err}:
 		}
-		w.resultChan <- result
 	}
+
+	fmt.Println("Worker exit...")
 }
 
 func (w *Worker) panicHandle() {
 	if errObj := recover(); errObj != nil {
-		w.errChan <- errObj.(error)
+		select {
+		case <-w.closeSignal:
+			return
+		case w.resultChan <- &Result{err: errObj.(error)}:
+		}
 	}
 }

@@ -7,52 +7,65 @@ import (
 )
 
 const (
-	taskQuality = 1000
-	taskSum     = 1000
+	taskSum     = 10000 // 计算次数
+	taskQuality = 1000  // 单次计算阶乘中的 n
 )
 
 func TestSimple(t *testing.T) {
-	res1 := make([]int, 0, taskSum)
-	res2 := make([]int, 0, taskSum)
-	res3 := make([]int, 0, taskSum)
+	directCase(t)
+	poolCase(t)
+	antPoolCase(t)
+}
 
-	// 直接运算
+func directCase(t *testing.T) {
+	res := make([]int, 0, taskSum)
+
 	t.Log("direct")
 	util.TimeCost(
 		func() {
 			for i := 0; i < taskSum; i++ {
 				data, _ := forFactorial()
-				res1 = append(res1, data.(int))
+				res = append(res, data.(int))
 			}
 		})
+}
 
-	// 使用自定义任务池
+func poolCase(t *testing.T) {
+	res := make([]int, 0, taskSum)
+
 	getter := func(index int) Task {
 		return forFactorial
 	}
 	collector := func(data interface{}) {
-		res1 = append(res2, data.(int))
+		res = append(res, data.(int))
 	}
+	c := NewCenter(taskSum, getter)
 
 	t.Log("custom")
 	util.TimeCost(
 		func() {
-			NewTaskCenter(taskSum, getter).Start(collector)
+			c.Start(collector, 0)
+			if err := c.Error(); err != nil {
+				t.Log(err)
+			}
 		})
+}
 
-	// 使用 ant
-	t.Log("ants")
+func antPoolCase(t *testing.T) {
+	res := make([]int, 0, taskSum)
+
 	p, _ := ants.NewPool(100)
+
+	t.Log("ants")
 	util.TimeCost(
 		func() {
 			for i := 0; i < taskSum; i++ {
-				err := p.Submit(func() {
+				_ = p.Submit(func() {
 					data, _ := forFactorial()
-					res3 = append(res3, data.(int))
+					res = append(res, data.(int))
 				})
-				if err != nil {
-					panic(err)
-				}
+
+				p.Release()
 			}
 
 			// p.Cap()
