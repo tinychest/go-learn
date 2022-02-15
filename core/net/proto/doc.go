@@ -33,6 +33,4 @@ protoc --go_out=plugins=grpc:. hello.proto
 "google.golang.org/grpc"
 "google.golang.org/grpc/codes"
 "google.golang.org/grpc/status"
-
-TODO 了解完整的 proto 语法
 */
