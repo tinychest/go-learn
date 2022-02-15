@@ -2,6 +2,9 @@ package pro
 
 /*
 【Protocol Buffer】
+protocol 直译 协议
+buffer 直译 缓冲
+
 作为 gRPC 的核心之一
 
 Protobuf 是 Protocol Buffers 的简称，是一种和语言、平台无关，可拓展的序列化、结构化数据的数据描述语言
