@@ -2,13 +2,14 @@ package example1
 
 import (
 	"context"
+	"go-learn/core/net/grpc/config"
 	"go-learn/core/net/grpc/example1/proto/hello"
 	"testing"
 	"time"
 )
 
 func TestClientCall(t *testing.T) {
-	client, err := NewHelloClient(ServerAddr())
+	client, err := NewHelloClient(config.ServerAddr())
 	if err != nil {
 		t.Fatal(err)
 	}

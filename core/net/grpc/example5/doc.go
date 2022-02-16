@@ -40,6 +40,4 @@ func NewServer(opt ...ServerOption) *Server
 
 [其他]
 stream 定义 Interceptor 的方式和 Unary 都有不同、设置请求头的方式 方法
-
-TODO 应当找到官方文档样例，再来敲的，这不是一个正确的学习方式
 */

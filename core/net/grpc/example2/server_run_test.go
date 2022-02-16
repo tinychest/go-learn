@@ -1,6 +1,7 @@
 package example2
 
 import (
+	"go-learn/core/net/grpc/config"
 	"go-learn/core/net/grpc/example2/proto/hello"
 	"google.golang.org/grpc"
 	"net"
@@ -11,7 +12,7 @@ func TestServerRun(t *testing.T) {
 	server := grpc.NewServer()
 	hello.RegisterHelloServer(server, NewHelloService())
 
-	l, err := net.Listen("tcp", ":" + ServerPortStr())
+	l, err := net.Listen("tcp", ":" + config.ServerPortStr())
 	if err != nil {
 		t.Fatal(err)
 	}

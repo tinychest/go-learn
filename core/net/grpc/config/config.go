@@ -1,4 +1,4 @@
-package example2
+package config
 
 // 模拟服务发现，这里是静态写死的
 

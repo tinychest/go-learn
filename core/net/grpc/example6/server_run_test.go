@@ -1,4 +1,4 @@
-package example3
+package example6
 
 import (
 	"go-learn/core/net/grpc/config"

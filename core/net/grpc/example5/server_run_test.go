@@ -3,6 +3,7 @@ package example5
 import (
 	"context"
 	"errors"
+	"go-learn/core/net/grpc/config"
 	"go-learn/core/net/grpc/example5/proto/hello"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -29,7 +30,7 @@ func TestServerRun(t *testing.T) {
 
 	hello.RegisterHelloServer(server, NewHelloServer())
 
-	l, err := net.Listen("tcp", ":"+ServerPortStr())
+	l, err := net.Listen("tcp", ":"+config.ServerPortStr())
 	if err != nil {
 		t.Fatal(err)
 	}
