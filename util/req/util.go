@@ -32,9 +32,9 @@ func GetRes(url string, query url.Values) ([]byte, error) {
 }
 
 // GetJSON 请求 json 数据
-func GetJSON(url string, query url.Values, result interface{}) error {
+func GetJSON(url string, query url.Values, result interface{}) (err error) {
 	// 前置
-	if err := preHandle(url, result); err != nil {
+	if err = preHandle(url, result); err != nil {
 		panic(err)
 	}
 
@@ -56,7 +56,7 @@ func GetJSON(url string, query url.Values, result interface{}) error {
 // PostJSON 请求 json 数据（参数也是 json 数据）
 func PostJSON(url string, query url.Values, args interface{}, result interface{}) (err error) {
 	// 前置
-	if err := preHandle(url, result); err != nil {
+	if err = preHandle(url, result); err != nil {
 		panic(err)
 	}
 
