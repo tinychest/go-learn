@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-learn/util"
+	"log"
 	"math"
 	"testing"
 	"time"
@@ -15,6 +16,28 @@ import (
 // TODO syscall.Syscall
 
 // package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
+
+func TestLog(t *testing.T) {
+	log.Fatal()
+}
+
+func hello() []string {
+	return nil
+}
+
+func TestFuncType(t *testing.T) {
+	var f func()
+	if f == nil {
+		t.Log("nil")
+	}
+
+	h := hello
+	if h == nil {
+		fmt.Println("nil")
+	} else {
+		fmt.Println("not nil")
+	}
+}
 
 func TestOne(t *testing.T) {
 	s := struct {
