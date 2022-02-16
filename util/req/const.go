@@ -2,5 +2,5 @@ package req
 
 const (
 	ContentType     = "Content-Type"
-	ApplicationJson = "application/json"
+	ApplicationJSON = "application/json"
 )

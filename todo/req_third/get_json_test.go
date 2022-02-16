@@ -16,10 +16,10 @@ type BgData struct {
 	List []Bg
 }
 
-func TestGetJson(t *testing.T) {
+func TestGetJSON(t *testing.T) {
 	var res BgData
 
-	err := GetJson("", nil, &res)
+	err := GetJSON("", nil, &res)
 	if err != nil {
 		t.Fatal(err)
 	}

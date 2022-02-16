@@ -2,7 +2,6 @@ package json
 
 import (
 	"encoding/json"
-	"fmt"
 	"testing"
 )
 
@@ -55,7 +54,7 @@ func (u *User) MarshalJSON() ([]byte, error) {
 	return json.Marshal(*u)
 }
 
-func TestJson(t *testing.T) {
+func TestJSON(t *testing.T) {
 	user := User{
 		Age:     1,
 		Name:    "小明",
@@ -64,8 +63,8 @@ func TestJson(t *testing.T) {
 	// userPtr := &user
 
 	// 如果希望输出的结果是，格式化了的，可以使用 MarshalIndent
-	if userJsonStr, err := json.Marshal(&user); err == nil {
-		t.Logf("%s\n", userJsonStr)
+	if userJSONStr, err := json.Marshal(&user); err == nil {
+		t.Logf("%s\n", userJSONStr)
 	}
 
 	// if err := json.Unmarshal([]byte(`{"AgE":"11","Na":"小红"}`), userPtr); err == nil {

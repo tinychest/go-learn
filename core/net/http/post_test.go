@@ -5,9 +5,9 @@ import (
 	"testing"
 )
 
-func TestPostJson(t *testing.T) {
+func TestPostJSON(t *testing.T) {
 	var result map[string]interface{}
-	err := req.PostJson("http://127.0.0.1:8888/v1/red_pack/test", nil, nil, &result)
+	err := req.PostJSON("http://127.0.0.1:8888/v1/red_pack/test", nil, nil, &result)
 	if err != nil {
 		t.Log(err)
 	} else {

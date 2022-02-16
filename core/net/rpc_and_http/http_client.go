@@ -9,7 +9,7 @@ import (
 func HTTPClient() {
 	res := new(dto.Reply)
 
-	err := req.GetJson("http://127.0.0.1:8080", nil, res)
+	err := req.GetJSON("http://127.0.0.1:8080", nil, res)
 	if err != nil {
 		panic(err)
 	}

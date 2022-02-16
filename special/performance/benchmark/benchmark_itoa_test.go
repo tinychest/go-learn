@@ -12,7 +12,7 @@ import (
 // pkg: go-learn/special/performance/benchmark
 // cpu: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
 // Benchmark_FmtToString-8          6575601               204.8 ns/op
-// Benchmark_JsonToString-8         4722921               271.8 ns/op
+// Benchmark_JSONToString-8         4722921               271.8 ns/op
 // PASS
 // ok      go-learn/special/performance/benchmark  3.125s
 
@@ -24,7 +24,7 @@ func Benchmark_FmtToString(b *testing.B) {
 	}
 }
 
-func Benchmark_JsonToString(b *testing.B) {
+func Benchmark_JSONToString(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		_, _ = json.Marshal(1.02)
 	}

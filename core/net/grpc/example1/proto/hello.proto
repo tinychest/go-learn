@@ -5,6 +5,7 @@ package hello;
 option go_package = "/hello";
 
 service Hello {
+  // 返回值并不能提前至参数位置
   rpc Hello(HelloArgs) returns (HelloReply) {}
 }
 

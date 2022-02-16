@@ -42,8 +42,8 @@ func GetRes(url string, query url.Values) ([]byte, error) {
 	return bs, nil
 }
 
-// GetJson 请求 json 数据
-func GetJson(url string, query url.Values, resPtr interface{}) error {
+// GetJSON 请求 json 数据
+func GetJSON(url string, query url.Values, resPtr interface{}) error {
 	if len(url) == 0 {
 		panic("url must not be empty")
 	}
@@ -68,11 +68,11 @@ func GetJson(url string, query url.Values, resPtr interface{}) error {
 		return fmt.Errorf("%s：%s %w", desc.ErrTip(), "请求失败", err)
 	}
 
-	return respJsonHandle(resp, desc, result)
+	return respJSONHandle(resp, desc, result)
 }
 
-// PostJson 请求 json 数据（参数也是 json 数据）
-func PostJson(url string, query url.Values, args interface{}, resPtr interface{}) error {
+// PostJSON 请求 json 数据（参数也是 json 数据）
+func PostJSON(url string, query url.Values, args interface{}, resPtr interface{}) error {
 	if len(url) == 0 {
 		panic("url must not be empty")
 	}
@@ -109,10 +109,10 @@ func PostJson(url string, query url.Values, args interface{}, resPtr interface{}
 		return fmt.Errorf("%s：%s %w", desc.ErrTip(), "请求失败", err)
 	}
 
-	return respJsonHandle(resp, desc, result)
+	return respJSONHandle(resp, desc, result)
 }
 
-func respJsonHandle(resp *http.Response, desc IRespDescribe, result interface{}) error {
+func respJSONHandle(resp *http.Response, desc IRespDescribe, result interface{}) error {
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return fmt.Errorf("%s：%s %w", desc.ErrTip(), "读取响应失败", err)
