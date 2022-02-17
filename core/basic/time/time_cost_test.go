@@ -12,5 +12,5 @@ func TestTimeCost(t *testing.T) {
 
 	cost := time.Now().Sub(start).String()
 
-	println(cost)
+	t.Log(cost)
 }

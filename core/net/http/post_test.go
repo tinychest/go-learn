@@ -10,7 +10,6 @@ func TestPostJSON(t *testing.T) {
 	err := req.PostJSON("http://127.0.0.1:8888/v1/red_pack/test", nil, nil, &result)
 	if err != nil {
 		t.Log(err)
-	} else {
-		t.Log(result)
 	}
+	t.Log(result)
 }

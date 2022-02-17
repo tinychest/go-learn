@@ -17,11 +17,11 @@ func TestWaitGroup(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			println(elem)
+			t.Log(elem)
 		}()
 
 		time.Sleep(time.Second)
 	}
 	wg.Wait()
-	println("执行完毕")
+	t.Log("执行完毕")
 }

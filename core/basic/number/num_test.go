@@ -16,5 +16,5 @@ func TestTransType(t *testing.T) {
 	// a = a1 * a2
 
 	// 猜测：像上面直接写数字，Go 有帮忙做默认的类型转化 100（int） → 100（float64），但是你自己写定类型，就不行了
-	println(a)
+	t.Log(a)
 }

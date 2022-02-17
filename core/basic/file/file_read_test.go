@@ -26,7 +26,7 @@ func TestReadFile(t *testing.T) {
 		t.Fatal(err)
 	}
 	// 操作
-	println(len(lines))
+	t.Log(len(lines))
 }
 
 func read(file *os.File) ([]string, error) {

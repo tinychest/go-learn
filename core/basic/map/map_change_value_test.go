@@ -24,12 +24,12 @@ type entity struct {
 
 // 同 Java 里 testMap.get(0) = xxx 的编译不通过，说这么多其实就是你只能操作返回的值，而《不能对获取键对应值的语法，做赋值和 & 的操作》
 func TestMapChangeValue(t *testing.T) {
-	testChangeValue1()
-	// testChangeValue2()
-	// testChangeValue3()
+	testChangeValue1(t)
+	// testChangeValue2(t)
+	// testChangeValue3(t)
 }
 
-func testChangeValue1() {
+func testChangeValue1(t *testing.T) {
 	initSlice := make([]string, 3, 5)
 	initSlice[0] = "0"
 	initSlice[1] = "1"
@@ -38,20 +38,20 @@ func testChangeValue1() {
 
 	// 修改一：正常修改
 	testMap[0] = append(testMap[0], "3")
-	println(testMap)
+	t.Log(testMap)
 
 	// 修改二：无论值是不是指针类型，希望通过中间变量去修改底层值
 	temp := testMap[0]
 
 	temp[0] = "-1" // 正常修改
-	println(testMap)
+	t.Log(testMap)
 
 	temp = append(temp, "4")
-	println(len(temp))       // 5
-	println(len(testMap[0])) // 4
+	t.Log(len(temp))       // 5
+	t.Log(len(testMap[0])) // 4
 }
 
-func testChangeValue2() {
+func testChangeValue2(t *testing.T) {
 	desc := "This is a special Cup"
 	changeDesc := "This is a nice Cup"
 	testMap := map[string]entity{"Cup": {Desc: desc, DescPtr: &desc}}
@@ -72,10 +72,10 @@ func testChangeValue2() {
 	testMap["Cup"] = entity{Desc: changeDesc, DescPtr: &changeDesc}
 }
 
-func testChangeValue3() {
+func testChangeValue3(t *testing.T) {
 	testMap := make(map[int]int, 0)
 	// 这样的操作是可以的，实际效果就是为 map 添加了一对 0:1
 	// 因为本质就是替换键值对
 	testMap[0]++
-	println(testMap)
+	t.Log(testMap)
 }

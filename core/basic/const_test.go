@@ -11,7 +11,7 @@ func TestConstValue(t *testing.T) {
 	// 	a2 = iota
 	// 	a3
 	// )
-	// println(a1, a2, a3)
+	// t.Log(a1, a2, a3)
 
 	const (
 		a, b = "golang", 100
@@ -19,5 +19,5 @@ func TestConstValue(t *testing.T) {
 		f bool = true
 		g      // goland 提示编译不通过，实际上编译通过
 	)
-	println(d, e, g)
+	t.Log(d, e, g)
 }

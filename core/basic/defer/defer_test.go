@@ -6,8 +6,8 @@ import (
 
 // TestDefer 下面两组例子想阐述的 defer 原理是一样的
 func TestDefer(t *testing.T) {
-	println(returnTest1())
-	println(returnTest2())
+	t.Log(returnTest1())
+	t.Log(returnTest2())
 }
 
 func returnTest1() int {

@@ -25,7 +25,7 @@ func TestCron(t *testing.T) {
 			Name: "测试 cron",
 			Cron: "* * * * * ?",
 			Job: func() error {
-				println("我是方法...")
+				t.Log("我是方法...")
 				return nil
 			},
 		},

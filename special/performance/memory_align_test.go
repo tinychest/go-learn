@@ -36,16 +36,16 @@ type S2 struct {
 
 func TestMemoryAlignConcept(t *testing.T) {
     // 结构体实例，实际占用的空间大小
-    println(unsafe.Sizeof(S1{})) // 8 + 8 = 16
-    println(unsafe.Sizeof(S2{})) // 4 + 2 + 2（对齐） = 8
+    t.Log(unsafe.Sizeof(S1{})) // 8 + 8 = 16
+    t.Log(unsafe.Sizeof(S2{})) // 4 + 2 + 2（对齐） = 8
 
     // 结构体实例的 对齐系数 或叫 对齐倍数
     // unsafe.Alignof 的 规则：
     // - 对于任意类型的变量 x ，unsafe.Alignof(x) 至少为 1
     // - 对于 struct 结构体类型的变量 x，计算 x 每一个字段 f 的 unsafe.Alignof(x.f)，unsafe.Alignof(x) 等于其中的最大值
     // - 对于 array 数组类型的变量 x，unsafe.Alignof(x) 等于构成数组的元素类型的对齐倍数
-    println(unsafe.Alignof(S1{})) // 8
-    println(unsafe.Alignof(S2{})) // 4
+    t.Log(unsafe.Alignof(S1{})) // 8
+    t.Log(unsafe.Alignof(S2{})) // 4
 
     // 内存对齐的技巧
     // 一、结构体中不同类型字段的顺序，以 int8 int32 int16 为例
@@ -69,6 +69,6 @@ func TestMemoryAlignConcept(t *testing.T) {
         c int32
     }
 
-    println(unsafe.Sizeof(demo3{})) // 8
-    println(unsafe.Sizeof(demo4{})) // 4
+    t.Log(unsafe.Sizeof(demo3{})) // 8
+    t.Log(unsafe.Sizeof(demo4{})) // 4
 }

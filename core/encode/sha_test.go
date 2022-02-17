@@ -23,7 +23,7 @@ func TestSha1(t *testing.T) {
 	if _, err := theSha1.Write([]byte(param)); err != nil {
 		t.Fatal(err)
 	}
-	println(hex.EncodeToString(theSha1.Sum(nil)))
+	t.Log(hex.EncodeToString(theSha1.Sum(nil)))
 
 	// 每次都能得到一个恒定的结果：da39a3ee5e6b4b0d3255bfef95601890afd80709
 	t.Log(hex.EncodeToString(sha1.New().Sum(nil)))

@@ -3,7 +3,7 @@ package enum
 import "testing"
 
 func TestEnumCast(t *testing.T) {
-	println(Parse(""))
-	println(Parse("123"))
-	println(Parse("MALE"))
+	t.Log(Parse(""))
+	t.Log(Parse("123"))
+	t.Log(Parse("MALE"))
 }

@@ -9,10 +9,10 @@ import (
 // cap：通道的缓存大小
 func TestChannelLen(t *testing.T) {
 	intChannel := make(chan int, 2)
-	println(cap(intChannel))
-	println(len(intChannel))
+	t.Log(cap(intChannel))
+	t.Log(len(intChannel))
 
 	intChannel <- 1
-	println(cap(intChannel))
-	println(len(intChannel))
+	t.Log(cap(intChannel))
+	t.Log(len(intChannel))
 }

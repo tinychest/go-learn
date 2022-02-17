@@ -7,25 +7,25 @@ import (
 
 // 嵌套形式的数据添加
 func TestValueContext(t *testing.T) {
-	valueContext := context.WithValue(context.Background(), "name", "小明")
+	ctx := context.Background()
+	ctx = context.WithValue(ctx, "name", "小明")
+	ctx = context.WithValue(ctx, "userId", 1)
 
-	valueContext = context.WithValue(valueContext, "userId", 1)
-
-	process(valueContext)
+	process(t, ctx)
 }
 
-func process(ctx context.Context) {
+func process(t *testing.T, ctx context.Context) {
 	userId, ok := ctx.Value("userId").(int)
 	if !ok {
-		println("没有 userId")
+		t.Log("没有 userId")
 	} else {
-		println("取到 userId：", userId)
+		t.Log("取到 userId：", userId)
 	}
 
 	name, ok := ctx.Value("name").(string)
 	if !ok {
-		println("没有 name")
+		t.Log("没有 name")
 	} else {
-		println("取到 name：", name)
+		t.Log("取到 name：", name)
 	}
 }

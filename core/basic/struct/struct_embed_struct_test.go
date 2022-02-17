@@ -19,7 +19,7 @@ func TestAnonymousStruct(t *testing.T) {
 	// 例1 外部类实例能够直接读写内部类的字段；不能结构体写，编译不通过
 	var o out
 	o.InName = "123"
-	println(out{}.InName)
+	t.Log(out{}.InName)
 
 	// 例2 外部类实例能够直接调用内部类的方法
 	o.f()

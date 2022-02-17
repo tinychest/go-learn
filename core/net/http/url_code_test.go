@@ -15,47 +15,45 @@ func TestUrlParam(t *testing.T) {
 	// 服务端请求时也会根据协议做对应的处理：【' ' ←→ '+'】，这也就是开发中可能会踩到的坑，“参数中要求指定的加号会怎么变成空格了呢，然后开始甩锅...”
 	// 注意：不是说编码方式会擅自篡改字符，而是浏览器为了遵守协议，替换了字符，所以下边的测试是复现不出来，基于浏览器访问接口的问题的
 
-	queryEscapeTest(" ")   // 【+】
-	queryUnescapeTest("+") // 【 】
+	queryEscapeTest(t, " ")   // 【+】
+	queryUnescapeTest(t,"+") // 【 】
 
-	queryEscapeTest("+")   // 【%2B】
-	queryUnescapeTest(" ") // 【 】
+	queryEscapeTest(t, "+")   // 【%2B】
+	queryUnescapeTest(t, " ") // 【 】
 
-	pathEscapeTest("+")   // 【+】
-	pathUnescapeTest(" ") // 【 】
+	pathEscapeTest(t, "+")   // 【+】
+	pathUnescapeTest(t, " ") // 【 】
 
-	pathEscapeTest(" ")   // 【%20】
-	pathUnescapeTest("+") // 【+】
-
-	// urlEncodeTest()
+	pathEscapeTest(t, " ")   // 【%20】
+	pathUnescapeTest(t, "+") // 【+】
 }
 
 // test url.QueryEscape And url.QueryUnescape
-func queryEscapeTest(param string) {
+func queryEscapeTest(t *testing.T, param string) {
 	query := url.QueryEscape(param)
-	println("QueryEscape：【" + query + "】")
+	t.Log("QueryEscape：【" + query + "】")
 }
 
-func queryUnescapeTest(param string) {
-	if result, err := url.QueryUnescape(param); err != nil {
-		println("QueryUnescape 失败")
-	} else {
-		println("QueryUnescape：【" + result + "】")
+func queryUnescapeTest(t *testing.T, param string) {
+	result, err := url.QueryUnescape(param)
+	if err != nil {
+		t.Fatal("QueryUnescape 失败")
 	}
+	t.Log("QueryUnescape：【" + result + "】")
 }
 
 // test url.PathEscape And url.UnPathEscape
-func pathEscapeTest(param string) {
+func pathEscapeTest(t *testing.T, param string) {
 	path := url.PathEscape(param)
-	println("PathEscape：【" + path + "】")
+	t.Log("PathEscape：【" + path + "】")
 }
 
-func pathUnescapeTest(param string) {
-	if result, err := url.PathUnescape(param); err != nil {
-		println("PathUnescape 失败")
-	} else {
-		println("PathUnescape：【" + result + "】")
+func pathUnescapeTest(t *testing.T, param string) {
+	result, err := url.PathUnescape(param)
+	if err != nil {
+		t.Fatal("PathUnescape 失败")
 	}
+	t.Log("PathUnescape：【" + result + "】")
 }
 
 // test url.Values.Encode()
@@ -65,7 +63,7 @@ func TestUrlValuesEncode(t *testing.T) {
 		"name": []string{"小(!@#$%^&*_+)明"},
 		"age":  []string{"11"},
 	}
-	println("url.Values.Encode：" + params.Encode())
+	t.Log("url.Values.Encode：" + params.Encode())
 
 	// 默认会根据键名的 ASCII 码从小到大排序（字典序）
 	// 但是假如希望得到按键名字典序，但是不编码的，暂时除了自己通过 fmt.Sprintf 手动拼接，没有更好的办法
@@ -74,8 +72,5 @@ func TestUrlValuesEncode(t *testing.T) {
 		"c": []string{"C"},
 		"a": []string{"A"},
 	}
-	println(params.Encode())
-}
-
-func TestUrlValuesSort(t *testing.T) {
+	t.Log(params.Encode())
 }

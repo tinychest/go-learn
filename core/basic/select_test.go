@@ -23,16 +23,16 @@ func TestPit(t *testing.T) {
 
 	go func() {
 		for task := range taskSignal {
-			println("收到任务，执行并输出结果")
+			t.Log("收到任务，执行并输出结果")
 			getSignal <- task
 		}
 	}()
 
 	select {
 	case taskSignal <- struct{}{}:
-		println("发送任务")
+		t.Log("发送任务")
 	case outSignal <- <-getSignal:
-		println("传递结果")
+		t.Log("传递结果")
 	}
 }
 
@@ -73,7 +73,7 @@ func basicTest(t *testing.T) {
 	case receiveInt := <-intChannel3:
 		t.Logf("从通道3读取值：%d\n", receiveInt)
 	default:
-		println("No match and default run")
+		t.Log("No match and default run")
 	}
 }
 

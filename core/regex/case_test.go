@@ -28,7 +28,7 @@ func TestRegPortSplit(t *testing.T) {
 	// for i := 1; i <= 65536; i++ {
 	// 	ok := reg.MatchString(strconv.Itoa(i))
 	// 	if !ok {
-	// 		println(i)
+	// 		t.Log(i)
 	// 		break
 	// 	}
 	// }

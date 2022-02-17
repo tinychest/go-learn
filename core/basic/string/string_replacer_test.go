@@ -10,5 +10,5 @@ func TestStringReplace(t *testing.T) {
 
 	repStr := strReplacer.Replace("abc")
 
-	println(repStr)
+	t.Log(repStr)
 }

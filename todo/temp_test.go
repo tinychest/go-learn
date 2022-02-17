@@ -12,10 +12,9 @@ import (
 	"time"
 )
 
-// TODO 类型的转换规则具体原理：Int64 有时可以直接用，有时不行
-// TODO syscall.Syscall
-
 // package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
+
+// TODO syscall.Syscall
 
 func TestLog(t *testing.T) {
 	log.Fatal()

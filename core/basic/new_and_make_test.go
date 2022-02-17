@@ -40,5 +40,5 @@ func forChannelTest(t *testing.T) {
 		intChannel <- 1
 	}()
 
-	println("值为：", <-intChannel)
+	t.Log("值为：", <-intChannel)
 }

@@ -28,7 +28,7 @@ func TestComputerBasic(t *testing.T) {
 
 	var a int8 = -1
 	var b int8 = -128 / a
-	println(b)
+	t.Log(b)
 
 	// 127  0111 1111（道理）
 	// -128 / -1 的结果很简单就是 128（理所当然），在内存的结果就是 0(符号位) 1000 0000，但是现在要转 int8 存不下额外的符号位信息

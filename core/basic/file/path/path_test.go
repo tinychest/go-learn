@@ -9,13 +9,13 @@ import (
 )
 
 func TestPath(t *testing.T) {
-	println(srcDir())
-	println(srcDir2())
-	println(srcDir3())
-	println(srcDir4())
+	t.Log(srcDir())
+	t.Log(srcDir2())
+	t.Log(srcDir3())
+	t.Log(srcDir4())
 
-	println(execFile())
-	println(execFile2())
+	t.Log(execFile())
+	t.Log(execFile2())
 }
 
 func srcDir() string {

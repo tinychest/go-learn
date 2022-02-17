@@ -16,7 +16,7 @@ func TestUUID(t *testing.T) {
 	uid := uuid.NewV4()
 
 	// uid.Bytes() 可不等同于 []byte(uid.String())，原因在于 String 方法中有做处理和转换
-	println(hex.EncodeToString([]byte(uid.String())))
+	t.Log(hex.EncodeToString([]byte(uid.String())))
 	// 除去 '-'，可以通过 hex.EncodeToString
-	println(hex.EncodeToString(uid.Bytes()))
+	t.Log(hex.EncodeToString(uid.Bytes()))
 }

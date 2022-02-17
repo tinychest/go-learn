@@ -44,14 +44,14 @@ func TestReflectApi(t *testing.T) {
 	if value.CanAddr() {
 		value.SetInt(2)
 	} else {
-		println("NO NO NO")
+		t.Log("NO NO NO")
 	}
 
 	// 测试：int → false、*int → true、**int → true（但是 SetValue 会报错：panic: reflect: call of reflect.Value.SetInt on ptr Value）
 	if indirect.CanAddr() {
 		indirect.SetInt(2)
 	} else {
-		println("NO NO NO")
+		t.Log("NO NO NO")
 	}
 
 	t.Logf("%v\n", *(param.(*int)))
