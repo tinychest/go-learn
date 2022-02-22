@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"go-learn/util"
-	"log"
 	"math"
 	"testing"
 	"time"
@@ -16,8 +15,18 @@ import (
 
 // TODO syscall.Syscall
 
-func TestLog(t *testing.T) {
-	log.Fatal()
+func TestClosure(t *testing.T) {
+	funcs := make([]func(), 0, 4)
+
+	for i := 0; i < 4; i++ {
+		funcs = append(funcs, func() {
+			t.Log(i)
+		})
+	}
+
+	for i := 0; i < 4; i++ {
+		funcs[i]()
+	}
 }
 
 func hello() []string {
