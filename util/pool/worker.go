@@ -1,7 +1,5 @@
 package pool
 
-import "fmt"
-
 // Worker 工人，每个都会对应一个 Goroutine，执行任务的基础单位
 type Worker struct {
 	// 接收任务
@@ -42,7 +40,8 @@ func (w *Worker) start() {
 		}
 	}
 
-	fmt.Println("Worker exit...")
+	// TODO
+	// fmt.Println("Worker exit...")
 }
 
 func (w *Worker) panicHandle() {

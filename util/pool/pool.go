@@ -3,7 +3,6 @@ package pool
 import (
 	"context"
 	"errors"
-	"fmt"
 	"runtime"
 	"time"
 )
@@ -121,7 +120,9 @@ func start(c *center, output chan<- interface{}) {
 	}()
 
 	<-c.ctx.Done()
-	fmt.Println("Center exit...")
+
+	// TODO
+	// fmt.Println("Center exit...")
 }
 
 func (c *center) Close() {
