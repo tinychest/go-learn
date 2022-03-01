@@ -15,6 +15,12 @@ import (
 
 // TODO syscall.Syscall
 
+func TestQu(t *testing.T) {
+	a := 1
+	b := 0
+	t.Log(a/b) // panic
+}
+
 func TestClosure(t *testing.T) {
 	funcs := make([]func(), 0, 4)
 
