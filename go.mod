@@ -19,8 +19,10 @@ require (
 )
 
 require (
+	github.com/Knetic/govaluate v3.0.0+incompatible
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-pkgz/syncs v1.2.0
 	github.com/gomodule/redigo v1.8.5
 	github.com/jinzhu/copier v0.3.4
 	github.com/nacos-group/nacos-sdk-go v1.1.0
@@ -36,7 +38,6 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.18 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
-	github.com/go-pkgz/syncs v1.2.0 // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 // indirect
 	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af // indirect
