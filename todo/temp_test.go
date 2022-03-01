@@ -21,6 +21,22 @@ func TestQu(t *testing.T) {
 	t.Log(a/b) // panic
 }
 
+func TestClosure2(t *testing.T) {
+	funcs := make([]func(), 0, 4)
+
+	f := func(i int) {
+		t.Log(i)
+	}
+	for i := 0; i < 10; i++ {
+		funcs = append(funcs, func() {
+			f(i)
+		})
+	}
+	for _, v := range funcs {
+		v()
+	}
+}
+
 func TestClosure(t *testing.T) {
 	funcs := make([]func(), 0, 4)
 
