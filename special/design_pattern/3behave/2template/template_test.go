@@ -3,11 +3,13 @@ package _template
 import "testing"
 
 func TestTemplate(t *testing.T) {
-	xxxSms := NewXxxSms()
+	err := NewXxxSMS().Send("123", "11122223333")
+	if err != nil {
+		t.Fatal(err)
+	}
 
-	sms := NewSms(xxxSms)
-
-	_ = sms.Send("123", 110)
-
-	_ = xxxSms.Send("123", 110)
+	err = NewYyySMS().Send("123", "110")
+	if err != nil {
+		t.Fatal(err)
+	}
 }
