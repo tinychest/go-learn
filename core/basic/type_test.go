@@ -7,25 +7,17 @@ import (
 type Int = int // 类型别名（type alias declaration）、非定义类型（undefined type）
 type MyInt int // 定义类型（defined type）
 
-// Go 的内置类型别名，builtin.go 中
+// 内置类型别名（builtin.go）
 // type byte = uint8
 // type rune = int32
 
-func TestType(t *testing.T) {
-	s := "1" // string 和 rune 切片之间可以直接互相转换
-	c := '1'
-	t.Logf("S1：%T\n", s)
-	t.Logf("c：%T\n", c)
+// 显示类型转换
+// string ←→ []byte
+// string ←→ []rune
+// int ←→ float64
+// int32 ←→ byte
 
-	// rune 可以直接转 byte
-	t.Log(byte(c))
-	// int 可以直接转 float64
-	t.Log(float64(1))
-
-	t.Logf("en: %T, cn: %T\n", 'a', '啊')
-}
-
-// 列举一些你想而当然 Go 会支持的隐式转换（实际不能，需要显示转换）
+// 列举一些可能会认为理所当然的 Go 会支持的隐式转换（实际不能，需要显示转换）
 // 参考：https://gfw.go101.org/article/value-conversions-assignments-and-comparisons.html
 func TestTypeCast(t *testing.T) {
 	var i int

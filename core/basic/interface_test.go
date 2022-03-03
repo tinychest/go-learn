@@ -4,6 +4,16 @@ import (
 	"testing"
 )
 
+// Go 的接口类型是完全以方法为核心的（有点像废话）
+//
+// Go 中没有像 Java 中的  implements 关键字，即没有强制的概念；但是你希望编译器帮你检查一下，起到强制的效果，那可以通过在全局接口类型变量的声明方式
+// var _ IXxx = Xxx
+
+func TestInterface(t *testing.T) {
+	equalTest(t)
+	assertTest(t)
+}
+
 // 等价接口定义
 type I1 interface {
 	hello() I1
@@ -32,7 +42,8 @@ func (s S2) Hello() S2 {
 	return s
 }
 
-func case1() {
+// 只要包含的方法签名相同，两个接口类型可以被认为是相等的
+func equalTest(t *testing.T) {
 	var s1 = new(S1)
 	var i1 I1 = s1
 	var i2 I2 = s1
@@ -42,7 +53,8 @@ func case1() {
 	i1 = i2
 }
 
-func case2(t *testing.T) {
+// 接口类型断言 和 匿名接口类型断言
+func assertTest(t *testing.T) {
 	var theP interface{} = new(S1)
 
 	// 显式接口

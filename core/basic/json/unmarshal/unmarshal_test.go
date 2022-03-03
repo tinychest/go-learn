@@ -28,20 +28,26 @@ v
 基础类型就用对应的类型，其他都用 map[string]interface{}
 */
 func TestUnmarshal(t *testing.T) {
-	// map
-	typeMapTest(t)
-
-	// slice
+	// typeBaseTest(t)
+	// typeMapTest(t)
 	// typeSliceTest(t)
-
-	// interface
 	// typeInterfaceTest(t)
 
 	// 如果接口没有定义方法，则现象同上
 	// customInterfaceTest(t)
-
-	// 字段类型不确定，字段值类型确定
+	// 结构体字段类型不确定，实例设置好容器类型
 	valueTest(t)
+}
+
+func typeBaseTest(t *testing.T) {
+	var bs []uint8
+	bs = []byte("1.0")
+
+	var i float64
+	if err := json.Unmarshal(bs, &i); err != nil {
+		t.Fatal(err)
+	}
+	t.Log(i)
 }
 
 func typeMapTest(t *testing.T) {
@@ -102,9 +108,9 @@ func valueTest(t *testing.T) {
 		P: new(core.Person),
 	}
 
-	t.Logf("%p\n", s.P)
+	t.Logf("%T\n", s.P)
 	if err := json.Unmarshal([]byte(j), s); err != nil {
 		t.Fatal(err)
 	}
-	t.Logf("%p\n", s.P)
+	t.Logf("%T\n", s.P)
 }

@@ -1,72 +1,26 @@
 package basic
 
 import (
-	"reflect"
 	"testing"
 )
 
 /*
-引出，初学者在学习类型零值的时候，可以了解到 指针类型、接口类型 的零值是 nil；但是没有进一步了解这之间的联系和区别就会遇到各式各样的问题
+https://gfw.go101.org/article/nil.html
 
-原理
-- 接口(interface) 是对非接口值(例如指针，struct等)的封装，内部实现包含 2 个字段，类型 T 和 值 V
-	一个接口等于 nil，当且仅当 T 和 V 处于 unset 状态（T=nil，V is unset）
-- 两个接口值比较时，会先比较 T，再比较 V；接口值与非接口值比较时，会先将非接口值尝试转换为接口值，再比较
-- 例，nil = interface{}(nil) != (*string)(nil)
+- nil 不是关键字，是一个 预声明标识符（变量名可以是 nil）
+- 预声明标识符 nil 没有默认类型
 
-直接说结论：比较并不难，一定要注意按照场景去区分，interface 的原理还是大头
-- 具体 类型 和 nil 的比较：虽然关键字 nil 可以理解为 interface 类型 的 nil，但是只比较值，不看类型（仔细想想语言设计层面，简直就是废话）
+- 不同类型的 nil 值的尺寸很可能不相同（unsafe.Sizeof）
+- 不同类型的 nil 值不能比较（interface{} 类型比较特殊）
 
-- interface 类型 和 nil 的比较：T 是不是 nil，V 是不是 nil
-- interface 类型 和 interface 类型 的比较：T 是不是相同，V 是不是相等
-- interface 类型 和 具体类型 的比较：T 是不是相同，V 是不是相等
+初学者在学习类型零值的时候，可以了解到 指针类型、接口类型 的零值是 nil；但是没有进一步了解这之间的联系和区别就会遇到各式各样的问题
 */
 
 func TestNil(t *testing.T) {
-	interfaceNilTest(t)
-	// specialNilTest(t)
-	// specialTest(t)
+	notKeywordTest(t)
 }
 
-func interfaceNilTest(t *testing.T) {
-	// 将 interface{} 替换成 error 也能得到相同的结果
-	var nil1 interface{}
-	var nil2 interface{} = nil
-	var nil3 = (interface{})(nil)
-	var nil4 = []interface{}{nil}[0]
-
-	t.Log(nil1 == nil)
-	t.Log(nil2 == nil)
-	t.Log(nil3 == nil)
-	t.Log(nil4 == nil)
-}
-
-// 很具有代表意义的测试样例
-func specialNilTest(t *testing.T) {
-	var null1 interface{} = (*string)(nil)
-	// var null1 = interface{}((*string)(nil)) // 和上面等效
-	var null2 *string
-
-	t.Log(null1 == null2) // true
-	t.Log(null1 == nil)   // false
-	t.Log(null2 == nil)   // true
-
-	t.Log(null1 == (*string)(nil)) // true
-	t.Log(null2 == (*string)(nil)) // true
-
-	// nilValue := reflect.ValueOf(null1)
-	// t.Log(nilValue.Type().String()) // *string
-	// t.Log(nilValue.Kind().String()) // ptr
-}
-
-func specialTest(t *testing.T) {
-	var i interface{}               // (nil nil) == nil → true
-	var iPtr = &i                   // (*interface{} &I1) == nil → false（类型 和 值 都不匹配）
-	var sPtr *string                // (*string nil) == nil → true（只看值，所以匹配）
-	var sPtrWrap interface{} = sPtr // (*string sPtr) == nil → false（类型不匹配）
-
-	t.Log(iPtr == (*interface{})(nil)) // false，类型相同，但是值不同（一个有，一个没有）
-
-	t.Log(reflect.TypeOf(sPtrWrap)) // *string
-	t.Log(reflect.TypeOf(iPtr))     // *interface {}
+func notKeywordTest(t *testing.T) {
+	nil := 1
+	t.Log(nil)
 }

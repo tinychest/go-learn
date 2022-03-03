@@ -6,14 +6,12 @@ import (
 	"time"
 )
 
-const playerName = "胖虎"
-
 func TestContextTimeout(t *testing.T) {
 	test1(t)
-	test2(t)
-	test3(t)
-
-	testSimple(t)
+	// test2(t)
+	// test3(t)
+	//
+	// testSimple(t)
 }
 
 func test1(t *testing.T) {
@@ -35,8 +33,8 @@ func test1(t *testing.T) {
 // 吃鸡大胃王比赛2
 // 场景描述：比赛开始，选手就开始拼命吃 → 裁判决定比赛什么时候结束
 func test2(t *testing.T) {
-	ctx, timeoutCancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer timeoutCancel()
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
 
 	// 主 Goroutine：宣布开始吃鸡
 	t.Log("裁判：比赛开始...")
@@ -51,12 +49,12 @@ func test2(t *testing.T) {
 		// 裁判宣布比赛结束
 		case <-ctx.Done():
 			t.Logf("裁判：Stop!\n")
-			t.Logf("%s：No! I can eat more\n", playerName)
+			t.Logf("选手A：No! I can eat more\n")
 			return
 		// 每 0.5 秒吃一只
 		case <-timer.C:
 			round++
-			t.Logf("%s：第 %d 只\n", playerName, round)
+			t.Logf("选手A：第 %d 只\n", round)
 		}
 	}
 }
@@ -74,12 +72,12 @@ func testSimple(t *testing.T) {
 		select {
 		case <-ctx.Done():
 			t.Logf("裁判：Stop!\n")
-			t.Logf("%s：No! I can eat more\n", playerName)
+			t.Logf("选手A：No! I can eat more\n")
 			return
 		// 每 0.5 秒吃一只
 		default:
 			count++
-			t.Logf("%s：第 %d 只\n", playerName, count)
+			t.Logf("选手A：第 %d 只\n", count)
 		}
 
 		timer.Reset(interval)

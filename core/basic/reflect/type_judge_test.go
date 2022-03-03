@@ -16,9 +16,9 @@ import (
 // Struct
 // UnsafePointer
 func TestTypeJudge(t *testing.T) {
-	ptrIsTest(t)
+	// ptrIsTest(t)
 	interfaceImplTest(t)
-	interfaceIsTest(t)
+	// interfaceIsTest(t)
 }
 
 func ptrIsTest(t *testing.T) {
@@ -35,16 +35,11 @@ func interfaceImplTest(t *testing.T) {
 	type i interface {
 		hello()
 	}
-	var unknown interface{}
 
-	if unknown == nil {
-		t.Log(false)
-		return
-	}
-
-	typ := reflect.TypeOf(unknown)
-	ok := typ.Implements(reflect.TypeOf((*i)(nil)).Elem())
-	t.Log(ok)
+	typ := reflect.TypeOf("")
+	// 这样写会引发 panic: reflect: nil type passed to Type.Implements
+	// typ.Implements(reflect.TypeOf((i)(nil)))
+	t.Log(typ.Implements(reflect.TypeOf((*i)(nil)).Elem()))
 }
 
 func interfaceIsTest(t *testing.T) {
