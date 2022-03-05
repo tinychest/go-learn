@@ -95,7 +95,9 @@ func PostJSON(url string, query url.Values, args interface{}, resPtr interface{}
 	// 请求参数
 	var bs []byte
 	if args == nil {
-		bs = []byte(`{}`) // 也可以在服务端使用 json.UnmarshalNullable()
+		// gin 中如果请求头中设置 Content-Type: application/json，但是实际请求体连 {} 都没传
+		// g.Bind 返回的错误码是 400，并不会返回任何具体的消息回来
+		bs = []byte(`{}`)
 	} else {
 		bs, err = json.Marshal(args)
 		if err != nil {

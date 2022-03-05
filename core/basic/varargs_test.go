@@ -4,8 +4,9 @@ import (
 	"testing"
 )
 
-// 可变参数类型（unpackArray := array...）不是一个具体存在的类型，这只是函数参数的一种语法糖
-// - 不能直接接收切片类型，需要在参数后边加上 ...
+// 可变参数类型（unpackArray := array...）
+// - 不是一个具体存在的类型，这只是函数参数的一种语法糖
+// - 不能直接接收切片类型，需要在参数后边加上 ...（这个过程并没有发生拷贝）
 // - 顺序上只能放在最后，否则 “Can only use '...' as the final argument in the list”
 
 func TestIntVarargs(t *testing.T) {
