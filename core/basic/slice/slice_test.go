@@ -87,7 +87,7 @@ func childTest(t *testing.T) {
 	// childSlice := slice[1:len(slice)-1]
 
 	// 定义上，子切片的定义不能超出父切片的范围
-	// println(childSlice[:2])
+	// t.Log(childSlice[:2])
 
 	t.Log(slice[2:])
 }

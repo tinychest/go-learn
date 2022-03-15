@@ -1,4 +1,4 @@
-package the_func
+package typ
 
 /*
 详见：https://gfw.go101.org/article/method.html

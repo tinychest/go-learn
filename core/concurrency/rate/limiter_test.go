@@ -31,28 +31,42 @@ import (
 
 var i int
 
-func TestRatePack(*testing.T) {
-	// limit1 := rate.Every(time.Second)
-	limit2 := rate.Limit(5)
+func TestRatePack(t *testing.T) {
+	// 每秒 1 次
+	// v := rate.Every(time.Second)
+	// 1 秒 5 次
+	v := rate.Limit(5)
 
-	limiter := rate.NewLimiter(limit2, 10)
-	ctx := context.Background()
+	limiter := rate.NewLimiter(v, 10)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 3 * time.Second)
+	defer cancel()
 
 	for i := 0; i < 10; i++ {
-		waitDo(limiter, ctx)
+		err := waitDo(limiter, ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 	time.Sleep(time.Second)
 	for i := 0; i < 10; i++ {
-		waitDo(limiter, ctx)
+		err := waitDo(limiter, ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 
-func waitDo(limiter *rate.Limiter, ctx context.Context) {
+func waitDo(limiter *rate.Limiter, ctx context.Context) error {
 	start := time.Now()
-	if err := limiter.Wait(ctx); err != nil {
-		panic(err)
-	}
 	i++
 
+	err := limiter.Wait(ctx)
+	if err != nil {
+		return err
+	}
+
+	// 你的业务逻辑
 	fmt.Printf("【index：%3d】 【interval：%d ms】\n", i, time.Since(start).Milliseconds())
+	return nil
 }

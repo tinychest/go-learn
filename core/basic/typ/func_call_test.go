@@ -1,4 +1,4 @@
-package the_func
+package typ
 
 import (
 	"testing"

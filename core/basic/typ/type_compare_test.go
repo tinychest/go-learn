@@ -1,4 +1,4 @@
-package basic
+package typ
 
 import (
 	"reflect"
@@ -12,13 +12,13 @@ import (
 // - 涉及和 interface{} 类型包裹 的比较，既看类型，也看值：T 是不是相同，V 是不是相等
 
 func TestTypeCompare(t *testing.T) {
-	// specialNilTest(t)
-	// specialTest(t)
+	compareNilTest(t)
+	compareTest(t)
 }
 
 // 很具有代表意义的测试样例
 // nil = interface{}(nil) != (*string)(nil) = nil
-func specialNilTest(t *testing.T) {
+func compareNilTest(t *testing.T) {
 	var null1 interface{} = (*string)(nil)
 	// var null1 = interface{}((*string)(nil)) // 和上面等效
 	var null2 *string
@@ -35,7 +35,7 @@ func specialNilTest(t *testing.T) {
 	// t.Log(nilValue.Kind().String()) // ptr
 }
 
-func specialTest(t *testing.T) {
+func compareTest(t *testing.T) {
 	var i interface{}               // <nil nil> == nil → true
 	var iPtr = &i                   // <*interface{} &I1> == nil → false（值不等于 nil）
 	var sPtr *string                // <*string nil> == nil → true（值等于 nil）

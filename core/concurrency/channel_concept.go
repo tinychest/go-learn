@@ -127,5 +127,5 @@ func TestChannel(t *testing.T) {
 	value, ok := <-intChannel
 	fmt.Printf("value：%d，ok：%t\n", value, ok)
 
-	println(<-intChannel)
+	t.Log(<-intChannel)
 }

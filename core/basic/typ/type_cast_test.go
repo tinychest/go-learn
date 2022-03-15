@@ -1,15 +1,8 @@
-package basic
+package typ
 
 import (
 	"testing"
 )
-
-type Int = int // 类型别名（type alias declaration）、非定义类型（undefined type）
-type MyInt int // 定义类型（defined type）
-
-// 内置类型别名（builtin.go）
-// type byte = uint8
-// type rune = int32
 
 // 显示类型转换
 // string ←→ []byte

@@ -29,7 +29,7 @@ func TestVarargs(t *testing.T) {
 	intSlice := []int{1, 2, 3}
 
 	f := func(args ...interface{}) {
-		println(len(args))
+		t.Log(len(args))
 	}
 
 	// 误区，并不是每个 int 元素赋值到对应的 interface{} 类型元素；而是 intSlice 整个作为一个 interface{} 类型的元素

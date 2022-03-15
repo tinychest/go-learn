@@ -31,9 +31,9 @@ func commonLogic(channel chan int) {
 }
 
 // Go 语法注意点：后边不能直接接要执行的语句，一定得放到 函数 中
-func goroutineBasicTest() {
+func goroutineBasicTest(t *testing.T) {
 	// 编译通过
-	// go println("123")
+	// go t.Log("123")
 	// 编译不通过？上面 go 后边跟的是函数调用，下面不是
 	// go intChannel <- 1
 }

@@ -37,6 +37,10 @@ func TestTimeoutSimulate(t *testing.T) {
 	// // 不会报错，也不会阻塞
 	// cancel()
 	// cancel()
+
+	timeoutTest(t)
+	timeoutTest2(t)
+	timeoutTest3(t)
 }
 
 // 方式1 - 基于以下语法特性
@@ -141,7 +145,7 @@ loop:
 			t.Logf("从通道接收：%d\n", result)
 		// 超时逻辑
 		case <-time.After(3 * time.Second):
-			println("达到最大超时时间，主 Goroutine 结束")
+			t.Log("达到最大超时时间，主 Goroutine 结束")
 			break loop
 		}
 	}

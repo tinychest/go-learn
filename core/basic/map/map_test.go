@@ -7,25 +7,25 @@ import (
 // 关于 map 的缩容：https://mp.weixin.qq.com/s/Slvgl3KZax2jsy2xGDdFKw
 
 func TestMap(t *testing.T) {
-	// testZeroValue(t)
-	testExist(t)
-	// testLength(t)
-	// testMapAddressConcept(t)
-	// testStructKey(t)
-	// TraversingMap(t)
-	// testRemove(t)
+	zeroValueTest(t)
+	existTest(t)
+	lengthTest(t)
+	addressTest(t)
+	structKeyTest(t)
+	traversingTest(t)
+	removeTest(t)
 }
 
 // 遍历的随机性
-func TraversingMap() {
+func traversingTest(t *testing.T) {
 	testMap := map[int]int{1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6}
 	for key, value := range testMap {
-		println(key, value)
+		t.Log(key, value)
 	}
 }
 
 // 零值
-func testZeroValue(t *testing.T) {
+func zeroValueTest(t *testing.T) {
 	var uninitializedMap map[int]int
 	// "true"
 	t.Log(uninitializedMap == nil)
@@ -36,7 +36,7 @@ func testZeroValue(t *testing.T) {
 }
 
 // 删除（并没有真实释放空间）
-func testRemove(t *testing.T) {
+func removeTest(t *testing.T) {
 	var theMap = map[string]string{
 		"name": "xm",
 	}
@@ -47,7 +47,7 @@ func testRemove(t *testing.T) {
 }
 
 // 判断 map 中是否有指定键对应的值，只能通过第 2 个返回值去判断，因为即使没有对应的键值，map 也会返回值类型对应的零值
-func testExist(t *testing.T) {
+func existTest(t *testing.T) {
 	m := map[string]struct{}{
 		"123": {},
 	}
@@ -60,7 +60,7 @@ func testExist(t *testing.T) {
 }
 
 // len 的概念（map 没有 cap 的概念）
-func testLength(t *testing.T) {
+func lengthTest(t *testing.T) {
 	// len: 0
 	var theMap map[int]int
 	t.Logf("len: %d\n", len(theMap))
@@ -84,7 +84,7 @@ func testLength(t *testing.T) {
 }
 
 // 内存地址
-func testAddress(t *testing.T) {
+func addressTest(t *testing.T) {
 	getMapFunc := func() map[string]string {
 		theMap := map[string]string{"name": "小明", "gender": "男"}
 		t.Logf("%p\n", theMap)
@@ -97,7 +97,7 @@ func testAddress(t *testing.T) {
 }
 
 // 复杂的键：测试结构体实例作为 map 的键
-func testStructKey(t *testing.T) {
+func structKeyTest(t *testing.T) {
 	type box struct {
 		height int
 		color  string

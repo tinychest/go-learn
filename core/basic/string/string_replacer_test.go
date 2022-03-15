@@ -6,9 +6,7 @@ import (
 )
 
 func TestStringReplace(t *testing.T) {
-	strReplacer := strings.NewReplacer("a", "A", "b", "B", "c", "C")
+	res := strings.NewReplacer("a", "A", "b", "B", "c", "C").Replace("abc")
 
-	repStr := strReplacer.Replace("abc")
-
-	t.Log(repStr)
+	t.Log(res)
 }

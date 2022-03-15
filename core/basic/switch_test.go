@@ -41,8 +41,8 @@ func TestReplaceIf(t *testing.T) {
 	n := 0
 	switch {
 	case n > 0 && n <= 10:
-		println(123)
+		t.Log(123)
 	case n > 10 && n <= 20:
-		println(456)
+		t.Log(456)
 	}
 }
