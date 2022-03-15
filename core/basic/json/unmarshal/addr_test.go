@@ -10,8 +10,8 @@ type s struct {
 }
 
 func TestAddr(t *testing.T) {
-	alreadyTest(t)
-	createTest(t)
+	// alreadyTest(t)
+	// createTest(t)
 	multiNestedPtrTest(t)
 }
 
@@ -37,9 +37,11 @@ func createTest(t *testing.T) {
 }
 
 // 上面可以，那就再套一层，依旧没问题
+// 再套多少层都行，源码中有做一个循环解地址的操作：encoding/json/decode.go:447
 func multiNestedPtrTest(t *testing.T) {
-	var theS1 *s
-	var theS2 = &theS1
-	_ = json.Unmarshal([]byte(`{"name":"123"}`), &theS2)
-	t.Log(theS1.Name)
+	var s1 *s
+	var s2 = &s1
+	var s3 = &s2
+	_ = json.Unmarshal([]byte(`{"name":"123"}`), &s3)
+	t.Log((*(*s3)).Name)
 }

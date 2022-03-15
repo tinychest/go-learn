@@ -29,6 +29,7 @@ v
 */
 func TestUnmarshal(t *testing.T) {
 	// typeBaseTest(t)
+	typeStringTest(t)
 	// typeMapTest(t)
 	// typeSliceTest(t)
 	// typeInterfaceTest(t)
@@ -36,7 +37,7 @@ func TestUnmarshal(t *testing.T) {
 	// 如果接口没有定义方法，则现象同上
 	// customInterfaceTest(t)
 	// 结构体字段类型不确定，实例设置好容器类型
-	valueTest(t)
+	// valueTest(t)
 }
 
 func typeBaseTest(t *testing.T) {
@@ -48,6 +49,21 @@ func typeBaseTest(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Log(i)
+}
+
+func typeStringTest(t *testing.T) {
+	// gg, json.Unmarshal return error
+	// 对于 json 类库来说，合法的 string 类型，首尾是要带双引号的
+	// （其实很合理，但实际开发总是容易疏忽掉）
+	// bs := []byte("abc")
+	bs := []byte(`"abc"`)
+
+	var s string
+	err := json.Unmarshal(bs, &s)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Log(s)
 }
 
 func typeMapTest(t *testing.T) {
