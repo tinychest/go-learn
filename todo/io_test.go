@@ -22,6 +22,7 @@ func TestIO(t *testing.T) {
 
 	// 【bufio.Writer】
 	// 带有缓存区的 Writer（回忆 Java 中的 BufferedOutputStream，注意，一定要 flush 的事项）
+	// 还提供了 Peek 方法：读取指定字节的数据，且不移动读取进度（栈中的 Get 而不是 Pop）
 
 	// 【其他】
 	// 类比 /dev/null，这里也有黑洞的概念
