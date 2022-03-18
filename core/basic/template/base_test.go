@@ -1,7 +1,6 @@
 package template
 
 import (
-	"fmt"
 	"go-learn/core"
 	"go-learn/util"
 	"testing"

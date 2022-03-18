@@ -35,6 +35,7 @@ func TestTypeCast(t *testing.T) {
 	// is1 = is2 // gg
 
 	// 样例 4：https://gfw.go101.org/article/interface.html 中 "一个[]T类型的值不能直接被转换为类型[]I，即使类型T实现了接口类型I"
+	// （不信邪，想用 unsafe 转，见 ./unsafe_type_case_test.go）
 	// type person struct{}
 	// type animal interface{}
 	// var _ animal = person{}

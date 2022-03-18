@@ -5,23 +5,13 @@ import (
 	"testing"
 )
 
-// 基础类型就不说了，还支持如下类型：
-// Array
-// Chan
-// Func
-// Interface
-// Map
-// Ptr
-// Slice
-// Struct
-// UnsafePointer
 func TestTypeJudge(t *testing.T) {
-	// ptrIsTest(t)
-	interfaceImplTest(t)
-	// interfaceIsTest(t)
+	// ptrJudgeTest(t)
+	// interfaceImplTest(t)
 }
 
-func ptrIsTest(t *testing.T) {
+// 反射判断是否是指针类型
+func ptrJudgeTest(t *testing.T) {
 	var (
 		ptr     *int
 		unknown interface{} = ptr
@@ -31,23 +21,19 @@ func ptrIsTest(t *testing.T) {
 	t.Log(v.Kind() == reflect.Ptr)
 }
 
+// 反射判断是否实现了指定接口
 func interfaceImplTest(t *testing.T) {
-	type i interface {
-		hello()
-	}
+	type i interface { hello() }
 
-	typ := reflect.TypeOf("")
-	// 这样写会引发 panic: reflect: nil type passed to Type.Implements
-	// typ.Implements(reflect.TypeOf((i)(nil)))
-	t.Log(typ.Implements(reflect.TypeOf((*i)(nil)).Elem()))
-}
-
-func interfaceIsTest(t *testing.T) {
-	type i interface {
-		hello()
-	}
 	var s interface{}
 
+	// 直接判断（不通过反射）
 	_, ok := s.(i)
+	t.Log(ok)
+
+	// 这样写会引发 panic: reflect: nil type passed to Type.Implements
+	// typ.Implements(reflect.TypeOf((i)(nil)))
+
+	ok = reflect.TypeOf(s).Implements(reflect.TypeOf((*i)(nil)).Elem())
 	t.Log(ok)
 }

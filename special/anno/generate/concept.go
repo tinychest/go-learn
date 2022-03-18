@@ -2,7 +2,7 @@ package generate
 
 // 一、简介
 // Go 在 1.4 版本引入 go generate，常用于文件生成，官方博客中有一篇关于 Stringer 可以为枚举自动实现 Stringer 方法
-
+//
 // go generate 回扫描 .go 源码文件中的 【//go:generate command args...】，并执行
 // 有如下几个注意点
 // 1.命令是为了更新或创建 Go 源码文件的
@@ -18,13 +18,13 @@ package generate
 // 	$GOLINE 当前执行的命令在文件中的行号
 // 	$GOPACKAGE 执行的命令所处的文件的包名
 // 	$DOLLAR $ 符号
-
+//
 // 二、命令参数
 // go generate -n：打印当前目录下所有文件中将要被执行的命令(实际不会执行)
 // go generate -x：查看执行的命令
 // go generate -v：对当前包下的Go文件进行处理, 并打印已被检索处理的文件
 // go generate -run：正则匹配扫描执行 go generate
-
+//
 // 三、举例
 //go:generate go mod tidy
 // 执行【go generate && bee run】 等同于 执行【go mod tidy + bee run】

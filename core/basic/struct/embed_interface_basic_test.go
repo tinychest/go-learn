@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// 类型内嵌 Go101：https://gfw.go101.org/article/type-embedding.html
+
 type I interface {
 	hello()
 }

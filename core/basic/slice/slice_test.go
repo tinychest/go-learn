@@ -1,7 +1,6 @@
 package slice
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 )

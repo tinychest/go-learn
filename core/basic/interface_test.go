@@ -6,7 +6,7 @@ import (
 
 // Go 的接口类型是完全以方法为核心的（有点像废话）
 //
-// Go 中没有像 Java 中的  implements 关键字，即没有强制的概念；但是你希望编译器帮你检查一下，起到强制的效果，那可以通过在全局接口类型变量的声明方式
+// Go 中没有像 Java 中的 implements 关键字，即没有强制的概念；但是你希望编译器帮你检查一下，起到强制的效果，那可以通过在全局接口类型变量的声明方式
 // var _ IXxx = Xxx
 
 func TestInterface(t *testing.T) {

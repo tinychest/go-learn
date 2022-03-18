@@ -25,8 +25,8 @@ func main() {
 	var name string
 	var pass string
 
-	flag.StringVar(&name, "name", "小明", "用户名")
-	flag.StringVar(&pass, "pass", "123", "密码")
+	flag.StringVar(&name, "name", "", "用户名")
+	flag.StringVar(&pass, "pass", "", "密码")
 
 	flag.Parse()
 
