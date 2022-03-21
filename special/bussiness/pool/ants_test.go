@@ -12,7 +12,10 @@ import (
 // 源码非常有参考意义，但是和实际业务中的思考有一些出入，所以没有借鉴到真正想借鉴的，但是业务中的设计确实也没什么刺挑了
 func TestAntsPool(t *testing.T) {
 	taskGetter := func(index int) func() {
-		return func() { t.Log(index) }
+		return func() {
+			// panic("") ants 没有 panic 中断任务机制，就是一直执行完
+			t.Log(index)
+		}
 	}
 
 	pool, _ := ants.NewPool(100000, ants.WithPreAlloc(true))
