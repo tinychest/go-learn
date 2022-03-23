@@ -1,7 +1,6 @@
 package time
 
 import (
-	"fmt"
 	"go-learn/util"
 	"testing"
 	"time"

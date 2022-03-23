@@ -61,7 +61,7 @@ func addressConcept(t *testing.T) {
 	originSlice := []int{1, 2, 3, 4, 5}
 	pointerSlice := originSlice
 
-	// 测试1：两个指针类型指向的数组的地址，在内存中是相同的
+	// 测试1：两个指针类型指向的数组的地址，在内存中是相同的（不会进行底层数组的拷贝）
 	t.Logf("%p\n", originSlice)
 	t.Logf("%p\n", pointerSlice)
 

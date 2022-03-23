@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-// 详解 Truncate 方法
+// 详解 os.Truncate 方法
 
 // 1、changes the size of the file（修改文件的大小，这里就涉及到操作系统的一些原理了）
 // 2、设置成 0，就是清空文件
