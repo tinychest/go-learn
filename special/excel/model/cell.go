@@ -3,7 +3,7 @@ package model
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	"go-learn/special/bussiness/excel/util"
+	"go-learn/special/excel/util"
 )
 
 type Cell struct {
