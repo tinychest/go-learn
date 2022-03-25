@@ -6,16 +6,14 @@ import (
 	"testing"
 )
 
-/*
-方法名规律（尖括号代表重点）
-Find...           返回<第一个>匹配的结果
-Find...Index      返回匹配的<下标>
-FindAll...        返回<所有>匹配的结果，参数 n 的意思是从目标串中捕获多少个（0 代表不捕获；负数 代表全部）
-Find...String...  返回值类型的元素类型是 string，而不是 []byte
-
-Find...Submatch   不仅返回匹配的结果，还包含匹配结果中 子捕获组 的内容
-SubexpNames       单独拿出来说，获取正则表达式中所有定义捕获组名称
-*/
+// 方法名规律（尖括号代表重点）
+// Find...           返回<第一个>匹配的结果
+// Find...Index      返回匹配的<下标>
+// FindAll...        返回<所有>匹配的结果，参数 n 的意思是从目标串中捕获多少个（0 代表不捕获；负数 代表全部）
+// Find...String...  返回值类型的元素类型是 string，而不是 []byte
+//
+// Find...Submatch   不仅返回匹配的结果，还包含匹配结果中 子捕获组 的内容
+// SubexpNames       单独拿出来说，获取正则表达式中所有定义捕获组名称
 
 func TestRegex(t *testing.T) {
 	wordExpressTest(t)
