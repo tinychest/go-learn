@@ -6,7 +6,10 @@ package example6
 
 // - 发现 grpc 返回错误的正确姿势
 
+// TODO proto 中希望表示任意类型 "import google.protobuf.Any"
+// TODO proto：option、message 嵌套、可以定义 head？
+// TODO 如何通过命令，让基于 proto 文件生成的文件，生成在和 proto 文件同级目录？
+
 // TODO metadata 的概念说明
 // TODO Trailer case
 // TODO 封装 UnaryEchoServer、StreamEchoServer（grpc 包下的 test 包，好像有类似的实现）
-// TODO proto：option、message 嵌套、可以定义 head？
