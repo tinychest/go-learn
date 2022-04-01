@@ -24,3 +24,6 @@ go.sum
 *.xlsx
 .DS_Store
 build.sh
+
+# temp file
+target/

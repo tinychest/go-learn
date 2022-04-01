@@ -14,13 +14,18 @@ const (
 	EnvName     = "native_wmc"
 )
 
+// 注意下面的文件路径，遇到了生成配置文件缓存未设置 gitignore 导致 git 提交历史泄漏了重要的账号信息
+// 假如泄漏，应该按照如下步骤处理
+// > 仓库设置私有
+// > 修改账号密码
+// > 删除历史中的文件（可能较为繁琐）
 func TestGetConfig(t *testing.T) {
 	clientConfig := constant.ClientConfig{
 		NamespaceId:         "d924005c-3bba-4187-a29d-a2121a1f5efa",
 		TimeoutMs:           5000,
 		NotLoadCacheAtStart: true,
-		LogDir:              "./log",
-		CacheDir:            "./cache",
+		LogDir:              "./target/log",
+		CacheDir:            "./target/cache",
 		LogLevel:            "debug",
 	}
 	serverConfigs := []constant.ServerConfig{
