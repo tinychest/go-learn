@@ -1,7 +1,9 @@
 package todo
 
 import (
+	"bytes"
 	"fmt"
+	"go-learn/util"
 	"reflect"
 	"runtime"
 	"sort"
@@ -15,6 +17,63 @@ import (
 // aabb aacc aadd
 // aae aat aappo
 
+// TODO testify/assert 以后测试用例可以用上这个，来简化测试用例的编写
+
+/* 复用后 3 个元素的空间 */
+func TestReuse(t *testing.T) {
+	s := make([]int, 0, 4)
+	s = append(s, 1, 2)
+	util.PrintSlice(s)
+
+	// - 没有这种写法（编译不通过）
+	// s = s[1:0:cap(s)]
+	// - 方式 1（晃眼）
+	s = s[1:][: 0 : cap(s)-1]
+	// - 方式 2
+	s = s[1:]
+	s = s[:0:cap(s)]
+
+	util.PrintSlice(s)
+}
+
+/* recover nil compare */
+func TestRecover(t *testing.T) {
+	defer func() {
+		err := recover()
+		if err != nil {
+			t.Log("not nil")
+		} else {
+			t.Log("nil")
+		}
+	}()
+
+	// panic(1) // not nil
+	// panic(nil) // nil
+	// panic([]string(nil)) // not nil
+	panic("") // not nil
+}
+
+/* 了解 bytes.Buffer Truncate 方法的错用，因为 os 包下也有一个 Truncate 方法 */
+func TestTruncate(t *testing.T) {
+	b := bytes.Buffer{}
+
+	b.WriteString("123")
+
+	b.Truncate(2)
+	t.Log(b.String())
+}
+
+/* 确认排序条件 */
+func TestSortOrder(t *testing.T) {
+	ints := []int{3, 2, 5, 1}
+
+	// Slice 方法的第二个比较方法的参数，形参名是 less，意思是，方法默认的排序是从小到大，第 i 和 j 的元素，请你自行决定哪个比较小
+	sort.Slice(ints, func(i, j int) bool {
+		return ints[i] < ints[j]
+	})
+
+	t.Log(ints)
+}
 
 /* nil call func，ok no nil pointer panic */
 type Recorder interface {
@@ -79,16 +138,12 @@ func TestMess(t *testing.T) {
 
 /* 业务中遇到的打印信息的模棱两可 */
 func TestPrintPit(t *testing.T) {
-	// 正常
-	s := []string{"a", "b"}
-	// 实际（猜测）
-	s1 := []string{`"a b"`}
-	// 实际（肯定）`"a,b"` → strings.Split → 如下结果
-	s2 := []string{`"a`, `b"`}
+	t.Log([]string{"a", "b"})   // [a b]
+	t.Log([]string{`"a b"`})    // ["a b"]
+	t.Log([]string{`"a`, `b"`}) // ["a b"]
 
-	t.Log(s)  // [a b]
-	t.Log(s1) // ["a b"]
-	t.Log(s2) // ["a b"]
+	t.Log(fmt.Sprintf("%+v", []string{"1", "2", "3"}))
+	t.Log(fmt.Sprintf("%#v", []string{"1", "2", "3"}))
 }
 
 /* 通用的判断一个类型零值是 nil 的变量是否为 nil 的通用方法 */
