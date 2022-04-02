@@ -13,14 +13,14 @@ func TestFuncs(t *testing.T) {
 	data := []string{"A", "B", "C"}
 	funcs := template.FuncMap{"join": strings.Join}
 
-	tmpl, err := template.New("test").Funcs(funcs).Parse(tF)
+	tpl, err := template.New("test").Funcs(funcs).Parse(tF)
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.AsString(tmpl, data)
+	res, err := util.AsString(tpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	t.Log(result)
+	t.Log(res)
 }

@@ -19,13 +19,13 @@ func TestGen2(t *testing.T) {
 	data := map[string]interface{}{
 		"title": "首页",
 	}
-	tmpl, err := template.ParseFiles("page.tmpl")
+	tpl, err := template.ParseFiles("page.tmpl")
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.AsString(tmpl, data)
+	res, err := util.AsString(tpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(result)
+	t.Log(res)
 }

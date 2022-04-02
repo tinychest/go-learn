@@ -35,13 +35,13 @@ func SendTo(to, username, password string) {
 	b := &strings.Builder{}
 	b.Grow(300) // username：小明 password：12346 得到的 builder.Len() 为 290
 
-	tmpl := template.Must(template.New("mail").Parse(mailTmpl))
+	tpl := template.Must(template.New("mail").Parse(mailTmpl))
 	params := Content{
 		Username: username,
 		Password: password,
 		Datetime: util.NowDateCN(),
 	}
-	if err := tmpl.Execute(b, params); err != nil {
+	if err := tpl.Execute(b, params); err != nil {
 		panic(err)
 	}
 	m.SetBody("text/html", b.String())
