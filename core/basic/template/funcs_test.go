@@ -7,7 +7,10 @@ import (
 	"text/template"
 )
 
-const tF = `{{join . ", "}}`
+// 标准库函数 len
+// 自定义注册函数 strings.Join
+// 详见 template 包注释
+const tF = `len:{{len .}} cap:{{cap .}} {{join . ", "}}`
 
 func TestFuncs(t *testing.T) {
 	data := []string{"A", "B", "C"}
