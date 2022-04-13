@@ -3,8 +3,6 @@ module go-learn
 go 1.17
 
 require (
-	github.com/go-playground/locales v0.14.0
-	github.com/go-playground/universal-translator v0.18.0
 	github.com/go-playground/validator/v10 v10.9.0
 	github.com/golang/mock v1.4.4
 	github.com/pkg/profile v1.5.0
@@ -38,6 +36,8 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.18 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
+	github.com/go-playground/locales v0.14.0 // indirect
+	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1 // indirect
 	github.com/jmespath/go-jmespath v0.0.0-20180206201540-c2b33e8439af // indirect
