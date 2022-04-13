@@ -2,11 +2,13 @@ package file
 
 import (
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
 func TestCreate(t *testing.T) {
-	createDirTest(t)
+	// createDirTest(t)
 	createFileTest(t)
 }
 
@@ -27,14 +29,28 @@ func createDirTest(t *testing.T) {
 }
 
 func createFileTest(t *testing.T) {
-	var (
-		file *os.File
-		err  error
-	)
+	fp := "/a/b/c/text.txt"
 
-	// 要求父级目录已经存在
-	if file, err = os.Create("/a/b/c/text.txt"); err != nil {
-		t.Logf("创建文件失败：%s\n", err)
+	fp, err := filepath.Abs(fp)
+	if err != nil {
+		t.Fatalf("获取文件绝对路径失败: %s\n", err)
 	}
-	_ = file.Close()
+
+	// 创建目录
+	idx := strings.LastIndex(fp, "/")
+	if idx == -1 {
+		idx = strings.LastIndex(fp, "\\")
+	}
+	dir := fp[:idx]
+
+	if err = os.MkdirAll(dir, os.ModeDir); err != nil {
+		t.Fatalf("创建目录失败: %s\n", err)
+	}
+
+	// 创建文件（要求父级目录已经存在）
+	f, err := os.Create(fp)
+	if err != nil {
+		t.Fatalf("创建文件失败: %s\n", err)
+	}
+	_ = f.Close()
 }
