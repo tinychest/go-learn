@@ -7,26 +7,25 @@ import (
 	"testing"
 )
 
-/*
-json.Unmarshal(data []byte, v interface{})
+// json.Unmarshal(data []byte, v interface{})
+//
+// data
+// - nil → panic
+// - ""（空串） → panic
+// - "{}" → no panic
+//
+// v
+// - 非指针类型 → panic
+// - nil → panic
+//
+// - map 的地址没变，是因为源码中的反射代码是：通过 SetMapIndex 给 map 设置元素的
+// - slice 的地址没变（当然，前提是你的 cap 得装的下，不然扩容，地址肯定要变的），详见：go\src\encoding\json\decode.go
+// - 虽然 map slice 零值是 nil，且传参行为是传地址，但不是指针类型
+//
+// - 虽然初始传参要求 v（容器）不为空，但是总会存在 json 自己判断决定类型的时候
+// 结构体字段类型如果是 interface{}，但是实际的值容器不为空，就用该值类型
+// 基础类型就用对应的类型，其他都用 map[string]interface{}
 
-data
-- nil → panic
-- ""（空串） → panic
-- "{}" → no panic
-
-v
-- 非指针类型 → panic
-- nil → panic
-
-- map 的地址没变，是因为源码中的反射代码是：通过 SetMapIndex 给 map 设置元素的
-- slice 的地址没变（当然，前提是你的 cap 得装的下，不然扩容，地址肯定要变的），详见：go\src\encoding\json\decode.go
-- 虽然 map slice 零值是 nil，且传参行为是传地址，但不是指针类型
-
-- 虽然初始传参要求 v（容器）不为空，但是总会存在 json 自己判断决定类型的时候
-结构体字段类型如果是 interface{}，但是实际的值容器不为空，就用该值类型
-基础类型就用对应的类型，其他都用 map[string]interface{}
-*/
 func TestUnmarshal(t *testing.T) {
 	// typeBaseTest(t)
 	typeStringTest(t)
@@ -52,9 +51,8 @@ func typeBaseTest(t *testing.T) {
 }
 
 func typeStringTest(t *testing.T) {
-	// gg, json.Unmarshal return error
 	// 对于 json 类库来说，合法的 string 类型，首尾是要带双引号的
-	// （其实很合理，但实际开发总是容易疏忽掉）
+	// （实际开发总是容易疏忽掉）
 	// bs := []byte("abc")
 	bs := []byte(`"abc"`)
 
