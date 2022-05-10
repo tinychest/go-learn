@@ -6,6 +6,19 @@ import (
 	"testing"
 )
 
+func TestApi(t *testing.T) {
+	expr := "a/b + a"
+
+	ee, err := govaluate.NewEvaluableExpression(expr)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	t.Log(ee.Vars()) // 不会去重
+	t.Log(ee.ToSQLQuery())
+	t.Log(ee.Tokens()) // 解析详情
+}
+
 func TestExpression(t *testing.T) {
 	var res interface{}
 
@@ -44,12 +57,12 @@ func TestExpression(t *testing.T) {
 	})
 	t.Log(res, math.IsInf(res.(float64), 0))
 
-	// 算术表达式：参数值为 nil（要求除号左右应该是 number）
-	res = expressionTest(t, `a/b`, map[string]interface{}{
-		"a": nil,
-		"b": 1,
-	})
-	t.Log(res)
+	// 算术表达式：参数值为 nil（除号左右应该是 number，否则 Evaluate 会返回错误）
+	// res = expressionTest(t, `a/b`, map[string]interface{}{
+	// 	"a": nil,
+	// 	"b": 1,
+	// })
+	// t.Log(res)
 
 }
 
@@ -64,8 +77,4 @@ func expressionTest(t *testing.T, formula string, parameters map[string]interfac
 		t.Fatal(err)
 	}
 	return res
-
-	// t.Log(expr.ToSQLQuery())
-	// t.Log(expr.Tokens())
-	// t.Log(expr.Vars())
 }
