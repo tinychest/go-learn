@@ -4,6 +4,7 @@ import "testing"
 
 // Go 在 1.18 迎来了泛型，因此你的 Go SDK 至少得升级到 1.18，才能更好的阅读和测试下面的用例
 // 详见 https://go.dev/ref/spec#Interface_types
+// 参见 https://segmentfault.com/a/1190000041634906
 
 // <基础类型>
 // type Number[T int | float64] T           // Goland 没有提示，编译不通过 cannot use a type parameter as RHS in type declaration
@@ -36,7 +37,7 @@ type Complicate[N int | float64, NS []N] map[N]NS
 
 type Big[T int | int16 | int32 | int64] []T
 type Small[T int | int64] Big[T] // 语法正确
-// type Small2[T uint | uint64] Big[T] // 语法错误，不能定义超出 Big 约束的类型，虽然 Goland 还是不提示
+// type Small2[T uint | uint64] Big[T] // 语法错误，不能定义超出 Big 约束的类型
 
 // <其他>
 // 匿名结构体不能使用泛型，为单元测试带来了麻烦
