@@ -19,6 +19,39 @@ import (
 
 // TODO testify/assert 以后测试用例可以用上这个，来简化测试用例的编写
 
+func TestName(t *testing.T) {
+	m := make(map[int]int, 3)
+	// m[1] = 1
+	t.Log(len(m))
+}
+
+func TestCompare(t *testing.T) {
+	// t.Log([]int{1} == []int{1})
+
+	var _ = [...]int{1} // [1]int
+	var _ = [2]int{1}   // [2]int
+}
+
+/* funny closure */
+func TestFunnyClosure(t *testing.T) {
+	// 闭包问题遇到了很多了，并且很容易犯错
+	// 即时写的时候考虑到了，日后再看还是容易被迷惑，所以慎用闭包，如果有必要使用，一定要注释好
+
+	i := 1
+	// 注意：闭包中修改了唯一变量的值
+	// 假如这个方法接下来要被调用多次，就会出现预期外的情况
+	f := func() string {
+		if i != 0 {
+			i = 0
+			return "no zero"
+		}
+		return "zero"
+	}
+	for i := 0; i < 3; i++ {
+		t.Log(f())
+	}
+}
+
 /* 复用后 3 个元素的空间 */
 func TestReuse(t *testing.T) {
 	s := make([]int, 0, 4)
