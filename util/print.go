@@ -1,6 +1,7 @@
 package util
 
 import (
+	"encoding/json"
 	"fmt"
 	. "reflect"
 	"strings"
@@ -24,6 +25,19 @@ func PrintAddr(p interface{}) {
 // 说明：这个完全是为学习阶段的 debug 方便，生产中不可能使用，一个反射的性能额外消耗，一个消耗空间，一个遍历的性能低下
 func PrintSlice(param interface{}) {
 	printSlice(sliceToInterfaceSlice(param), param)
+}
+
+// PrintJSON 序列化成 json 打印
+func PrintJSON(p interface{}) {
+	fmt.Println(MustMarshalJSON(p))
+}
+
+func MustMarshalJSON(p interface{}) []byte {
+	bs, err := json.Marshal(p)
+	if err != nil {
+		panic(err)
+	}
+	return bs
 }
 
 func sliceToInterfaceSlice(param interface{}) []interface{} {
