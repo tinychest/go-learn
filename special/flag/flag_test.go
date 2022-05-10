@@ -1,4 +1,4 @@
-package basic
+package main
 
 import (
 	"flag"
@@ -8,16 +8,10 @@ import (
 
 // 主旨：获取命令行参数
 // 核心：os.Args
-
-/*
-在 main.go 中（下面的代码拿得到）
-go run main.go --app-path "xxx"
-go run main.go --app-path="xxx"
-
-在 test 中（下面的代码拿不到）
-go test -test.run TestFlag$ -v -args app-path="123"
-go test -test.run=TestFlag$ -v -args app-path="123"
-*/
+//
+// 在 test 中（下面的代码拿不到）
+// go test -test.run TestFlag$ -v -args app-path="123"
+// go test -test.run=TestFlag$ -v -args app-path="123"
 func TestFlag(t *testing.T) {
 	const defaultValue = "./go-learn"
 
