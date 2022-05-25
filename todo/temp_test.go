@@ -19,10 +19,27 @@ import (
 
 // TODO testify/assert 以后测试用例可以用上这个，来简化测试用例的编写
 
-func TestName(t *testing.T) {
-	m := make(map[int]int, 3)
-	// m[1] = 1
-	t.Log(len(m))
+// https://go.dev/blog/maps#Key types
+func TestMapKeyType(t *testing.T) {
+	// 切片不可比较
+	// s1 := []int{1, 2, 3}
+	// s2 := []int{1, 2, 3}
+	// t.Log(s1 == s2)
+
+	// 切片不能进行 hash
+	// var _ map[[]int]interface{}
+}
+
+func TestCodePos(t *testing.T) {
+	// 如何输出让 Goland 控制台能够识别代码位置，且点击能跳转的日志（蓝字、下划线）
+	// 没有搜索相关内容，那就断点看下实际的输出内容，这样应该就可以知道了
+	// - Log 方法本身会打印出代码位置
+	// t.Log("1")
+	// - http 地址本是蓝色下划线可点击的
+	// t.Log("http:localhost:8080/)
+
+	// 结论：Goland 只要能索引到对应位置，就会标注成可点击的样式
+	fmt.Println("temp_test.go:25")
 }
 
 func TestCompare(t *testing.T) {
