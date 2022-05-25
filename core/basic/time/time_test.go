@@ -30,21 +30,38 @@ func TestBasic(t *testing.T) {
 }
 
 func TestUnit(t *testing.T) {
-	n := time.Now()
-	t.Log(n.Unix())      // 秒
-	t.Log(n.UnixMilli()) // 豪秒
-	t.Log(n.UnixMicro()) // 微秒
-	t.Log(n.UnixNano())  // 纳秒
+	// 毫秒 3 个 0
+	// 微秒 6 个 0
+	// 纳秒 9 个 0
 
+	// [time.Time]
+	// n := time.Now()
+	// t.Log(n.Unix())      // 秒
+	// t.Log(n.UnixMilli()) // 豪秒
+	// t.Log(n.UnixMicro()) // 微秒
+	// t.Log(n.UnixNano())  // 纳秒
+
+	// [time.Duration]
+	// s := time.Second
+	// t.Log(s.Seconds())      // 秒
+	// t.Log(s.Milliseconds()) // 毫秒
+	// t.Log(s.Microseconds()) // 微秒
+	// t.Log(s.Nanoseconds())  // 纳秒
+
+	// [number → time.Duration]
+	// t.Log(int(time.Second)) // 1? 错，单位是纳秒
+	// t.Log(time.Duration(1))
+	// t.Log(time.Nanosecond)
+
+	// [实际开发中遇到的问题]
 	// 表示复数个时间单位，常量可以直接相乘，变量需要转换一下
-	var d time.Duration
-	var sum int64 = 1
-
-	// d = sum * time.Second // 这个操作不允许，不能直接和变量相乘
-	d = 1 * time.Second
-	d = time.Duration(sum) * time.Second
-
-	t.Log(d, sum)
+	// var d time.Duration
+	// var sum int64 = 1
+	//
+	// d = 1 * time.Second
+	// // d = sum * time.Second // 这个操作不允许，不能直接和变量相乘
+	// d = time.Duration(sum * time.Second.Nanoseconds())
+	// t.Log(d)
 }
 
 func TestDiff(t *testing.T) {
