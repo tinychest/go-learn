@@ -17,8 +17,6 @@ import (
 // aabb aacc aadd
 // aae aat aappo
 
-// TODO testify/assert 以后测试用例可以用上这个，来简化测试用例的编写
-
 // https://go.dev/blog/maps#Key types
 func TestMapKeyType(t *testing.T) {
 	// 切片不可比较
