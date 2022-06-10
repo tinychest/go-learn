@@ -3,6 +3,7 @@ package decimal
 import (
 	"fmt"
 	"math"
+	"strconv"
 )
 
 /*
@@ -40,7 +41,7 @@ func ToleCeil(f float64, b int) float64 {
 
 	b10 := math.Pow10(b)
 
-	return math.Ceil((f - Toleration) * b10) / b10
+	return math.Ceil((f-Toleration)*b10) / b10
 }
 
 // ToleRound 指定位数，四舍五入
@@ -56,7 +57,7 @@ func ToleRound(f float64, b int) float64 {
 
 	b10 := math.Pow10(b)
 
-	return math.Round((f + Toleration) * b10) / b10
+	return math.Round((f+Toleration)*b10) / b10
 }
 
 // ToleFloor 指定位数，向下取整
@@ -73,7 +74,7 @@ func ToleFloor(f float64, b int) float64 {
 
 	b10 := math.Pow10(b)
 
-	return math.Floor((f + Toleration) * b10) / b10
+	return math.Floor((f+Toleration)*b10) / b10
 }
 
 // 总结
@@ -89,4 +90,16 @@ func check(f float64, b int) {
 	if b > TolerationBit {
 		panic(fmt.Errorf("param b is too big, max support is %d", TolerationBit))
 	}
+}
+
+func ToleCeilStr(f float64, b int) string {
+	return strconv.FormatFloat(ToleCeil(f, b), 'f', b, 64)
+}
+
+func ToleRoundStr(f float64, b int) string {
+	return strconv.FormatFloat(ToleRound(f, b), 'f', b, 64)
+}
+
+func ToleFloorStr(f float64, b int) string {
+	return strconv.FormatFloat(ToleFloor(f, b), 'f', b, 64)
 }
