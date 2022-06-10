@@ -18,13 +18,13 @@ require (
 
 require (
 	github.com/Knetic/govaluate v3.0.0+incompatible
+	github.com/agiledragon/gomonkey/v2 v2.8.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-pkgz/syncs v1.2.0
 	github.com/gomodule/redigo v1.8.5
 	github.com/jinzhu/copier v0.3.4
 	github.com/nacos-group/nacos-sdk-go v1.1.0
-	github.com/nats-io/nats.go v1.13.1-0.20211122170419-d7c1d78a50fc
 	github.com/panjf2000/ants/v2 v2.4.3
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/xuri/excelize/v2 v2.4.1
@@ -47,9 +47,6 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 // indirect
 	github.com/mohae/deepcopy v0.0.0-20170929034955-c48cc78d4826 // indirect
-	github.com/nats-io/nats-server/v2 v2.6.6 // indirect
-	github.com/nats-io/nkeys v0.3.0 // indirect
-	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/richardlehane/mscfb v1.0.3 // indirect

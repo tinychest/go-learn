@@ -1,7 +1,7 @@
 package time
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 	"time"
 )
@@ -65,8 +65,8 @@ func TestUnit(t *testing.T) {
 }
 
 func TestDiff(t *testing.T) {
-	before := util.ParseTime("1997-10-05 11:00:00")
-	after := util.ParseTime("1997-10-05 12:00:00")
+	before := tool.ParseTime("1997-10-05 11:00:00")
+	after := tool.ParseTime("1997-10-05 12:00:00")
 
 	// 求两个时间相差的秒数
 	t.Logf("%d\n", int(after.Sub(before).Seconds())) // 3600

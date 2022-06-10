@@ -1,7 +1,7 @@
 package file
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 	"text/template"
 )
@@ -11,7 +11,7 @@ func TestGen(t *testing.T) {
 	data := map[string]interface{}{
 		"title": "首页",
 	}
-	t.Log(util.MustRenderString(page, data))
+	t.Log(tool.MustRenderString(page, data))
 }
 
 func TestGen2(t *testing.T) {
@@ -23,7 +23,7 @@ func TestGen2(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	res, err := util.AsString(tpl, data)
+	res, err := tool.AsString(tpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,7 +1,7 @@
 package todo
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -17,7 +17,7 @@ func (bs Books) Modify() {
 }
 
 func (bs Books) Modify2() {
-	util.PrintSlice(bs)
+	tool.PrintSlice(bs)
 
 	// 对属主参数的直接部分的修改不会反映到方法之外。
 	bs = append(bs, Book{"book02"})
@@ -38,5 +38,5 @@ func TestModify2(t *testing.T) {
 	books = append(books, Book{"book"})
 
 	books.Modify2()
-	util.PrintSlice(books)
+	tool.PrintSlice(books)
 }

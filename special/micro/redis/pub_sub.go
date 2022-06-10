@@ -5,9 +5,11 @@ import (
 	"github.com/gomodule/redigo/redis"
 )
 
-func main() {
-	const chanName = "ccc"
+// 使用 redis 来实现一个简单的消息队列机制
 
+const chanName = "ccc"
+
+func main() {
 	conn := pool.Get()
 
 	psc := redis.PubSubConn{Conn: conn}
@@ -29,7 +31,7 @@ func main() {
 			// publish（普通的事件发布）
 			case redis.Message:
 				fmt.Println("message", msg.Channel, string(msg.Data))
-			// subscribe, unsubscribe, psubscribe or punsubscribe（订阅新增或减少 - 会检测到自己订阅的事件）
+			// subscribe, unsubscribe, psubscribe or punsubscribe（订阅新增或减少 - 包括自己订阅的事件）
 			case redis.Subscription:
 				fmt.Println("subscription", msg.Channel, msg.Count, msg.Kind)
 				// channel do not have any subscribed channel

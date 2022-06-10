@@ -1,7 +1,7 @@
 package encode
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"net/url"
 	"testing"
 )
@@ -14,19 +14,19 @@ func TestUrlParse(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(string(util.MustMarshalJSON(r1)))
+	t.Log(string(tool.MustMarshalJSON(r1)))
 
 	// ParseQuery
 	r2, err := url.ParseQuery(theUrl)
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(string(util.MustMarshalJSON(r2)))
+	t.Log(string(tool.MustMarshalJSON(r2)))
 
 	// ParseRequestURI
 	r3, err := url.ParseRequestURI(theUrl)
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Log(string(util.MustMarshalJSON(r3)))
+	t.Log(string(tool.MustMarshalJSON(r3)))
 }

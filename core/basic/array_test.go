@@ -1,7 +1,7 @@
 package basic
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"reflect"
 	"testing"
 )
@@ -16,11 +16,11 @@ func TestArray(t *testing.T) {
 func arrayIsValueTest(t *testing.T) {
 	// 引用类型
 	slice := []int{1, 2, 3}
-	util.PrintAddr(slice)
+	tool.PrintAddr(slice)
 
 	// 值类型（这个打印结果，希望你明白，是类型不匹配的意思）
 	array := [3]int{1, 2, 3}
-	util.PrintAddr(array)
+	tool.PrintAddr(array)
 }
 
 func arrayToSliceTest(t *testing.T) {

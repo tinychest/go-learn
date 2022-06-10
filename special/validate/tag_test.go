@@ -1,4 +1,4 @@
-package valid
+package validate
 
 import (
 	"github.com/go-playground/validator/v10"
@@ -25,7 +25,7 @@ type In struct {
 }
 
 func TestStructTag(t *testing.T) {
-	var o = Out{OK: true, In: In{Name:"1"}}
+	var o = Out{OK: true, In: In{Name: "1"}}
 	err := validator.New().Struct(o)
 	if err != nil {
 		t.Fatal(err)

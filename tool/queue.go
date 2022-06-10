@@ -1,4 +1,4 @@
-package util
+package tool
 
 type Queue struct {
 	Head *Node

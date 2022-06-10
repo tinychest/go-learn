@@ -2,7 +2,7 @@ package template
 
 import (
 	"go-learn/core"
-	"go-learn/util"
+	"go-learn/tool"
 	"strings"
 	"testing"
 	"text/template"
@@ -28,5 +28,5 @@ func TestBase(t *testing.T) {
 func TestVar(t *testing.T) {
 	data := core.Person{Age: 23, Name: "xiaoming"}
 
-	t.Log(util.MustRenderString(tVar, data))
+	t.Log(tool.MustRenderString(tVar, data))
 }

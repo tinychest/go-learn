@@ -3,7 +3,7 @@ package rpc_and_http
 import (
 	"fmt"
 	"go-learn/core/net/rpc_and_http/dto"
-	"go-learn/util/req"
+	"go-learn/tool/req"
 )
 
 func HTTPClient() {

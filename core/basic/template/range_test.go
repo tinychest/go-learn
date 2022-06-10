@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -12,5 +12,5 @@ func TestRange(t *testing.T) {
 		"list": []string{"1", "2", "3"},
 	}
 
-	t.Log(util.MustRenderString(tRange, data))
+	t.Log(tool.MustRenderString(tRange, data))
 }

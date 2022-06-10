@@ -1,7 +1,7 @@
 package _map
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -56,9 +56,9 @@ func TestStructSlice2(t *testing.T) {
 	}
 
 	temp := m["a"]
-	util.PrintSlice(temp.Slice)
+	tool.PrintSlice(temp.Slice)
 	temp.Slice = append(temp.Slice, 1)
-	util.PrintSlice(temp.Slice)
+	tool.PrintSlice(temp.Slice)
 	t.Log(m)
 
 	// 结论，对于 map[string]struct 的 value.field 是 slice 类型 的更新，一定得用：获取 map 的值（拷贝值） → 对拷贝进行更新 → 更新 map 的值

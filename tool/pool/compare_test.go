@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/go-pkgz/syncs"
 	"github.com/panjf2000/ants/v2"
-	"go-learn/util"
+	"go-learn/tool"
 	"runtime"
 	"sync"
 	"testing"
@@ -19,7 +19,7 @@ import (
 
 const (
 	taskSum     = 100000 // 计算次数
-	taskQuality = 1000  // 单次计算阶乘中的 n
+	taskQuality = 1000   // 单次计算阶乘中的 n
 )
 
 func TestSimple(t *testing.T) {
@@ -32,7 +32,7 @@ func TestSimple(t *testing.T) {
 
 func directCase(t *testing.T) {
 	t.Log("direct")
-	util.TimeCost(
+	tool.TimeCost(
 		func() {
 			for i := 0; i < taskSum; i++ {
 				_, _ = forFactorial()
@@ -44,7 +44,7 @@ func directGoCase(t *testing.T) {
 	var wg sync.WaitGroup
 
 	t.Log("direct go")
-	util.TimeCost(
+	tool.TimeCost(
 		func() {
 			for i := 0; i < taskSum; i++ {
 				wg.Add(1)
@@ -61,7 +61,7 @@ func poolCase(t *testing.T) {
 	res := make([]int, 0, taskSum)
 
 	t.Log("custom")
-	util.TimeCost(
+	tool.TimeCost(
 		func() {
 			getter := func(index int) Task {
 				return forFactorial
@@ -82,7 +82,7 @@ func antsPoolCase(t *testing.T) {
 	var wg sync.WaitGroup
 
 	t.Log("ants")
-	util.TimeCost(
+	tool.TimeCost(
 		func() {
 			p, _ := ants.NewPool(100)
 			defer p.Release()
@@ -103,10 +103,10 @@ func tpSyncsCase(t *testing.T) {
 	res := make([]int, 0, taskSum)
 
 	t.Log("syncs")
-	util.TimeCost(func() {
+	tool.TimeCost(func() {
 		swg := syncs.NewSizedGroup(runtime.GOMAXPROCS(8))
 		for i := 0; i < taskSum; i++ {
-			swg.Go(func(ctx context.Context){
+			swg.Go(func(ctx context.Context) {
 				data, _ := forFactorial()
 				res = append(res, data.(int))
 			})

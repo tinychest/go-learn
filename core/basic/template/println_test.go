@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -11,5 +11,5 @@ const tP = `{{println "say:" .}}`
 func TestPrintln(t *testing.T) {
 	data := "hello"
 
-	t.Log(util.MustRenderString(tP, data))
+	t.Log(tool.MustRenderString(tP, data))
 }

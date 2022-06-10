@@ -12,7 +12,7 @@ package decimal
 // 最佳实践：
 // - 指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的（阿里规范文档中提及，这不仅像是最佳实践，更像是一个计算机中的一个真理）
 // - 不使用浮点数，使用整数。例：假定业务背景最小的金额单位是分，那么就应该将分作为系统最小的单位，以避免产生浮点数
-
+//
 // 有两篇讲的特别好的文章
 // https://mp.weixin.qq.com/s?__biz=MzkyMDAzNjQxMg==&mid=2247484440&idx=1&sn=ed2e6bc81a6b40bf8bd1c2d6cf31d0af&scene=21#wechat_redirect
 // https://mp.weixin.qq.com/s?__biz=MzAxMTA4Njc0OQ==&mid=2651450239&idx=3&sn=9718870c742199724c229bacadde0349&scene=21#wechat_redirect

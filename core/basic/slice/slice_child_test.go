@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -30,8 +30,8 @@ func affectTest(t *testing.T) {
 
 	// 影响了父切片
 	cs = append(cs, 4)
-	util.PrintSlice(cs)
-	util.PrintSlice(ps)
+	tool.PrintSlice(cs)
+	tool.PrintSlice(ps)
 
 	// 没有影响父切片（超过了容量，申请了新的空间）
 	// cs = append(cs, 4, 5)
@@ -55,8 +55,8 @@ func affectDetailTest(t *testing.T) {
 	ref = append(ref, 4)
 	ref = append(ref, 5)
 	ref = append(ref, 6)
-	util.PrintSlice(slice)
-	util.PrintSlice(ref)
+	tool.PrintSlice(slice)
+	tool.PrintSlice(ref)
 }
 
 /* 由子切片引用引申出实际开发中的切片内存空间复用 */
@@ -69,10 +69,10 @@ func TestReuse(t *testing.T) {
 func reuseCase1(t *testing.T) {
 	s := make([]string, 0, 4)
 	s = append(s, "1")
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 
 	s = s[:0]
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 }
 
 // 在 Go 中，复用切片内存因为根据使用切片的方式，可以划分成两种
@@ -82,14 +82,14 @@ func reuseCase2(t *testing.T) {
 	s := make([]int, 0, 4)
 
 	s = s[0:0:cap(s)] // 三元 不省略写法
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 	s = s[:0:cap(s)] // 三元 省略写法
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 
 	s = s[0:0] // 二元 不省略写法
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 	s = s[:0] // 二元 省略写法（start）
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 
 	// s[:] 的 len 默认是父切片的 len，不是 0
 }

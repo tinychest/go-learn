@@ -1,4 +1,4 @@
-package util
+package tool
 
 import . "reflect"
 
@@ -26,14 +26,14 @@ import . "reflect"
 
 // PtrUnReference 指针解引用
 func PtrUnReference(valuePtr *Value) {
-    if valuePtr == nil {
-        panic("util.PtrUnReference: can not deal with the nil Ptr")
-    }
+	if valuePtr == nil {
+		panic("util.PtrUnReference: can not deal with the nil Ptr")
+	}
 
-    var value = *valuePtr
+	var value = *valuePtr
 
-    for value.Kind() == Ptr {
-        value = Indirect(value)
-    }
-    *valuePtr = value
+	for value.Kind() == Ptr {
+		value = Indirect(value)
+	}
+	*valuePtr = value
 }

@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -16,5 +16,5 @@ const tT = `{{/*我是注释*/}}
 func TestTemplate(t *testing.T) {
 	var data interface{}
 
-	t.Log(util.MustRenderString(tT, data))
+	t.Log(tool.MustRenderString(tT, data))
 }

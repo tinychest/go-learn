@@ -3,7 +3,7 @@ package todo
 import (
 	"bytes"
 	"fmt"
-	"go-learn/util"
+	"go-learn/tool"
 	"reflect"
 	"runtime"
 	"sort"
@@ -12,7 +12,7 @@ import (
 )
 
 // package 包名如果和 Go 的关键字命名相同的话，调用时，import 正常，实际引用 Go 会自动在包名前加上 “_”
-
+//
 // 找寻后边不是跟着 bb 或 cc 的 aa "aa(?!bb|cc)"
 // aabb aacc aadd
 // aae aat aappo
@@ -71,7 +71,7 @@ func TestFunnyClosure(t *testing.T) {
 func TestReuse(t *testing.T) {
 	s := make([]int, 0, 4)
 	s = append(s, 1, 2)
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 
 	// - 没有这种写法（编译不通过）
 	// s = s[1:0:cap(s)]
@@ -81,7 +81,7 @@ func TestReuse(t *testing.T) {
 	s = s[1:]
 	s = s[:0:cap(s)]
 
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 }
 
 /* recover nil compare */

@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"go-learn/core/encode/eutil"
-	"go-learn/util"
+	"go-learn/tool"
 )
 
 // 参考（主要）：现成的 Go 实现代码
@@ -22,7 +22,7 @@ const (
 )
 
 func CryptoJSAESEncrypt(aesKey, cipherText []byte) ([]byte, error) {
-	salt := util.RandomBytes(8)
+	salt := tool.RandomBytes(8)
 	aesKey, iv := AESKeyAndIV(aesKey, salt)
 	cipherText = eutil.Cipher(cipherText)
 

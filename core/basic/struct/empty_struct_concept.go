@@ -2,7 +2,7 @@ package _struct
 
 import (
 	"fmt"
-	"go-learn/util/set"
+	"go-learn/tool/set"
 )
 
 // 空结构体实例类型是不占用空间的 unsafe.Sizeof(struct{}{})

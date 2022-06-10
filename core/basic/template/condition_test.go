@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -20,7 +20,7 @@ func TestCondition(t *testing.T) {
 		"Word":   "Monster",
 	}
 
-	t.Log(util.MustRenderString(tIf, data))
+	t.Log(tool.MustRenderString(tIf, data))
 }
 
 // if A then B else A
@@ -32,5 +32,5 @@ func TestCondition2(t *testing.T) {
 		"B": "2",
 	}
 
-	t.Log(util.MustRenderString(tAnd, data))
+	t.Log(tool.MustRenderString(tAnd, data))
 }

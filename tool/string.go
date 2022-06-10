@@ -1,4 +1,4 @@
-package util
+package tool
 
 import "strings"
 
@@ -12,13 +12,13 @@ func JoinRepeat(elem string, times int, seps ...string) string {
 
 	const defaultSep = ","
 	var (
-		sep = append(seps, defaultSep)[0]
-		elen  = len(elem)
-		slen  = len(sep)
+		sep  = append(seps, defaultSep)[0]
+		elen = len(elem)
+		slen = len(sep)
 	)
 
 	var b strings.Builder
-	b.Grow(times * elen + (times - 1) * slen)
+	b.Grow(times*elen + (times-1)*slen)
 
 	b.WriteString(elem)
 	for i := 1; i < times; i++ {

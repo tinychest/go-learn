@@ -2,7 +2,7 @@ package string
 
 import (
 	"fmt"
-	"go-learn/util"
+	"go-learn/tool"
 	"strings"
 	"testing"
 )
@@ -15,6 +15,6 @@ func TestJoin(t *testing.T) {
 func TestSplit(t *testing.T) {
 	splits := strings.Split("", ",")
 
-	util.PrintSlice(splits)
+	tool.PrintSlice(splits)
 	fmt.Println(splits[0] == "")
 }

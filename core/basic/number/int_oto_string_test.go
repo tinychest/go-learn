@@ -2,7 +2,7 @@ package number
 
 import (
 	"fmt"
-	"go-learn/util"
+	"go-learn/tool"
 	"reflect"
 	"strconv"
 	"testing"
@@ -14,7 +14,7 @@ import (
 // a 为什么是 字符串，因为 C 语言中没有字符串类型，只有通过字符数组（char array）或者字节数组（byte array）去模拟
 
 func TestStringOtoInt(t *testing.T) {
-	t.Log(strconv.IntSize, 32 << (^uint(0) >> 63))
+	t.Log(strconv.IntSize, 32<<(^uint(0)>>63))
 
 	StringToInt("1")
 	StringToInt64("1")
@@ -64,7 +64,7 @@ func Int64ToString(i int64) string {
 
 func NumToString(number interface{}) string {
 	paramValue := reflect.ValueOf(number)
-	util.PtrUnReference(&paramValue)
+	tool.PtrUnReference(&paramValue)
 
 	switch paramValue.Kind() {
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,

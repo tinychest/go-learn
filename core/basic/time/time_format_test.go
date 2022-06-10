@@ -2,16 +2,16 @@ package time
 
 import (
 	"encoding/json"
-	"go-learn/const/time_format"
+	"go-learn/const/format"
 	"testing"
 	"time"
 )
 
 func TestTimeFormat(t *testing.T) {
-	dateAndTimeString1 := forNow(time_format.FmtDateTime)
-	dateAndTimeString2 := forNow(time_format.FmtDateTime)
-	dateString := forNow(time_format.FmtDate)
-	timeString := forNow(time_format.FmtTime)
+	dateAndTimeString1 := forNow(format.FmtDateTime)
+	dateAndTimeString2 := forNow(format.FmtDateTime)
+	dateString := forNow(format.FmtDate)
+	timeString := forNow(format.FmtTime)
 
 	t.Log(dateAndTimeString1)
 	t.Log(dateAndTimeString2)

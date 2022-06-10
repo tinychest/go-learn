@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -21,11 +21,11 @@ func deleteFirstTest() {
 	// 之前：length:5 capacity:5
 	deleteHeadNTest(&originArray, 1)
 	// 之后：length:4 capacity:4
-	util.PrintSlice(originArray)
+	tool.PrintSlice(originArray)
 
 	// 方式 2
 	originArray = originArray[1:]
-	util.PrintSlice(originArray)
+	tool.PrintSlice(originArray)
 
 	// 方式 3
 	originArray = originArray[:copy(originArray, originArray[1:])]

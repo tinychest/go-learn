@@ -2,7 +2,7 @@ package todo
 
 import (
 	"github.com/jinzhu/copier"
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -16,6 +16,6 @@ func TestCopier(t *testing.T) {
 	if err := copier.Copy(&s2, s1); err != nil {
 		t.Fatal(err)
 	}
-	util.PrintSlice(s1)
-	util.PrintSlice(s2)
+	tool.PrintSlice(s1)
+	tool.PrintSlice(s2)
 }

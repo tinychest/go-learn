@@ -3,7 +3,7 @@ package mail
 import (
 	_ "embed"
 	"encoding/base64"
-	"go-learn/util"
+	"go-learn/tool"
 	"gopkg.in/gomail.v2"
 	"strings"
 	"text/template"
@@ -39,7 +39,7 @@ func SendTo(to, username, password string) {
 	params := Content{
 		Username: username,
 		Password: password,
-		Datetime: util.NowDateCN(),
+		Datetime: tool.NowDateCN(),
 	}
 	if err := tpl.Execute(b, params); err != nil {
 		panic(err)

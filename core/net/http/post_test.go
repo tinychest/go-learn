@@ -1,7 +1,7 @@
 package http
 
 import (
-	"go-learn/util/req"
+	"go-learn/tool/req"
 	"testing"
 )
 

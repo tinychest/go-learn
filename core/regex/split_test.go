@@ -1,15 +1,15 @@
 package regex
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"regexp"
 	"testing"
 )
 
 func TestSplit(t *testing.T) {
 	data := regexp.MustCompile(`\s+`).Split("a > 1", -1)
-	util.PrintSlice(data)
+	tool.PrintSlice(data)
 
 	data = regexp.MustCompile(`\s+`).Split("a > 1", 1)
-	util.PrintSlice(data)
+	tool.PrintSlice(data)
 }

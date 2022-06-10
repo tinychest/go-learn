@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -20,9 +20,9 @@ func TestBasic(t *testing.T) {
 func useConcept(t *testing.T) {
 	var s []string
 
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 	s = append(s, "abc")
-	util.PrintSlice(s)
+	tool.PrintSlice(s)
 }
 
 // 扩容概念
@@ -39,7 +39,7 @@ func expandConcept(t *testing.T) {
 	// s = append(s, 1, 2, 3)
 	for i := 0; i < 16; i++ {
 		s = append(s, 1)
-		util.PrintSlice(s)
+		tool.PrintSlice(s)
 	}
 }
 

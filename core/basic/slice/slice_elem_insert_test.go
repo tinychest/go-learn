@@ -2,7 +2,7 @@ package slice
 
 import (
 	"fmt"
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -37,23 +37,23 @@ func insertTest() {
 		insert(&dst, i+1+index, value*10)
 		index++
 	}
-	util.PrintSlice(dst)
+	tool.PrintSlice(dst)
 
 	// 循环中插入元素（逆序）
 	dst = []int{1, 2, 3, 4, 5}
 	for i := len(dst) - 1; i >= 0; i-- {
 		insert(&dst, i+1, dst[i]*10)
 	}
-	util.PrintSlice(dst)
+	tool.PrintSlice(dst)
 }
 
 func finalInsertTest() {
 	dst := []int{1, 2, 3, 4, 5}
 	src := [][2]int{{1, 10}, {2, 20}, {3, 30}, {4, 40}, {5, 50}}
 
-	util.PrintSlice(dst)
+	tool.PrintSlice(dst)
 	finalInsert(&dst, src)
-	util.PrintSlice(dst)
+	tool.PrintSlice(dst)
 }
 
 // finalInsert 向 slice 下标为 map.key(int) 的位置插入 map.value(slice)；先确定位置，最后一次性插入，所以叫 final

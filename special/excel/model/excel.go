@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/xuri/excelize/v2"
-	"go-learn/util/set"
+	"go-learn/tool/set"
 	"io"
 	"net/http"
 	"net/url"
@@ -78,7 +78,7 @@ func (de *DataExcel) Export() (io.WriterTo, error) {
 }
 
 func (de *DataExcel) Response(headSetter func(string, string), writer http.ResponseWriter) error {
-	writeTo ,err := de.Export()
+	writeTo, err := de.Export()
 	if err != nil {
 		return err
 	}
@@ -90,7 +90,7 @@ func (de *DataExcel) Response(headSetter func(string, string), writer http.Respo
 }
 
 func (de *DataExcel) WriteToFile() error {
-	writeTo ,err := de.Export()
+	writeTo, err := de.Export()
 	if err != nil {
 		return err
 	}

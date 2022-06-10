@@ -1,10 +1,10 @@
 package tree
 
-import "go-learn/util"
+import "go-learn/tool"
 
 // 调用者保证 ids 不为空
 func (o *One) MergeAndValid(ids []int64) ([]int64, error) {
-	var idList = util.Int64Slice(ids)
+	var idList = tool.Int64Slice(ids)
 	// mark
 	for _, node := range o.Nodes {
 		if idList.Contains(node.Id) {
@@ -29,7 +29,7 @@ func traverse(node *Node, result *[]int64) {
 }
 
 // 悲观 - 校验做法
-//func (o *One) MergeAndValid(ids []int64) ([]int64, error) {
+// func (o *One) MergeAndValid(ids []int64) ([]int64, error) {
 //	var (
 //		idList = help.Int64Slice(ids)
 //		idMap = make(map[int64]struct{}, len(ids))
@@ -62,4 +62,4 @@ func traverse(node *Node, result *[]int64) {
 //		}
 //	}
 //	return result, nil
-//}
+// }

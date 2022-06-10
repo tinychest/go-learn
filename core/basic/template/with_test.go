@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -14,5 +14,5 @@ const tWith = `
 func TestWith(t *testing.T) {
 	data := map[string]interface{}{"Word": "WITH"}
 
-	t.Log(util.MustRenderString(tWith, data))
+	t.Log(tool.MustRenderString(tWith, data))
 }

@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"strings"
 	"testing"
 	"text/template"
@@ -20,7 +20,7 @@ func TestFuncs(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	res, err := util.AsString(tpl, data)
+	res, err := tool.AsString(tpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

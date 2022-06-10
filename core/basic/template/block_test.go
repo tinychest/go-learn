@@ -1,7 +1,7 @@
 package template
 
 import (
-	"go-learn/util"
+	"go-learn/tool"
 	"strings"
 	"testing"
 	"text/template"
@@ -25,7 +25,7 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err := util.AsString(handleTmpl, data)
+	result, err := tool.AsString(handleTmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func TestComplex(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	result, err = util.AsString(overlayTmpl, data)
+	result, err = tool.AsString(overlayTmpl, data)
 	if err != nil {
 		t.Fatal(err)
 	}

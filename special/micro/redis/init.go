@@ -5,15 +5,14 @@ import (
 	"time"
 )
 
-/*
-引入依赖 github.com/gomodule/redigo v1.8.5
-*/
+// 引入依赖 github.com/gomodule/redigo v1.8.5
 
 var pool *redis.Pool
 
 func init() {
 	pool = &redis.Pool{
 		MaxIdle:     3,
+		MaxActive:   3,
 		IdleTimeout: 240 * time.Second,
 		// Dial or DialContext must be set. When both are set, DialContext takes precedence over Dial.
 		Dial: func() (redis.Conn, error) {

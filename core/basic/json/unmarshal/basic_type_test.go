@@ -3,7 +3,7 @@ package unmarshal
 import (
 	"encoding/json"
 	"go-learn/core"
-	"go-learn/util"
+	"go-learn/tool"
 	"testing"
 )
 
@@ -82,7 +82,7 @@ func typeSliceTest(t *testing.T) {
 	if err := json.Unmarshal([]byte(j), &theSlice); err != nil {
 		t.Fatal(err)
 	} else {
-		util.PrintSlice(theSlice)
+		tool.PrintSlice(theSlice)
 	}
 }
 
