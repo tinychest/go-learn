@@ -5,52 +5,37 @@ import (
 	"testing"
 )
 
-/*
-一、说明
-
-1.RWMutex 可以创建为其他结构体的字段；零值为解锁状态
-2.RWMutex类型的锁也和 Goroutine 无关，可以由不同的 Goroutine 加读取锁/写入和解读取锁/写入锁
-3.其实 sync.RWMutex 是从 sync.Mutex（同一时间只能有一个读或写的全局锁）提高多读少写场景性能的衍生
-
-二、api
-
-读锁 - 想要锁住需要等待写锁释放
-instance.RLock()
-instance.RUnlock()
-
-写锁（全局锁）- 想要锁住需要等待所有读写锁释放
-instance.Lock()
-instance.Unlock()
-
-三、注意
-
-1.解锁不能再加锁之前，读锁的解锁次数不能大于读锁的加锁次数（待验证）
-2.写锁的优先级大于读锁，即某一时刻，读锁和写锁都符合加索条件时，优先执行加写锁的逻辑
-3.Unlock 这个不是通用的解锁方法，这是解全局锁，不能解读锁
-*/
+// RWMutex 相较于 Mutex 在读多写少场景下，具有更好的性能
+// 使用上，都知道在并发读写的场景下，为 读 加上读锁，为 写 加上写锁，来保证数据的并发安全
+//
+// 这里演示一下，在并发读写的场景下，只在写的一方加写锁（读的一方不加读锁），会带来什么问题
+// （把下面样例的读锁去掉，打印结果中的结果，会出现数字不连续的情况）
+// 其实答案是显而易见的，带来的问题就是，假如某次数据我还没有读取完，就被修改了，导致该次读取的数据有逻辑上的问题
+//
+// - 通过 --race 参数得到资源竞争提示是必然的
 
 func TestRWMutex(t *testing.T) {
-
-	rwMutexTest()
-}
-
-// 目前项目中的应用场景是这样的，因为一个 list 的 len、cap、data 的赋值创建不是原子操作，所以存在并发安全问题，所以通过如下的操作来保证 instance 中的 List 是赋值完毕的
-// 下边的代码相当于写操作，演示了加写锁，所有的读操作都应该加上读锁，这里没有演示出来
-func rwMutexTest() []string {
-	type HeavyData struct {
-		sync.RWMutex
-		// 其他的重型数据
-		List []string
+	type Config struct {
+		a []int
 	}
+	cfg := &Config{}
+	rw := sync.RWMutex{}
 
-	instance := HeavyData{}
+	// 写
+	go func() {
+		i := 0
+		for {
+			i++
+			rw.Lock()
+			cfg.a = []int{i, i + 1, i + 2, i + 3, i + 4, i + 5}
+			rw.Unlock()
+		}
+	}()
 
-	// 对 list 进行初始化操作...
-	// instance.initList()
-
-	instance.Lock()
-	list := instance.List
-	instance.Unlock()
-
-	return list
+	// 读
+	for n := 0; n < 100; n++ {
+		// rw.RLock()
+		t.Logf("%#v\n", cfg)
+		// rw.RUnlock()
+	}
 }
