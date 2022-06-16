@@ -24,6 +24,7 @@ func forNow(format string) string {
 }
 
 // time 打印默认的格式：2006-01-02 15:04:05.999999999 -0700 MST（详见 Datetime.String）
+// 这个用于指代打印格式的占位符数字，很明显本身就是一个时间，没错，这是 Go 诞生的时间
 // time json.Marshal 默认的格式：time.RFC3339Nano（详见 Datetime.MarshalJSON）
 func TestPrintTime(t *testing.T) {
 	// 直接 fmt.Println(time) 和 json.Marshal(time) 的结果是不同的
