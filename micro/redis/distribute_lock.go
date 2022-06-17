@@ -1,11 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gomodule/redigo/redis"
-	"sync"
+	"time"
 )
 
 // 首先还是要将锁的概念放到脑海里，有并发操作，操作同一资源，可以通过锁来解决并发问题
+// go-zero 中有给出现成的实现方案
+// [参考] https://juejin.cn/post/7041375517580689439
 //
 // [应用场景]
 // 在单机服务实例中通过一个 sync.Mutex 修饰特定的方法，这是简单的单机锁
@@ -29,82 +32,92 @@ import (
 // MySQL、ZK、Redis
 // 拿 Redis 来说
 //
-// 互斥性：Redis 提供了很多原子性操作命令，可以用于保证该点
-// 防死锁：Redis 的 SET、SETNX 命令都有提供有效时间的参数，可以保证
-// 阻塞和非阻塞：TODO 需要在代码实现上做文章
-// 可重入：TODO 基于 Redis 的分布式锁，如果体现出重入性
+// 排他性、互斥性：Redis 的命令基本都是原子操作
+// 防死锁：Redis 的 SETNX、SET NX 命令都有提供超时时间的参数
+// 可重入：Redis 相同指令除了 key，还应该带上全局唯一的 value，来允许再次获取锁，同时刷新超时时间，防止重入时，因超时被释放
+//     加锁和解锁都不能简单的执行一下 SET 带有相关参数的命令，而是通过 lua 脚本执行一段原子操作的逻辑
+//    （实际就是，加锁、解锁 脚本需要进行一个对值的比对）
+// 高性能、高可用：高性能就不说了；Redis 支持主从和集群以及哨兵，来应对高并发和单点故障等问题
 
 const (
-	lockKey    = "counter_lock"
-	counterKey = "counter"
+	lockKey          = "counter_lock"
+	defaultExpireSec = 5
+
+	lockTryInterval = 2 * time.Second // 加锁失败，进行重试时的，重试间隔时间
+	lockTryTimes    = 3               // 加锁失败，最多重试的次数
+
+	// 加锁脚本（可重入）
+	// 判断 key 持有的 value 是否等于传入的 value
+	// - 相等：说明是再次获取锁：更新时间，防止重入时过期
+	// - 不相等：说明是第一次获取锁：通过 NX 参数去设置键值，也就是尝试获取一次锁
+	lockCommand = `
+if redis.call("GET", KEYS[1]) == ARGV[1] then
+    redis.call("SET", KEYS[1], ARGV[1], "PX", ARGV[2])
+    return "ok"
+else
+    return redis.call("SET", KEYS[1], ARGV[1], "NX", "EX", ARGV[2])
+end`
+
+	// 解锁脚本（可重入）
+	unlockCommand = `
+if redis.call("GET", KEYS[1]) == ARGV[1] then
+    return redis.call("DEL", KEYS[1])
+else
+    return 0
+end`
 )
 
-func incr() {
+func lock(key string, value interface{}) (bool, error) {
 	c := pool.Get()
 	defer c.Close()
 
-	// lock
-	ok, err := lock(lockKey)
+	// 普通加锁（不可重入）
+	// reply, err := c.Do("SET", lockKey, value, "NX", "EX", defaultExpireSec)
+	// 加锁（可重入）
+	res, err := redis.String(c.Do("EVAL", lockCommand, 1, key, value, defaultExpireSec))
 	if err != nil {
-		panic(err)
+		return false, err
 	}
-	if !ok {
-		// 锁被占用；可以自旋，每隔一段时间自旋一次，自旋一定次数后，认定失败
-		// 注：你业务不能说，这个怎么还能失败。而是应该考虑如何尽可能减少失败的可能性，以及失败该如何处理
-	}
+	return res == "OK", nil
+}
 
-	// 业务操作（这里是为 Redis 的一个值自增 1）
-	cntValue, err := redis.Int64(c.Do("GET", counterKey))
-	if err == nil {
-		cntValue++
-		_, err := c.Do("SET", counterKey, cntValue)
-		if err != nil {
-			println("set value error!")
+// 自定义重试机制的 阻塞实现
+func lockPre(key string, value interface{}) error {
+	var timer *time.Timer
+
+	for i := 0; i < lockTryTimes+1; i++ {
+		if i != 0 {
+			fmt.Printf("第 %d 尝试加锁\n", i)
 		}
-	}
-	println("current counter is ", cntValue)
+		ok, err := lock(key, value)
+		if err != nil {
+			return err
+		}
+		if ok {
+			return nil
+		}
 
-	// unlock
-	ok, err = unlock(lockKey)
-	if err != nil {
-		panic(err)
+		if timer == nil {
+			timer = time.NewTimer(lockTryInterval)
+		} else {
+			timer.Reset(lockTryInterval)
+		}
+		<-timer.C
 	}
-	if !ok {
-		// 解锁失败要完蛋
-		panic("unexpected unlock fail")
-	}
+
+	return fmt.Errorf("尝试了 %d 次，仍然枷锁失败", lockTryTimes)
 }
 
-func lock(key string) (bool, error) {
+func unlock(key string, value interface{}) error {
 	c := pool.Get()
 	defer c.Close()
 
-	ok, err := redis.Bool(c.Do("SETNX", key, 1))
+	res, err := redis.Int64(c.Do("EVAL", unlockCommand, 1, key, value))
 	if err != nil {
-		return false, err
+		return err
 	}
-	return ok, nil
-}
-
-func unlock(key string) (bool, error) {
-	c := pool.Get()
-	defer c.Close()
-
-	ok, err := redis.Bool(c.Do("DEL", key))
-	if err == nil {
-		return false, err
+	if res != 1 {
+		return fmt.Errorf("解锁失败 key:%s value:%d", key, value)
 	}
-	return ok, nil
-}
-
-func main1() {
-	var wg sync.WaitGroup
-	for i := 0; i < 10; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			incr()
-		}()
-	}
-	wg.Wait()
+	return nil
 }
