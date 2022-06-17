@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// also see const/format/time.go
+
 func TestTimeFormat(t *testing.T) {
 	dateAndTimeString1 := forNow(format.FmtDateTime)
 	dateAndTimeString2 := forNow(format.FmtDateTime)
