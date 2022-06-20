@@ -1,4 +1,4 @@
-package _interface
+package compare
 
 import (
 	"reflect"
@@ -9,8 +9,7 @@ import (
 // - 两个接口值比较时，会先比较 T，再比较 V；接口值与非接口值比较时，会先将非接口值尝试转换为接口值，再比较
 // - 接口值的比较准则：T 是不是相同，V 是不是相等
 //
-// [nil compare]
-// Go 中一个比较经典的问题就是 nil is not nil
+// [Go 中一个比较经典的问题就是 nil is not nil]
 //
 // - 一个接口等于 nil，当且仅当 T 和 V 处于 unset 状态（T=nil，V is unset）
 // - nil = interface{}(nil) != (*string)(nil) = nil
@@ -18,26 +17,7 @@ import (
 // [其他]
 // 如果只希望得到一个 接口值 的 V 是否是 nil，可以通过 reflect.ValueOf(xxx).IsNil()
 
-func TestCompare(t *testing.T) {
-	// compareTest(t)
-	compareNilTest(t)
-}
-
-func compareTest(t *testing.T) {
-	var i interface{}               // <nil nil> == nil → true
-	var iPtr = &i                   // <*interface{} &I1> == nil → false（值不等于 nil）
-	var sPtr *string                // <*string nil> == nil → true（值等于 nil）
-	var sPtrWrap interface{} = sPtr // <*string nil> == nil → false（被 interface{} 包裹，就要看类型）
-
-	// false，已经和 interface{} 没有关闭了，这里是 *interface{} 类型，这里是类型相同（可以比较），但是值不同（一个有，一个没有）
-	// 不好理解的话，就将 *interface{} 改为 string
-	t.Log(iPtr == (*interface{})(nil))
-
-	t.Log(reflect.TypeOf(sPtrWrap)) // *string
-	t.Log(reflect.TypeOf(iPtr))     // *interface {}
-}
-
-func compareNilTest(t *testing.T) {
+func TestNilInterface(t *testing.T) {
 	var (
 		null1 interface{} = (*string)(nil)
 		// null1 = interface{}((*string)(nil))
