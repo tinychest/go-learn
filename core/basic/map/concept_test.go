@@ -5,6 +5,11 @@ import (
 	"testing"
 )
 
+// - 无法对 map 取值表达式进行 & 操作
+// - map 之间是不可比较的
+// - nil map 可以取值，不会引发 nil pointer panic（nil slice 也可以直接 append），但不能设置值
+// - map 的 key 类型是有限制的：https://go.dev/blog/maps#Key types
+
 type data struct {
 	Name  string
 	Slice []int
