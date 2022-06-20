@@ -2,13 +2,10 @@ package _visitor
 
 import "fmt"
 
-
-/*
-给的样例，只是说明模式，没有和实际场景关联上（可以以不同文件的压缩策略为背景）
-
-并且由于采用了类型断言，所以如果需要操作的对象比较多的话，这个函数其实也会膨胀的比较厉害
-后续可以考虑按照命名约定使用 generate 自动生成代码 或者是使用 反射 简化
-*/
+// 给的样例，只是说明模式，没有和实际场景关联上（可以以不同文件的压缩策略为背景）
+//
+// 并且由于采用了类型断言，所以如果需要操作的对象比较多的话，这个函数其实也会膨胀的比较厉害
+// 后续可以考虑按照命名约定使用 generate 自动生成代码 或者是使用 反射 简化
 
 // Visitor 访问器
 type Visitor interface {
@@ -22,7 +19,7 @@ type IResource interface {
 
 // 资源实现
 
-type resource1 struct{
+type resource1 struct {
 	Key string
 }
 
@@ -40,7 +37,7 @@ func (r *resource2) Accept(v Visitor) error {
 
 // 访问器实现
 
-type Visitor1 struct {}
+type Visitor1 struct{}
 
 func (v *Visitor1) Visit(i IResource) error {
 	switch t := i.(type) {
