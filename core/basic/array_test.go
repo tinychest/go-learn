@@ -7,9 +7,17 @@ import (
 )
 
 func TestArray(t *testing.T) {
+	grammeCandyTest(t)
+
 	arrayIsValueTest(t)
 	// arrayToSliceTest(t)
 	// sliceToArrayTest(t)
+}
+
+func grammeCandyTest(t *testing.T) {
+	// 数组语法糖
+	var _ = [...]int{1} // [1]int
+	var _ = [2]int{1}   // [2]int
 }
 
 // 数组不同于切片的很重要的一点，数组为值类型 - 会发生拷贝
