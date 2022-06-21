@@ -12,11 +12,13 @@ import "testing"
 // 结论：基本类型不能只有类型形参
 
 // <切片类型>
-// - Slice 是类型名称，不是 T
+// - T 被称为类型形参
 // - []T 的 [] 意味着 Slice 是切片类型
-// - T 限定类型的意思是 Slice 可以实例化为 []int 或者 []string 类型，不是 Slice 实例化后既可以存储 int 也可以存储 string
-// （了解 Go 内存分配的原理也知道，这不可能实现）
+// - T 后面的类型限定，又或者说类型约束 的意思是 Slice 可以实例化为 []int 或者 []string 类型
+// 不是说 Slice 实例化后既可以存储 int 也可以存储 string（简单了解 Go 内存分配也知道，这不可能实现）
 type Slice[T int | string] []T
+
+// 泛型的类型约束并不限定类型，可以是任意基础类型，可以是自定义结构体，甚至可以是接口类型
 
 // type Slice[T *int] []T                                 // 语法错误，“T *int” 会被当成表达式
 // type slice[T *int,] []T                                // 语法正确，泛型约束中只有一个类型，可以添加逗号消除歧义
@@ -40,14 +42,14 @@ type Small[T int | int64] Big[T] // 语法正确
 // type Small2[T uint | uint64] Big[T] // 语法错误，不能定义超出 Big 约束的类型
 
 // <其他>
-// 匿名结构体不能使用泛型，为单元测试带来了麻烦
+// 匿名结构体不能使用泛型，这为单元测试测试泛型方法带来了不便
 
 func TestGeneric(t *testing.T) {
-	// 实例化两个类型的切片
+	// 实例化 两个类型的切片
 	var si Slice[int] = []int{1, 2, 3}
 	var ss Slice[string] = []string{"1", "2", "3"}
 
-	si = append([]int(si), 4)
-	ss = append([]string(ss), "4")
+	si = append(si, 4)
+	ss = append(ss, "4")
 	t.Log(si, ss)
 }

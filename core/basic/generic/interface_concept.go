@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-// Go 1.18 以前官方对 interface 的定义是：An interface type specifies a method set called its interface
+// Go 1.18 以前官方对 interface 的定义是：An interface type a method set called its interface
 // 加了泛型后，很明显这个定义已经不适合了（现在是，方法集 + 泛型集（数据类型集）），现在更适合成为 a type set
 //
 // [空接口]
@@ -14,19 +14,23 @@ import (
 // 一个命令替换项目中所有的 空接口 interface{} 为 any：
 // 		gofmt -w -r 'interface{} -> any' ./...
 //
-// [comparable 接口] 详见 icomparable_test.go
-//
-// 【接口分类】
+// [comparable 接口]
+// 详见 icomparable_test.go
+
 // 为了保持语言兼容性，1.18 后接口分成了两种类型
-// [Basic interface] 基本接口，接口定义中只有方法
+//
+// [Basic interface]
+// 基本接口，接口定义中只有方法
 // - 也就是 Go 1.18 之前理解的接口
-// [General interface] 一般接口，接口定义中含有类型约束（type constraints）
-// - 一般接口，除了含有类型，还定义了方法的接口，在实现上判定上将更加苛刻：除了实现方法，实现方法的类型的底层类型还得在接口定义的类型范围内
+//
+// [General interface]
+// 一般接口，接口定义中含有类型约束（type constraints）
+// - 一般接口，除了含有类型，还定义了方法，在实现上判定上将更加苛刻：除了实现方法，实现方法的类型的底层类型还得在接口定义的类型范围内
 // - 一般接口类型不能用来定义变量，只能用于泛型的类型约束中!（重要）
 // - 带方法的一般接口不能作为类型并集的成员
 
-// <一般接口样例>
-type General interface {
+// [一般接口样例]
+type general interface {
 	~string | ~[]rune
 	len() int
 }
@@ -45,8 +49,8 @@ func (s SS) len() int {
 
 func TestGeneral(t *testing.T) {
 	//  一般接口类型不能用来定义变量，别妄想通过反射就能够突破限制
-	// var _ General = BS{}
-	// var _ General = SS("")
+	// var _ general = BS{}
+	// var _ general = SS("")
 }
 
 // [泛型接口]

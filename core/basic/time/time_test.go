@@ -6,6 +6,12 @@ import (
 	"time"
 )
 
+// - Go(time.Time) - MySQL(timestamp) 默认转换关系，MySQL 驱动实际是调用 Unix 还是 哪个方法序列化入库（实际是 time.Time.Unix，也就是只到秒）
+//
+// 毫秒 3 个 0
+// 微秒 6 个 0
+// 纳秒 9 个 0
+
 func TestBasic(t *testing.T) {
 	now := time.Now()
 
@@ -21,18 +27,9 @@ func TestBasic(t *testing.T) {
 	t.Logf("%10s: %d\n", "Weak", weekday)    // 3
 
 	// UnixNano = Unix + Nanosecond
-	unixNano := now.UnixNano()
-	unix := now.Unix()
-	nanoSecond := now.Nanosecond()
-	t.Logf("%10s: %d\n", "UnixNano", unixNano)     // 1614136265954607800
-	t.Logf("%10s: %d\n", "Unix", unix)             // 1614136265
-	t.Logf("%10s: %d\n", "Nanosecond", nanoSecond) // 954607800
-}
-
-func TestUnit(t *testing.T) {
-	// 毫秒 3 个 0
-	// 微秒 6 个 0
-	// 纳秒 9 个 0
+	t.Logf("%10s: %d\n", "UnixNano", now.UnixNano())     // 1614136265954607800
+	t.Logf("%10s: %d\n", "Unix", now.Unix())             // 1614136265
+	t.Logf("%10s: %d\n", "Nanosecond", now.Nanosecond()) // 954607800
 
 	// [time.Time]
 	// n := time.Now()
@@ -54,7 +51,7 @@ func TestUnit(t *testing.T) {
 	// t.Log(time.Nanosecond)
 
 	// [实际开发中遇到的问题]
-	// 表示复数个时间单位，常量可以直接相乘，变量需要转换一下
+	// 表示复数个时间单位，常量可以直接相乘，变量则需要先转换一下
 	// var d time.Duration
 	// var sum int64 = 1
 	//
@@ -62,6 +59,14 @@ func TestUnit(t *testing.T) {
 	// // d = sum * time.Second // 这个操作不允许，不能直接和变量相乘
 	// d = time.Duration(sum * time.Second.Nanoseconds())
 	// t.Log(d)
+
+	// [时间戳 和 time.Time 互转]
+	// now1 := time.Now()
+	// timestamp := now1.Unix()
+	// now2 := time.Unix(timestamp, 0)
+	//
+	// t.Log(now1.String())
+	// t.Log(now2.String())
 }
 
 func TestDiff(t *testing.T) {

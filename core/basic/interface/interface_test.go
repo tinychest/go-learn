@@ -12,6 +12,7 @@ import (
 func TestInterface(t *testing.T) {
 	equalTest(t)
 	assertTest(t)
+	anonymousAsserTest(t)
 }
 
 // 等价接口定义
@@ -53,7 +54,7 @@ func equalTest(t *testing.T) {
 	i1 = i2
 }
 
-// 接口类型断言 和 匿名接口类型断言
+// 接口类型断言
 func assertTest(t *testing.T) {
 	var theP interface{} = new(S1)
 
@@ -64,7 +65,13 @@ func assertTest(t *testing.T) {
 		t.Log("not impl I1 interface")
 	}
 
-	// 匿名接口（也可以理解成是否实现了指定的方法签名）
+}
+
+// 匿名接口（也可以理解成是否实现了指定的方法签名）
+// net/url/url.go:31 标准库中有使用这种写法
+func anonymousAsserTest(t *testing.T) {
+	var theP interface{} = new(S1)
+
 	if theI, ok := theP.(interface{ Hello() }); ok {
 		theI.Hello()
 	} else {
