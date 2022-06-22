@@ -7,6 +7,7 @@ import (
 // 当通过 key 获取到 value 时，这个 value 是不可寻址的，因为 map 会进行动态扩容，map 会对 value 进行内存迁移，其地址发生变化
 // 为了避免使用误区，Go 的编译器直接禁止了这样的操作
 //
+// [参见]: https://gfw.go101.org/article/unofficial-faq.html#maps-are-unaddressable
 // 因为 map 返回的值是 “不可寻址的”，不可寻址强调寻到的值的地址是不确定的，通过 map 取得的值就只是值，也就是当前指定键对应的值，可以当作一个常量来理解，无法进行 & 的操作
 // 所以，修改 map 中值的操作是，先取出来 → 修改 → 设置回去
 //
