@@ -87,6 +87,9 @@ func preHandle(url string, result interface{}) error {
 	if len(url) == 0 {
 		return errors.New("url must not be empty")
 	}
+	if result == nil {
+		return errors.New("result can not be null")
+	}
 	rv := reflect.ValueOf(result)
 	if rv.Kind() != reflect.Ptr {
 		return errors.New("non-pointer " + rv.Type().String())

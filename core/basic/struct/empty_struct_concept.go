@@ -25,7 +25,7 @@ func (t *tStruct) Func() {
 
 func useConcept() {
 	// 例1：set - Go 中没有提供 set 的数据类型，只能用 map 来模拟（map[string]struct{}）
-	var s = set.NewString(4)
+	var s = set.New[string](4)
 	s.Add("123")
 
 	// 例2：信号通道 - 我们在日常业务逻辑使用通道的时候，经常会遇到通道传递的数据本身不需要有任何意义，该通道在整个生命周期只接收一个信号，被读取后就无用了，或者程序就结束了

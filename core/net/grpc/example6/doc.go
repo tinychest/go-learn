@@ -6,10 +6,12 @@ package example6
 
 // - 发现 grpc 返回错误的正确姿势
 
-// TODO proto 中希望表示任意类型 "import google.protobuf.Any"
-// TODO proto：option、message 嵌套、可以定义 head？
-// TODO 如何通过命令，让基于 proto 文件生成的文件，生成在和 proto 文件同级目录？
+// TODO [可以补充的概念]
+//   各种特殊的类型需要导入 google 的包才能使用，如（import "google/protobuf/any.proto"; import "hit-rpc/proto/base.proto";）
+//   metadata 的概念
+//   package 的概念，package 是 proto 中的概念，proto 之间的互相引用也是通过这个，和生成的 go 文件位置，包名都没关系
 
-// TODO metadata 的概念说明
-// TODO Trailer case
-// TODO 封装 UnaryEchoServer、StreamEchoServer（grpc 包下的 test 包，好像有类似的实现）
+// TODO [待补充]
+//   protoc 命令的参数 "protoc-go-inject-tag -XXX_skip=form"
+//   在字段加上 "// @inject_tag: form:"id""
+//   封装 UnaryEchoServer、StreamEchoServer（grpc 包下的 test 包，好像有类似的实现）

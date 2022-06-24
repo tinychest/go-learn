@@ -39,7 +39,7 @@ func (de *DataExcel) valid() error {
 	if de.Base != nil {
 		l += len(de.Base.GetSheetList())
 	}
-	s := set.NewString(l)
+	s := set.New[string](l)
 	if de.Base != nil {
 		s.Add(de.Base.GetSheetList()...)
 	}
