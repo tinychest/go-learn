@@ -5,6 +5,8 @@ import (
 	"testing"
 )
 
+// TODO 简述一下 Go 实现的细节
+
 func TestSort(t *testing.T) {
 	intSlice := sort.IntSlice{3, 2, 1}
 
