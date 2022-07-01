@@ -28,7 +28,7 @@ func TestSpaceSort(t *testing.T) {
 			got := tt.args.arr
 
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("letterCombinations() = %v, want %v", got, tt.want)
+				t.Errorf("SpaceSort() = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -57,7 +57,7 @@ func TestSpacePreSort(t *testing.T) {
 			got := tt.args.arr
 
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("CountingPreSort() = %v, want %v", got, tt.want)
+				t.Errorf("SpacePreSort() = %v, want %v", got, tt.want)
 			}
 		})
 	}
