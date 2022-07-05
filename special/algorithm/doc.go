@@ -7,3 +7,6 @@ package algorithm
 // [帮助]
 // https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 // 这个真的是一个非常优秀的网站，可以以动画的形式将排序算法的过程表现出来
+//
+// [概念]
+// - 是否稳定：是指在经过算法排序后，值相同的元素还能保证原来相对位置（sort.Stable、sort.SliceStable）
