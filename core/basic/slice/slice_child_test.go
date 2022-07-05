@@ -76,19 +76,23 @@ func reuseCase1(t *testing.T) {
 }
 
 // 在 Go 中，复用切片内存因为根据使用切片的方式，可以划分成两种
-// - 根据下标使用，切片使用用无需做特殊操作，特定场景如果需要严谨，可以将数组的元素都置零
+// - 根据下标使用，切片使用用无需做特殊操作，特定场景如果需要严谨，复用前可以将数组的元素都置零
 // - append，如果我们通过 append 重复使用一段内存空间，就需要通过子切片表达式来复用原切片（推荐）
 func reuseCase2(t *testing.T) {
 	s := make([]int, 0, 4)
 
-	s = s[0:0:cap(s)] // 三元 不省略写法
+	// 三元 不省略写法
+	s = s[0:0:cap(s)]
+	// s = s[1:0:cap(s)] // 没有这种写法
 	tool.PrintSlice(s)
-	s = s[:0:cap(s)] // 三元 省略写法
+	// 三元 省略写法
+	s = s[:0:cap(s)]
 	tool.PrintSlice(s)
-
-	s = s[0:0] // 二元 不省略写法
+	// 二元 不省略写法
+	s = s[0:0]
 	tool.PrintSlice(s)
-	s = s[:0] // 二元 省略写法（start）
+	// 二元 省略写法
+	s = s[:0]
 	tool.PrintSlice(s)
 
 	// s[:] 的 len 默认是父切片的 len，不是 0
