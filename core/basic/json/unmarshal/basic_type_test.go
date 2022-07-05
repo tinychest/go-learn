@@ -35,7 +35,7 @@ func TestUnmarshal(t *testing.T) {
 
 	// 如果接口没有定义方法，则现象同上
 	// customInterfaceTest(t)
-	// 结构体字段类型不确定，实例设置好容器类型
+	// 结构体字段类型不确定，为字段类型设置好容器，Go 是支持的
 	// valueTest(t)
 }
 
