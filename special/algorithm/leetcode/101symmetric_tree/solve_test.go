@@ -80,6 +80,40 @@ func Test_isSymmetric(t *testing.T) {
 			}},
 			want: false,
 		},
+		{
+			name: "case08",
+			// [0] [1 1] [2 2 2 2] [1 2 3 4 4 3 2 1]
+			args: args{&TreeNode{
+				Val: 0,
+				Left: &TreeNode{
+					Val: 1,
+					Left: &TreeNode{
+						Val:   2,
+						Left:  ByVal(1),
+						Right: ByVal(2),
+					},
+					Right: &TreeNode{
+						Val:   2,
+						Left:  ByVal(3),
+						Right: ByVal(4),
+					},
+				},
+				Right: &TreeNode{
+					Val: 1,
+					Left: &TreeNode{
+						Val:   2,
+						Left:  ByVal(4),
+						Right: ByVal(3),
+					},
+					Right: &TreeNode{
+						Val:   2,
+						Left:  ByVal(2),
+						Right: ByVal(1),
+					},
+				},
+			}},
+			want: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
