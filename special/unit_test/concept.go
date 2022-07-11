@@ -13,4 +13,5 @@ package unit
 //     例4：go test xxx1_text.go xxx2_test.go：指定指定测试文件中的所有测试方法
 // -v：是否在 console 中打印 t.Log 或 t.Logf 中的内容
 //
-// 在 Goland 中，可以通过 Ctrl + Shift + T 来快速生成指定方法或者文件的测试用例
+// 在 Goland 中，可以通过 Ctrl + Shift + T 来快速生成指定 方法 或者 文件 的测试用例
+// 生成测试方法的结构其实是表格形式，表格形式是一种更清晰编写测试的一种方式和视角
