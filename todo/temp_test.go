@@ -12,6 +12,11 @@ import (
 // aabb aacc aadd
 // aae aat aappo
 
+func TestConst(t *testing.T) {
+	// 不支持
+	// const arr = [2]int{}
+}
+
 func TestCodePos(t *testing.T) {
 	// 如何输出让 Goland 控制台能够识别代码位置，且点击能跳转的日志（蓝字、下划线）
 	// 没有搜索相关内容，那就断点看下实际的输出内容，这样应该就可以知道了
