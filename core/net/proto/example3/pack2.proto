@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package p2;
+
+option go_package = "./pack2;b";
+
+import "pack1.proto";
+
+message Model {
+  string name = 1;
+  p1.Model m = 2;
+}

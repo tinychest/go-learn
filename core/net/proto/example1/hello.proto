@@ -1,17 +1,28 @@
 syntax = "proto3"; // 声明使用 protobuf3 的语法（默认 v2），必须作为文件非空、非注释的第一行
 
-package abc; // 主要是多个项目之间，主要用于避免命名冲突
+// 对于生成的 go 文件的真实的包名
+// - 优先级：option go_package > package > 当前 proto 文件的文件名
+// - 如果文件名包含 '.' 会被转换成 '_'
+//
+// 主要是多个项目的 proto 之间，主要用于避免命名冲突；proto 文件相互引用时 package 会用作命名空间
+package abc;
 
-// 不能为空，否则：protoc-gen-go: unable to determine Go import path for "hello.proto"
-// 不能写成 "hello"，否则：The import path must contain at least one period ('.') or forward slash ('/') character.
-// "./hello" 和 "/hello" 的效果一样
-option go_package = "/hello";
+// 导入其他 proto 中的 message
+//import "xxx.proto";
+// public 表示依赖传递
+//import public "xxx.proto";
+
+// - 不能为空，否则：protoc-gen-go: unable to determine Go import path for "hello.proto"
+// - 不能写成 "hello"，否则：The import path must contain at least one period ('.') or forward slash ('/') character.
+// - "./hello" 和 "/hello" 的效果一样
+// - 语法：<gen_path>[;<go_package>]
+option go_package = "/hello;hello";
 
 // protobuf 中最基本的数据单元是 message，类比于 Go 中的结构体
 // 定义一个 String 类型的消息体，最终生成的 Go 语言代码中对应一个 String 结构体
 // 包含三个属性：类型、字段名称、字段编号
 // 定义上，除了类型以外，均不可重复
-
+//
 // 字段的值，字段编号，被称为标识号
 //	[1, 15] 的标识号在编码的时候会占用一个字节；[16, 2047] 两个，...
 //	取值范围 [1, 2^29 - 1]；其中 [19000, 19999] 不能使用
@@ -37,8 +48,3 @@ message String {
   // 时间
 //  google.protobuf.Timestamp last_updated = 5;
 }
-
-// 导入其他 proto 中的 message
-//import "xxx.proto";
-// public 表示依赖传递
-//import public "xxx.proto";

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package p1;
+
+option go_package = "./pack1;a";
+
+message Model {
+  string name = 1;
+}
