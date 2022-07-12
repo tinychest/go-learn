@@ -5,7 +5,7 @@ package _1container_with_most_water
 // 2 <= n <= 10^5
 // 0 <= height[i] <= 10^4
 
-// o(n² + n)
+// O(n² + n)
 // 提交结果：超时，尴尬...
 func maxArea(height []int) int {
 	var v int
