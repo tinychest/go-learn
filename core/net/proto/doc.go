@@ -25,11 +25,11 @@ go get -d google.golang.org/protobuf
 或
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
-[.proto → .go]
+[.proto → .pb.go]
 protoc --go_out=. hello.proto
 protoc --go_out=plugins=grpc:. hello.proto
 
-第一次使用下面的命令，为含有 service 定义的 proto 文件生成代码，然后，需要执行 go mod tidy 来保证下面包的依赖引入：
+第一次使用上面的命令，为含有 service 定义的 proto 文件生成代码，然后，需要执行 go mod tidy 来保证下面包的依赖引入：
 "google.golang.org/grpc"
 "google.golang.org/grpc/codes"
 "google.golang.org/grpc/status"
