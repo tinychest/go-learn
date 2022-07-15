@@ -12,9 +12,23 @@ import (
 // aabb aacc aadd
 // aae aat aappo
 
-func TestConst(t *testing.T) {
-	// 不支持
-	// const arr = [2]int{}
+// 不支持切片自然如此，但是居然也不支持数组
+// const arr = [2]int{}
+
+func ReturnVarDeclare() (res interface{}, err error) {
+	// 无法通过编译（Goland 无法监测出错误）
+	// result parameter res not in scope at return
+	// result parameter err not in scope at return
+	//
+	// 编译器给出的错误提示其实很明白了，在 Go 对于函数语法 result parameter 的定义，指定名称的变量的值应该作为
+	if true {
+		var res interface{}
+		var err error
+		_ = res
+		_ = err
+		return
+	}
+	return
 }
 
 func TestCodePos(t *testing.T) {
