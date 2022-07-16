@@ -10,7 +10,7 @@ package _longest_substring_without_repeating_characters
 
 func lengthOfLongestSubstring(s string) int {
 	// - 这道题以时间为主，暂时先不考虑空间消耗
-	// - 直接感觉是不是和 KMP 有关，但实际没有直接关系，但是想做到搞笑肯定是要借助 KMP 中那复用之前遍历过的结果
+	// - 直接感觉是不是和 KMP 有关，但实际没有直接关系，但是想做到高效肯定是要借助 KMP 中那复用之前遍历过的结果
 	// - 并且很容易也很自然的想到，使用 map 去做是否已经存在的操作
 
 	m := make(map[byte]int, min(100, len(s)))
@@ -25,6 +25,7 @@ func lengthOfLongestSubstring(s string) int {
 			res = max(res, len(m))
 			continue
 		}
+		// 从发现元素重复的位置向后，这是这里实现了算法核心，达到了避免完全回溯的效果
 		for j := start; j < idx; j++ {
 			delete(m, s[j])
 		}

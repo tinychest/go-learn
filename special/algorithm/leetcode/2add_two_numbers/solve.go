@@ -51,8 +51,8 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		jinwei = 0
 
 		if sum >= 10 {
-			jinwei = sum / 10
-			sum = sum % 10
+			jinwei = 1
+			sum = sum - 10
 		}
 
 		l1.Next.Val = sum
@@ -66,8 +66,8 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		sum = jinwei + l1.Next.Val
 		jinwei = 0
 		if sum >= 10 {
-			jinwei = sum / 10
-			sum = sum % 10
+			jinwei = 1
+			sum = sum - 10
 		}
 		l1.Next.Val = sum
 		l1 = l1.Next
@@ -81,8 +81,8 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		sum = jinwei + l2.Next.Val
 		jinwei = 0
 		if sum >= 10 {
-			jinwei = sum / 10
-			sum = sum % 10
+			jinwei = 1
+			sum = sum - 10
 		}
 		l2.Next.Val = sum
 		l2 = l2.Next
