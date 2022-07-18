@@ -2,19 +2,10 @@ package _add_two_numbers
 
 import (
 	"encoding/json"
+	. "go-learn/special/algorithm/leetcode/0common/list_node"
 	"reflect"
 	"testing"
 )
-
-func nodesFromArray(nums []int) *ListNode {
-	var head = new(ListNode)
-	p := head
-	for _, v := range nums {
-		p.Next = &ListNode{Val: v}
-		p = p.Next
-	}
-	return head.Next
-}
 
 func Test_addTwoNumbers(t *testing.T) {
 	type args struct {
@@ -29,26 +20,26 @@ func Test_addTwoNumbers(t *testing.T) {
 		{
 			name: "case01",
 			args: args{
-				l1: nodesFromArray([]int{2, 4, 3}),
-				l2: nodesFromArray([]int{5, 6, 4}),
+				l1: FromArr(2, 4, 3),
+				l2: FromArr(5, 6, 4),
 			},
-			want: nodesFromArray([]int{7, 0, 8}),
+			want: FromArr(7, 0, 8),
 		},
 		{
 			name: "case02",
 			args: args{
-				l1: nodesFromArray([]int{0}),
-				l2: nodesFromArray([]int{0}),
+				l1: FromArr(0),
+				l2: FromArr(0),
 			},
-			want: nodesFromArray([]int{0}),
+			want: FromArr(0),
 		},
 		{
 			name: "case03",
 			args: args{
-				l1: nodesFromArray([]int{9, 9, 9, 9, 9, 9, 9}),
-				l2: nodesFromArray([]int{9, 9, 9, 9}),
+				l1: FromArr(9, 9, 9, 9, 9, 9, 9),
+				l2: FromArr(9, 9, 9, 9),
 			},
-			want: nodesFromArray([]int{8, 9, 9, 9, 0, 0, 0, 1}),
+			want: FromArr(8, 9, 9, 9, 0, 0, 0, 1),
 		},
 	}
 	for _, tt := range tests {

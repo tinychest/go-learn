@@ -1,5 +1,7 @@
 package _9remove_nth_node_from_end_of_list
 
+import . "go-learn/special/algorithm/leetcode/0common/list_node"
+
 // Given the head of a linked list, remove the nth node from the end of the list and return its head.
 //
 // Constraints:
@@ -12,11 +14,6 @@ package _9remove_nth_node_from_end_of_list
 //
 //
 // Follow up: Could you do this in one pass?
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
 
 /**
  * Definition for singly-linked list.

@@ -1,24 +1,10 @@
 package _1merge_two_sorted_lists
 
 import (
+	. "go-learn/special/algorithm/leetcode/0common/list_node"
 	"reflect"
 	"testing"
 )
-
-func nodesFromArr(arr ...int) *ListNode {
-	if len(arr) == 0 {
-		panic("oh dear!")
-	}
-	var head = &ListNode{Val: arr[0]}
-
-	p := head
-	for i := 1; i < len(arr); i++ {
-		node := &ListNode{Val: arr[i]}
-		p.Next = node
-		p = node
-	}
-	return head
-}
 
 func Test_mergeTwoLists(t *testing.T) {
 	type args struct {
@@ -33,10 +19,10 @@ func Test_mergeTwoLists(t *testing.T) {
 		{
 			name: "case01",
 			args: args{
-				l1: nodesFromArr(1, 2, 4),
-				l2: nodesFromArr(1, 3, 4),
+				l1: FromArr(1, 2, 4),
+				l2: FromArr(1, 3, 4),
 			},
-			want: nodesFromArr(1, 1, 2, 3, 4, 4),
+			want: FromArr(1, 1, 2, 3, 4, 4),
 		},
 		{
 			name: "case02",
@@ -50,9 +36,9 @@ func Test_mergeTwoLists(t *testing.T) {
 			name: "case03",
 			args: args{
 				l1: nil,
-				l2: nodesFromArr(1),
+				l2: FromArr(1),
 			},
-			want: nodesFromArr(1),
+			want: FromArr(1),
 		},
 	}
 	for _, tt := range tests {
