@@ -15,21 +15,28 @@ import (
 // 不支持切片自然如此，但是居然也不支持数组
 // const arr = [2]int{}
 
-func ReturnVarDeclare() (res interface{}, err error) {
-	// 无法通过编译（Goland 无法监测出错误）
-	// result parameter res not in scope at return
-	// result parameter err not in scope at return
-	//
-	// 编译器给出的错误提示其实很明白了，在 Go 对于函数语法 result parameter 的定义，指定名称的变量的值应该作为
-	if true {
-		var res interface{}
-		var err error
-		_ = res
-		_ = err
-		return
-	}
-	return
+// Go string 的 backtick 对于 Go 编译器来说就是不进行任何转移的语义，所以不支持 backtick 内嵌 backtick
+// 这点在正则表达式的案例中，就有启示过
+func TestPrintBacktick(t *testing.T) {
+	q := `\x60`
+	println(q)
 }
+
+// func ReturnVarDeclare() (res interface{}, err error) {
+// 	// 无法通过编译（Goland 无法监测出错误）
+// 	// result parameter res not in scope at return
+// 	// result parameter err not in scope at return
+// 	//
+// 	// 编译器给出的错误提示其实很明白了，在 Go 对于函数语法 result parameter 的定义，指定名称的变量的值应该作为
+// 	if true {
+// 		var res interface{}
+// 		var err error
+// 		_ = res
+// 		_ = err
+// 		return
+// 	}
+// 	return
+// }
 
 func TestCodePos(t *testing.T) {
 	// 如何输出让 Goland 控制台能够识别代码位置，且点击能跳转的日志（蓝字、下划线）
