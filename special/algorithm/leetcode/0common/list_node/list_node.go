@@ -1,5 +1,10 @@
 package list_node
 
+import (
+	"strconv"
+	"strings"
+)
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -13,4 +18,15 @@ func FromArr(nums ...int) *ListNode {
 		p = p.Next
 	}
 	return head.Next
+}
+
+func (l *ListNode) String() string {
+	p := l
+
+	arr := make([]string, 0)
+	for p != nil {
+		arr = append(arr, strconv.Itoa(p.Val))
+		p = p.Next
+	}
+	return "[" + strings.Join(arr, " → ") + "]"
 }

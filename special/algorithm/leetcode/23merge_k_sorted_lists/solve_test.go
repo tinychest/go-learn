@@ -45,16 +45,7 @@ func Test_mergeKLists(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := mergeKLists(tt.args.lists); !reflect.DeepEqual(got, tt.want) {
-				bs1, err := json.Marshal(got)
-				if err != nil {
-					panic(err)
-				}
-				bs2, err := json.Marshal(tt.want)
-				if err != nil {
-					panic(err)
-				}
-
-				t.Errorf("mergeKLists() = %v, want %v", string(bs1), string(bs2))
+				t.Errorf("mergeKLists() = %v, want %v", got, tt.want)
 			}
 		})
 	}

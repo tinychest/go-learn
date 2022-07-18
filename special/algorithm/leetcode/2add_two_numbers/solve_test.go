@@ -1,7 +1,6 @@
 package _add_two_numbers
 
 import (
-	"encoding/json"
 	. "go-learn/special/algorithm/leetcode/0common/list_node"
 	"reflect"
 	"testing"
@@ -45,10 +44,6 @@ func Test_addTwoNumbers(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := addTwoNumbers(tt.args.l1, tt.args.l2); !reflect.DeepEqual(got, tt.want) {
-				bs1, _ := json.Marshal(got)
-				bs2, _ := json.Marshal(tt.want)
-				t.Log(string(bs1))
-				t.Log(string(bs2))
 				t.Errorf("addTwoNumbers() = %v, want %v", got, tt.want)
 			}
 		})
