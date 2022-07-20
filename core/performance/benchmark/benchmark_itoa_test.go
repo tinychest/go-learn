@@ -15,7 +15,7 @@ import (
 // Benchmark_JSONToString-8         4722921               271.8 ns/op
 // PASS
 // ok      go-learn/special/performance/benchmark  3.125s
-
+//
 // json 还没有将 []byte → string 就已经输了
 
 func Benchmark_FmtToString(b *testing.B) {

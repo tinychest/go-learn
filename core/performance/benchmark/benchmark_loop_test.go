@@ -5,6 +5,7 @@ import "testing"
 /* 参见：https://gfw.go101.org/article/value-copy-cost.html */
 
 type S [12]int64
+
 var sX = make([]S, 1000)
 var sY = make([]S, 1000)
 var sZ = make([]S, 1000)
@@ -50,6 +51,6 @@ func Benchmark_For_Range_TwoIterVar(b *testing.B) {
 // Benchmark_For_Range_TwoIterVar-8          307290              3723 ns/op               0 B/op          0 allocs/op
 // PASS
 // ok      go-learn/special/performance/benchmark  5.687s
-
+//
 // [结论]
 // 数组这样的比较大的值类型（不仅是数组，还有字段比较多的结构体），拷贝的成本是很高的，实际操作尽量通过下标去操作
