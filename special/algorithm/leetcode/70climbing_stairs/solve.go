@@ -12,11 +12,12 @@ func climbStairs(n int) int {
 	// 超时了
 	// return step1(n)
 
-	// 执行用时：0 ms, 在所有 Go 提交中击败了100.00% 的用户
-	// 内存消耗：1.9 MB, 在所有 Go 提交中击败了22.36% 的用户
-	// 通过测试用例：45 / 45
-	m := make(map[int]int, n)
-	return step2(n, m)
+	// 不错
+	// m := make(map[int]int, n)
+	// return step2(n, m)
+
+	// 但是好像还可以简化
+	return step3(n)
 }
 
 func step1(n int) int {
@@ -45,4 +46,12 @@ func step2(n int, m map[int]int) int {
 	res = step2(n-1, m) + step2(n-2, m)
 	m[n] = res
 	return res
+}
+
+func step3(n int) int {
+	one, two := 1, 1
+	for i := 1; i < n; i++ {
+		one, two = two, one+two
+	}
+	return two
 }

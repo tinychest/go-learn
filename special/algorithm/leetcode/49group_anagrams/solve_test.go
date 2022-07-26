@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// 题目不要求元素的顺序，所以，这里的样例是跑不通的
 func Test_groupAnagrams(t *testing.T) {
 	type args struct {
 		strs []string
