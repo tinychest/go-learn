@@ -19,6 +19,7 @@ func merge(intervals [][]int) [][]int {
 }
 
 // 以 区间的左端按照从小到大进行排序 为前提重新写一下这道题
+// 会发现规律很好找，这样的实现效率就很高
 func step2(intervals [][]int) [][]int {
 	sort.Slice(intervals, func(i, j int) bool {
 		return intervals[i][0] < intervals[j][0]
