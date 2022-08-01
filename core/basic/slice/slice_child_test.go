@@ -6,15 +6,15 @@ import (
 )
 
 // 从一个切片划分出一个子切片，从而复用切片的内存空间地址（实际业务开发种，这里也是最容易出现内存泄漏问题）
-// 语法1：slice[start:len:cap]
+// 语法1：slice[start:end:cap]
 // - start：起始的元素下标，可以省略（默认 0）
-// - len：从起始元素开始，划分的长度，不能省略（默认为父切片的长度）
+// - end：结束的元素下标，不包括
 // - cap：从起始元素开始，划分的容量，不能省略（默认为父切片的容量）
 //
-// 语法2：slice[start:len]
+// 语法2：slice[start:end]
 // 略去的是 cap，默认为父切片的 cap
 // - start：默认 0，可以省略
-// - len：默认为原切片的 len，可以省略
+// - end：默认为原切片的 len，可以省略
 
 func TestQuota(t *testing.T) {
 	affectTest(t)
