@@ -42,6 +42,7 @@ func step1(nums []int) int {
 }
 
 // 使用经典的排序来做，时间复杂度 O(log2_n + n)
+// 当然，提交的结果也不理想
 func step2(nums []int) int {
 	sort.Ints(nums)
 	for i := 0; i < len(nums)-1; i += 2 {
@@ -52,6 +53,7 @@ func step2(nums []int) int {
 	return nums[len(nums)-1]
 }
 
+// （上面不按照题目提交要求，当然不行）
 // 看过参考答案后，觉得最给力的答案是这个
 // - 异或：相同的数异或得到 0，0 和任何数异或得到任何数（真棒）
 // - 还有一个打小广告的莫名奇妙的广告
@@ -64,4 +66,3 @@ func refer1(nums []int) int {
 
 	return n
 }
-
