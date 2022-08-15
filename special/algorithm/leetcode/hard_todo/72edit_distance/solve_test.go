@@ -12,6 +12,9 @@ func Test_minDistance(t *testing.T) {
 		args args
 		want int
 	}{
+		// h → r
+		// [del] r
+		// [del] e
 		{
 			name: "case01",
 			args: args{

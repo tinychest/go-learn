@@ -13,10 +13,19 @@ package _2edit_distance
 //    0 <= word1.length, word2.length <= 500
 //    word1 and word2 consist of lowercase English letters.
 
+// 这道题真不愧为 hard 级别，不说用算法实现想法，这道题最直观的做法都不太好像，题目很抽象
 func minDistance(word1 string, word2 string) int {
-	// 分析：这个问题应该是求两个串的最长公共子串
-	//
-	// 方向推测：应该是想考查 KMP 算法的变种
-	//
-	// 需求：KMP 算法的编写
+	res := 0
+	l1, l2 := len(word1), len(word2)
+
+	// 长度上的差异必定是结果中的一部分
+	if l1 > l2 {
+		res += l1 - l2
+	} else {
+		res += l2 - l1
+	}
+
+	// 观察字符构成
+
+	return 0
 }
