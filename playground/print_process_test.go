@@ -1,4 +1,4 @@
-package funny
+package playground
 
 import (
 	"fmt"

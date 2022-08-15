@@ -1,4 +1,4 @@
-package funny
+package playground
 
 import (
 	"bytes"
@@ -9,7 +9,13 @@ import (
 	"testing"
 )
 
-// https://play.golang.org/
+// https://play.golang.org/ → 选择 "Display Image"
+// 运行的结果是一只带颜色的 go 的小地鼠，在黑白的 console 展示界面中展示不出来
+//
+// Base64 数据：
+// iVBORw0KGgoAAAANSUhEUgAAABAAAAAPBAMAAAAfXVIcAAAAD1BMVEV63/39//w5TVIZFhXDjXbHNiz1AAAARUlEQVR4nJTJUQ3AIAwG4aMzsBYD9FdQEfjXtJBiYPf0JYeHJKUTC8CShYNjaMwas4xoJNHrgKdo7H0x3ovTP3wBAAD//9u1Bcrd6KY0AAAAAElFTkSuQmCC
+// 可以在这里在线展示：
+// https://www.toolscat.com/img/base64-img
 func TestImage(t *testing.T) {
 	m, err := png.Decode(bytes.NewReader(favicon))
 	if err != nil {
