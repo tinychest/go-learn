@@ -12,6 +12,8 @@ type Book struct {
 type Books []Book
 
 func (bs Books) Modify() {
+	tool.PrintSlice(bs)
+
 	// 对属主参数的间接部分的修改将反映到方法之外。
 	bs[0].Name = "book"
 }
@@ -26,8 +28,10 @@ func (bs Books) Modify2() {
 // 修改成功，违反了值属主类型的方法不能实际修改值么，NO，切片实际就是底层数组的一个地址值，这个地址值从未改变
 func TestModify(t *testing.T) {
 	var books = Books{{"book01"}}
+
+	tool.PrintSlice(books)
 	books.Modify()
-	t.Log(books)
+	tool.PrintSlice(books)
 }
 
 // 注意，这里很容易产生误解；好好想想定义 切片（数组内存地址 + len + cap）

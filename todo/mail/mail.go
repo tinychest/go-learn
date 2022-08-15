@@ -21,17 +21,17 @@ var d = gomail.NewDialer("smtphz.qiye.163.com", 25, "flow03@gaojidata.com", "JEw
 func SendTo(to, username, password string) {
 	m := gomail.NewMessage()
 
-	// email：邮件标题
+	// [邮件标题]
 	m.SetHeader("Subject", "高绩用户创建通知")
 
-	// email：发送方
+	// [发送方]
 	prefix := "=?UTF-8?B?" + base64.StdEncoding.EncodeToString([]byte("高绩专业建设平台工作组")) + "?="
 	m.SetHeader("From", prefix+" <flow03@gaojidata.com>")
 
-	// email：发送给
+	// [发送给]
 	m.SetHeader("To", to)
 
-	// email：邮件内容
+	// [邮件内容]
 	b := &strings.Builder{}
 	b.Grow(300) // username：小明 password：12346 得到的 builder.Len() 为 290
 
