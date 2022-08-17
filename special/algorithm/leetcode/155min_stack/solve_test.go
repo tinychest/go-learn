@@ -20,7 +20,7 @@ func step(args1 []string, args2 [][]int) []*int {
 	for i := 0; i < l; i++ {
 		switch args1[i] {
 		case "MinStack":
-			s = MinStack{}
+			s = Constructor()
 			res = append(res, nil)
 		case "push":
 			s.Push(args2[i][0])
