@@ -6,6 +6,12 @@ package _4sprial_matrix
 //
 // 参考答案：比较多的说法是，借助一个
 
+// 方向枚举
+type directionEnum int
+
+// 矩阵边界（边界元素下标）
+var up, down, left, right int
+
 func spiralOrder(matrix [][]int) []int {
 	var (
 		width                   = len(matrix[0])
@@ -20,12 +26,8 @@ func spiralOrder(matrix [][]int) []int {
 		result = append(result, matrix[y][x])
 		traverse(&direction, &x, &y)
 	}
-
 	return result
 }
-
-// 方向枚举
-type directionEnum int
 
 const (
 	RIGHT = iota
@@ -33,9 +35,6 @@ const (
 	LEFT
 	UP
 )
-
-// 矩阵边界（边界元素下标）
-var up, down, left, right int
 
 /* 辅助方法 */
 type method interface {
