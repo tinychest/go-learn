@@ -6,6 +6,10 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+func Ptr(i int) *int {
+	return &i
+}
+
 // FromArr 根据层级遍历的结果构建出树
 // 调用者保证，参数中没有的节点用 nil 表示，否则仅靠一个角度的遍历是无法反推树的结构的
 // 调用者保证，参数中的数据是合理的
@@ -23,12 +27,14 @@ func FromArr(arr ...*int) *TreeNode {
 		if arr[i+1] != nil {
 			left = &TreeNode{Val: *arr[i+1]}
 		}
-		if arr[i+2] != nil {
+		if i+2 < len(arr) && arr[i+2] != nil {
 			right = &TreeNode{Val: *arr[i+2]}
 		}
 
-		nodes[pos].Left = left
-		nodes[pos].Right = right
+		if nodes[pos] != nil {
+			nodes[pos].Left = left
+			nodes[pos].Right = right
+		}
 
 		nodes = append(nodes, left, right)
 		pos++
