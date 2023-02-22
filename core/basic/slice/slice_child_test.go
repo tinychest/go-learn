@@ -18,53 +18,28 @@ import (
 
 func TestQuota(t *testing.T) {
 	affectTest(t)
-	affectDetailTest(t)
+	// reuseCase1(t)
+	// reuseCase2(t)
 }
 
-/* 简单样例 */
+/* 样例 */
+// 当只有当 append 元素后，元素的数量大于 capacity，append 才会重新申请一个内存空间（脱离原来的切片）
 func affectTest(t *testing.T) {
-	var (
-		ps = []int{1, 2, 3}
-		cs = ps[:1:2]
-	)
+	ps := []int{1, 2, 3}
+	cs := ps[:1:2]
 
 	// 影响了父切片
 	cs = append(cs, 4)
 	tool.PrintSlice(cs)
 	tool.PrintSlice(ps)
 
-	// 没有影响父切片（超过了容量，申请了新的空间）
+	// 没有影响父切片（超过了容量，生成了新的底层数组）
 	// cs = append(cs, 4, 5)
 	// util.PrintSlice(cs)
 	// util.PrintSlice(ps)
 }
 
-/* 结合内存地址，详细描述一些 */
-// 其实还是 append 和 切片的原理规则，当只有当 append 元素后，元素的数量大于 capacity，append 才会重新申请一个内存空间
-// 才会脱离原来的切片，没有脱离父切片的子切片，其中一方操作对应位置的元素，都会影响另外一方
-func affectDetailTest(t *testing.T) {
-	slice := []int{1, 2, 3}
-
-	ref := slice[:0:0]
-	// util.PrintSlice(tempSlice)
-	// util.PrintSlice([]int{})
-	// // 特殊的地址：0x0 length:0 capacity:0
-	// util.PrintSlice(*new([]int))
-
-	// 添加元素后切片元素个数为 1，大于切片的 capacity，所有会重新申请内存空间，创建一个新的切片
-	ref = append(ref, 4)
-	ref = append(ref, 5)
-	ref = append(ref, 6)
-	tool.PrintSlice(slice)
-	tool.PrintSlice(ref)
-}
-
 /* 由子切片引用引申出实际开发中的切片内存空间复用 */
-func TestReuse(t *testing.T) {
-	reuseCase1(t)
-	reuseCase2(t)
-}
-
 // bytes.Buffer.Reset 方法中，重置底层字节数组是这样写的：b.buf = b.buf[:0]
 func reuseCase1(t *testing.T) {
 	s := make([]string, 0, 4)

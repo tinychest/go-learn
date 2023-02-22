@@ -44,49 +44,47 @@ func expandConcept(t *testing.T) {
 }
 
 // 内存地址的概念测试
+// 测试0：切片 [零值] 和 [初始化] 的地址
+// - 切片的本质是指向底层数组的指针，但是切片类型的变量的零值不是 nil
+// - 切片的零值不是 nil，但是切片类型的变量可以赋值为 nil
 func addressConcept(t *testing.T) {
-	// 测试0：切片 [零值] 和 [初始化] 的地址
-	// - 切片的本质是指向底层数组的指针，但是切片类型的变量的零值不是 nil
-	// - 切片的零值不是 nil，但是切片类型的变量可以赋值为 nil
-	var intSlice []int
-	t.Logf("%p\n", intSlice)    // 0x0
-	t.Logf("%p\n", []int(nil))  // 0x0
-	t.Logf("%p\n", *new([]int)) // 0x0
+	var s1 []int
+	t.Logf("%p\n", s1)             // 0x0
+	t.Logf("%p\n", []int(nil))     // 0x0
+	t.Logf("%p\n", *new([]int))    // 0x0
+	t.Logf("%p\n", new([]int))     // 地址1
+	t.Logf("%p\n", []int{})        // 地址2
+	t.Logf("%p\n", make([]int, 0)) // 地址3
 
-	t.Logf("%p\n", []int{})        // 地址1
-	t.Logf("%p\n", make([]int, 0)) // 地址1
-
-	t.Logf("%p\n", new([]int)) // 这个和上面的地址都不同，毕竟 数据类型 都不同嘛
-
-	originSlice := []int{1, 2, 3, 4, 5}
-	pointerSlice := originSlice
+	s2 := []int{1, 2, 3, 4, 5}
+	cs2 := s2
 
 	// 测试1：两个指针类型指向的数组的地址，在内存中是相同的（不会进行底层数组的拷贝）
-	t.Logf("%p\n", originSlice)
-	t.Logf("%p\n", pointerSlice)
+	t.Logf("%p\n", s2)
+	t.Logf("%p\n", cs2)
 
 	// 测试2：从第2个元素开始的切片的地址和底层数组第2个元素的地址是相同的（同 C 中数组的地址等同于数组第一个元素的地址）
-	t.Logf("%p\n", &originSlice[1])
-	t.Logf("%p\n", pointerSlice[1:])
+	t.Logf("%p\n", &s2[1])
+	t.Logf("%p\n", cs2[1:])
 
 	// 测试3：方法传参传的也是实际地址值
 	// 将切片作为函数参数，并在函数修改切片的值，是能够真实影响数组的值（传给函数，并不会将底层数组复制一个副本），但是：数组是不行的！！！
-	tempSlice := []int{1, 2, 3}
-	t.Logf("%p\n", tempSlice)
+	s3 := []int{1, 2, 3}
+	t.Logf("%p\n", s3)
 
-	func(intSlice []int) {
-		t.Logf("%p\n", intSlice)
-	}(tempSlice)
+	func(s []int) {
+		t.Logf("%p\n", s)
+	}(s3)
 }
 
 func childTest(t *testing.T) {
 	slice := []int{1, 2, 3}
 
-	// 取头舍尾，所以实际是 [2]
-	// childSlice := slice[1:len(slice)-1]
+	// 取头舍尾，所以实际是 slice[1:2] = [2]
+	t.Log(slice[1 : len(slice)-1])
 
-	// 定义上，子切片的定义不能超出父切片的范围
-	// t.Log(childSlice[:2])
+	// 子切片的定义不能超出父切片的范围
+	// t.Log(slice[:4])
 
 	t.Log(slice[2:])
 }

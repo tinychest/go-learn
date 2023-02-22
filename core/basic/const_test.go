@@ -18,12 +18,14 @@ const (
 // iota 就是 go 编译器的一个把戏，编译器会在编译的时候，根据语法规则为使用了 iota 关键字的常量组设置成具体的值
 // iota 还可以组合成一个算术表达式，同时，这个表达式会应用在后续的每个数上
 const (
-	x = iota * 2
-	y
-	z
+	x  = iota * 2 // iota 初始值为 0
+	y             // 继承上面第一个 iota 的表达式，但是这里的 iota 为 1
+	z             // 同上，iota 为 2
+	i1 = iota     // 重新定义表达式
+	i2
 )
 
 func TestConst(t *testing.T) {
 	t.Log(a, b, d, e, f, g)
-	t.Log(x, y, z)
+	t.Log(x, y, z, i1, i2)
 }
