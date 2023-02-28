@@ -6,6 +6,8 @@ import (
 	"sync"
 )
 
+// 提高可拓展性；淡化订阅者的概念，订阅者可以就是简单的函数；异步调用
+
 // Bus 总线
 type Bus interface {
 	// Subscribe 订阅 handle 处理函数

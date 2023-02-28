@@ -2,7 +2,9 @@ package _observer
 
 import "fmt"
 
-// ISubject 发布
+// 最简单、基础的 样例
+
+// ISubject 发布者
 type ISubject interface {
 	Register(observer IObserver)
 	Remove(observer IObserver)
