@@ -1,28 +1,11 @@
 package _defer
 
-import (
-	"testing"
-)
+import "testing"
 
-// TestDefer 下面两组例子想阐述的 defer 原理是一样的
+// 执行顺序：语句由上至下执行 → 确定 return 返回值 → 由下至上执行 defer 的函数
+
 func TestDefer(t *testing.T) {
-	t.Log(returnTest1())
-	t.Log(returnTest2())
-}
-
-func returnTest1() int {
-	var n int
-	defer func() {
-		n++
-	}()
-	// 确定返回值 0 → n++ → 返回 0
-	return n
-}
-
-func returnTest2() (n int) {
-	defer func() {
-		n++
-	}()
-	// 确定返回值 n → n++ → 返回 n
-	return
+	defer t.Log(1)
+	defer t.Log(2)
+	t.Log(3)
 }
