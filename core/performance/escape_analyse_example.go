@@ -13,7 +13,7 @@ func escapeFunc() (*string, *string) {
 	return s1, s2
 }
 
-// 顽皮一下，通过 safe 整一个 noescape 的方法
+// 皮一下，通过 safe 整一个 noescape 的方法
 func noescapeFunc() *string {
 	s := new(string)
 	return (*string)(noescape(unsafe.Pointer(s)))

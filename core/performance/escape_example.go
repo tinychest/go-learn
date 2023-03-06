@@ -35,7 +35,7 @@ func NoEscapeArray() [2]int {
 // .\escape_example.go:25:14:   flow: {heap} = &{storage for make([]int, 10000)}:
 // .\escape_example.go:25:14:     from make([]int, 10000) (too large for stack) at .\escape_example.go:25:14
 // .\escape_example.go:25:14: make([]int, 10000) escapes to heap
-// 那这个限制具体是多大？ 20KB 逃逸 → 8KB 没有逃逸 → 16KB 逃逸 → 10KB 逃逸 → 额 8KB + 1B 逃逸（临界值就是 8KB）
+// 那这个限制具体是多大？ （runtime/stack.go）20KB 逃逸 → 8KB 没有逃逸 → 16KB 逃逸 → 10KB 逃逸 → 额 8KB + 1B 逃逸（临界值就是 8KB）
 func EscapeTooBig() {
 	// 64 位的机器上 int 是 64 位，也就是 8 byte
 	// var _ = make([]int, 4*1024*1024)
