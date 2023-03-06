@@ -1,4 +1,4 @@
-package concurrency
+package channel
 
 // [通道关闭原则]
 // [出处]: https://gfw.go101.org/article/channel-closing.html

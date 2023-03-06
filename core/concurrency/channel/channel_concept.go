@@ -1,4 +1,4 @@
-package concurrency
+package channel
 
 /*
 【通道】
