@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// TODO 这是不合理的，不应该妄图认为所有核都在运行你指定的功能函数，这太片面了，操作系统，以及其他所有程序都需要正常运行的
 var maxGoroutineSum = runtime.GOMAXPROCS(8)
 
 const ErrKey = "ERROR"
